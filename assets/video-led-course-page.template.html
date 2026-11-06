@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>{{COURSE_TITLE}}</title>
+  <link rel="stylesheet" href="./course-page.css">
+  <link rel="stylesheet" href="./video-led-course-page.css">
+</head>
+<body data-experience-profile="video_led_web">
+  <main id="course-stage" data-atmosphere="none">
+    <!-- 启用同步背景时改为 synchronized，填写 presentation JSON 并注册运行引用。
+         controller 随已呈现视频帧更新，默认关闭；不独立自动播放。 -->
+    <div id="course-atmosphere" hidden aria-hidden="true" inert></div>
+    <!-- 默认满屏视频；360°或3D仅在当前学习事件需要时成为同一舞台的媒体内容。 -->
+    <div id="scene-media">
+      <video id="course-video" data-media-clock="course" playsinline preload="metadata" poster="{{APPROVED_VIDEO_POSTER}}" aria-label="{{COURSE_VIDEO_LABEL}}">
+        <source src="{{APPROVED_VIDEO_FILE}}" type="video/mp4">
+        <track kind="captions" src="{{CAPTIONS_VTT}}" srclang="zh-CN" label="中文字幕" default>
+      </video>
+      <!-- 按参与计划选择同对象阅读/实验/360°/3D深层视图；此ID兼容已有骨架，
+           不表示必须使用空间媒体。进入暂停，退出恢复对象、草稿、焦点与精确视频事件。 -->
+      <div id="spatial-layer" hidden>{{CURRENT_EVENT_DEEP_VIEW_IF_NEEDED}}</div>
+    </div>
+    <div id="scene-shade" aria-hidden="true"></div>
+    <!-- 学习开始后隐藏标题。播放/字幕/静音控件按需出现。 -->
+    <!-- 运行时切换 hidden 与 controls-visible；隐藏时移出焦点序列。
+         章节在该控制区域按需展开，不占常驻首屏。 -->
+    <header id="course-header" hidden aria-label="播放与无障碍控制">{{ON_DEMAND_PLAYBACK_CAPTION_MUTE_CONTROLS_AND_CHAPTER_NAVIGATION}}</header>
+    <section id="course-entry">{{ONE_SHORT_START_CUE}}</section>
+    <!-- 优先按知识动作选择对象旁的测量、选取、变量等直接控件；热区只负责进入。
+         无需交互的观察事件不造热区。数值和反馈由确定性规则承担。 -->
+    <div id="scene-objects" hidden>{{CURRENT_SCENE_HOTSPOTS_AND_DIRECT_CONTROLS}}</div>
+    <div id="course-caption" hidden><span class="speaker" hidden>{{CHARACTER_NAME}}</span><p>{{CURRENT_CAPTION}}</p></div>
+    <div id="course-actions" hidden>{{CURRENT_CONTEXTUAL_ACTION}}</div>
+    <!-- 运行时先暂停视频，再移除 hidden；完成后收起并恢复当前事件。
+         当前原文/证据判断设 data-surface="reading"，短判断设 "compact"。
+         长材料按需深层展开；关闭未完成的必需任务仍暂停并保留草稿。 -->
+    <div id="task-layer" hidden>
+      <section class="task-surface" data-surface="{{READING_OR_COMPACT}}" role="region" aria-labelledby="task-title">
+        <header class="task-header"><p>{{CURRENT_OBJECT_LABEL}}</p><button type="button">{{CLOSE_AND_RETURN}}</button></header>
+        <div class="task-body"><h2 id="task-title" tabindex="-1">{{ONE_CURRENT_JUDGMENT}}</h2>{{NECESSARY_SOURCE_EXCERPT_AND_CONTEXT}}{{EVIDENCE_SELECTION_OR_INPUT_AND_LOCAL_FEEDBACK}}</div>
+        <footer class="task-footer">{{ONE_PRIMARY_ACTION}}</footer>
+      </section>
+    </div>
+    <div id="course-status" role="status" hidden></div>
+      <script id="video-event-map" type="application/json">{{EVENT_MAP_JSON}}</script>
+    <script id="video-presentation-map" type="application/json">{{PRESENTATION_MAP_JSON_OR_NULL}}</script>
+    <!-- Vite resolves the TypeScript runtime and emits the browser JavaScript bundle. -->
+    <script type="module" src="./runtime/course-runtime.ts"></script>
+  </main>
+</body>
+</html>

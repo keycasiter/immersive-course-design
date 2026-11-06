@@ -1,0 +1,460 @@
+{
+  "course_identifier": "sample_course",
+  "course_version": "0.1",
+  "workflow_contract_version": "1.0",
+  "workflow_state": "clarification_in_progress",
+  "clarification": {
+    "intake_reference": "clarification_intake",
+    "confirmation_basis": "sufficient_explicit_input",
+    "unresolved_decision_identifiers": []
+  },
+  "content_design": {
+    "reference_identifier": "content_quality",
+    "experience_design_mode": "imagineering_only",
+    "status": "content_review_pending",
+    "selected_candidate_ids": [],
+    "quality_review_evidence_references": []
+  },
+  "demo_runtime": null,
+  "demo_delivery": null,
+  "runtime_delivery": null,
+  "current_status": "design_draft",
+  "delivery_endpoint": "design_draft",
+  "acceptance_status": "not_started",
+  "accepted_scope": null,
+  "acceptance_evidence": {
+    "evidence_references": [],
+    "review_owner": null,
+    "accepted_at": null,
+    "reviewed_version": null
+  },
+  "work_scope": {
+    "scope_type": "full_course",
+    "scope_identifier": "whole_course",
+    "learner_delivery_type": "interactive_web",
+    "description": "{{当前授权的课程范围}}",
+    "endpoint": "design_draft",
+    "covered_objective_identifiers": ["objective_core"],
+    "excluded_objective_identifiers": [],
+    "covered_asset_identifiers": ["video_introduction", "diagram_core"],
+    "excluded_asset_identifiers": [],
+    "inherited_confirmations": []
+  },
+  "status_history": [
+    {
+      "event_identifier": "event_design_draft",
+      "event_type": "advance",
+      "status": "design_draft",
+      "recorded_at": "2026-01-01T00:00:00Z",
+      "recorded_by": "{{实际记录者}}",
+      "reason": "{{建立可审阅设计草稿}}",
+      "course_version": "0.1",
+      "scope_identifiers": [],
+      "confirmation_identifiers": [],
+      "evidence_fingerprints": {},
+      "affected_asset_identifiers": [],
+      "invalidated_from_status": null,
+      "asset_snapshots": {},
+      "previous_event_sha256": null,
+      "event_sha256": "{{实际事件SHA256；仅计算和填写新追加事件}}",
+      "evidence_references": ["course_design", "verification"]
+    }
+  ],
+  "experience_profile": {
+    "profile_identifier": "video_led_web",
+    "outline_reference": "design-outline.md",
+    "beat_identifiers": ["beat_introduction", "beat_instruction", "beat_practice", "beat_transfer", "beat_summary"],
+    "trace_matrix_reference": "page-design.md",
+    "coverage_status": "unreviewed"
+  },
+  "demo_completion": {
+    "contract_version": "1.0",
+    "completion_policy": "video_only_delta",
+    "non_video_completion": {
+      "course_content": "complete",
+      "scene_and_beat_sequence": "complete",
+      "page_and_responsive_layout": "complete",
+      "interactions_and_feedback": "complete",
+      "state_and_recovery": "complete",
+      "accessibility_equivalents": "complete",
+      "non_video_assets": "complete",
+      "browser_verification": "complete"
+    },
+    "deferred_items": [
+      {
+        "deferred_identifier": "deferred_formal_video",
+        "kind": "formal_video_generation",
+        "asset_identifiers": ["video_introduction"],
+        "reason": "{{正式视频本体尚未生成；不得包含课程内容、页面或互动延期}}"
+      },
+      {
+        "deferred_identifier": "deferred_video_runtime",
+        "kind": "video_runtime_binding",
+        "asset_identifiers": ["video_introduction"],
+        "reason": "{{正式视频生成后绑定真实媒体时钟和事件点}}"
+      },
+      {
+        "deferred_identifier": "deferred_video_regression",
+        "kind": "post_video_integration_verification",
+        "asset_identifiers": ["video_introduction"],
+        "reason": "{{正式视频接入后的音画、热点、字幕、返回与响应式回归}}"
+      }
+    ],
+    "video_replacement_contract": {
+      "substitute_asset_identifiers": ["diagram_core"],
+      "formal_video_asset_identifiers": ["video_introduction"],
+      "preserved_contracts": [
+        "course_content", "layout", "interactions",
+        "feedback", "state_and_recovery", "accessibility"
+      ],
+      "post_replacement_checks": [
+        "media_timing", "hotspot_timing", "caption_sync",
+        "return_state", "responsive_layout", "accessibility"
+      ]
+    }
+  },
+  "project_profile": {
+    "profile_identifier": "immersive-course-design/default-production-profile",
+    "portable_profile_snapshot": null,
+    "overrides": []
+  },
+  "learner_profile": {
+    "prior_knowledge": ["{{必需先修与按需基础支持}}"],
+    "language": "zh-CN",
+    "device_and_context": ["{{设备、网络、课堂或独立学习场景}}"],
+    "accessibility_needs": ["{{已知需要；未知时明确写尚待试学确认}}"],
+    "unknowns": ["{{不能用年龄替代的待核信息}}"]
+  },
+  "evidence_registry": [
+    {
+      "evidence_identifier": "evidence_source_core",
+      "type": "sourced_fact",
+      "statement": "{{来源支持的事实}}",
+      "source_references": ["source_material"],
+      "basis": null,
+      "follow_up": null
+    },
+    {
+      "evidence_identifier": "evidence_scenario_opening",
+      "type": "teaching_scenario",
+      "statement": "{{为教学创作的开场事件}}",
+      "source_references": [],
+      "basis": "明确标记为教学情境创作",
+      "follow_up": null
+    }
+  ],
+  "approval_gates": {
+    "design_confirmation": {
+      "status": "pending",
+      "confirmations": []
+    },
+    "media_sample_confirmation": {
+      "status": "pending",
+      "confirmations": []
+    },
+    "clarification_confirmation": {
+      "status": "pending",
+      "confirmations": []
+    },
+    "demo_confirmation": {
+      "status": "pending",
+      "confirmations": []
+    }
+  },
+  "approval_subjects": [
+    {
+      "scope_identifier": "design_whole_course",
+      "kind": "design",
+      "depends_on_scope_identifiers": ["clarification_whole_course"],
+      "subject_version": "0.1",
+      "scope": "{{本确认覆盖的学习目标、场景及教学边界}}",
+      "covered_identifiers": ["objective_core"],
+      "components": [
+        "learning_objectives", "teaching_content", "task_evaluation",
+        "remediation", "independent_application"
+      ],
+      "materials": [
+        {
+          "source": "evidence_file",
+          "reference_identifier": "course_design",
+          "fingerprint_mode": "bytes"
+        },
+        {
+          "source": "evidence_file",
+          "reference_identifier": "evaluation_plan",
+          "fingerprint_mode": "bytes"
+        },
+        {
+          "source": "evidence_file",
+          "reference_identifier": "scene_interaction_plan",
+          "fingerprint_mode": "bytes"
+        },
+        {
+          "source": "evidence_file",
+          "reference_identifier": "course_blueprint",
+          "fingerprint_mode": "json",
+          "json_pointers": [
+            "/learning_core", "/opening", "/sources", "/learning_objectives",
+            "/scope_coverage",
+            "/knowledge_organization", "/instructional_design",
+            "/entry_scene_identifier", "/summary_scene_identifier", "/completion_policy",
+            "/scenes", "/evaluation_plan/objective_evaluations",
+            "/evaluation_plan/formative_assessment", "/evaluation_plan/record_fields"
+          ]
+        },
+        {
+          "source": "manifest",
+          "fingerprint_mode": "json",
+          "json_pointers": [
+            "/learner_profile", "/evaluation_capabilities",
+            "/experience_profile/profile_identifier", "/experience_profile/outline_reference",
+            "/experience_profile/beat_identifiers", "/experience_profile/trace_matrix_reference"
+          ]
+        }
+      ],
+      "editorial_changes": []
+    },
+    {
+      "scope_identifier": "clarification_whole_course",
+      "kind": "clarification",
+      "depends_on_scope_identifiers": [],
+      "subject_version": "0.1",
+      "scope": "{{用户明确输入或摘要确认覆盖的范围、条件和授权}}",
+      "covered_identifiers": ["objective_core"],
+      "materials": [
+        {
+          "source": "evidence_file",
+          "reference_identifier": "clarification_intake",
+          "fingerprint_mode": "bytes"
+        }
+      ],
+      "editorial_changes": []
+    },
+    {
+      "scope_identifier": "demo_whole_course",
+      "kind": "demo",
+      "depends_on_scope_identifiers": ["clarification_whole_course", "design_whole_course"],
+      "subject_version": "0.1",
+      "scope": "{{全课非视频实现与实际浏览器验收范围}}",
+      "covered_identifiers": ["objective_core"],
+      "materials": [],
+      "editorial_changes": []
+    },
+    {
+      "scope_identifier": "media_contract_whole_course",
+      "kind": "media_contract",
+      "depends_on_scope_identifiers": [],
+      "subject_version": "0.1",
+      "scope": "{{全课沿用的视觉、声音、口型、连续性和等价路径制作约定}}",
+      "covered_identifiers": ["video_introduction"],
+      "materials": [
+        {
+          "source": "manifest",
+          "fingerprint_mode": "json",
+          "json_pointers": ["/visual_bible", "/media_production_contract"]
+        }
+      ],
+      "editorial_changes": []
+    },
+    {
+      "scope_identifier": "media_sample_hardest_loop",
+      "kind": "media_sample",
+      "depends_on_scope_identifiers": ["design_whole_course", "media_contract_whole_course"],
+      "subject_version": "0.1",
+      "scope": "{{人类实际审阅的完整小样及其入口、分支和资源依赖}}",
+      "covered_identifiers": ["sample_hardest_loop"],
+      "materials": [],
+      "editorial_changes": []
+    }
+  ],
+  "visual_bible": {
+    "style_goal": "{{写实、图解、定格或其他已确认方向}}",
+    "character_references": ["{{人物身份、服装、比例和固定参考}}"],
+    "environment_references": ["{{地点、材质、光线、时代和生活痕迹}}"],
+    "camera_and_composition": ["{{视点、镜头、方向和移动端裁切规则}}"],
+    "exclusions": ["{{需避免的风格漂移、文字、水印或结构错误}}"],
+    "evidence_references": ["media_plan"]
+  },
+  "media_production_contract": {
+    "visual_reference_identifiers": [],
+    "voice_present": true,
+    "voice_rules": "{{角色声线、旁白、跨段及视频内外一致性约定；无声音时说明原因}}",
+    "voice_reference_identifiers": [],
+    "lip_synchronization_rules": "{{画内开口、对白和口型的制作及验收约定；不适用时说明原因}}",
+    "continuity_rules": "{{现实锚点、触发、阈限、身份、第一动作、持续载体、世界规则，以及角色、对象、空间、镜头、动作、声音恢复和学习状态的连续性约定}}",
+    "equivalent_path_rules": "{{同一学习目标的静音、字幕、键盘等主动等价路线；各自资源准入与验收。必需媒体故障另按重试/阻断处理}}"
+  },
+  "representative_sample": {
+    "sample_identifier": "sample_hardest_loop",
+    "selection_reason": "{{最能暴露人物、声音、媒体转换、操作和恢复风险的原因}}",
+    "covered_asset_identifiers": [],
+    "media_modes": ["linear_video", "diagram"],
+    "candidate_asset_versions": {},
+    "risk_coverage": [
+      {"risk_identifier": "content", "critical": true, "selection_reason": "{{内容与目标}}", "status": "planned", "evidence_references": []},
+      {"risk_identifier": "continuity", "critical": true, "selection_reason": "{{现实到课程世界的进入链、持续载体、人物对象与媒体接续}}", "status": "planned", "evidence_references": []},
+      {"risk_identifier": "voice_and_lip_synchronization", "critical": true, "selection_reason": "{{原生对白、口型、跨段声线}}", "status": "planned", "evidence_references": []},
+      {"risk_identifier": "mobile", "critical": true, "selection_reason": "{{窄屏与触摸操作}}", "status": "planned", "evidence_references": []},
+      {"risk_identifier": "equivalent_path", "critical": true, "selection_reason": "{{静音、键盘、媒体失败}}", "status": "planned", "evidence_references": []},
+      {"risk_identifier": "return_and_recovery", "critical": true, "selection_reason": "{{反馈返回、声音与进度恢复}}", "status": "planned", "evidence_references": []}
+    ],
+    "interaction_path": ["{{主媒体}}", "{{对象入口}}", "{{核心操作}}", "{{反馈}}", "{{返回与恢复}}"],
+    "acceptance_evidence_references": []
+  },
+  "assets": [
+    {
+      "asset_identifier": "video_introduction",
+      "kind": "linear_video",
+      "asset_version": "0.1",
+      "delivery_class": "formal",
+      "required": true,
+      "teaching_role": "progression",
+      "status": "planned",
+      "files": [],
+      "provenance": {
+        "origin": "{{generated／licensed／original／provided}}",
+        "tool_and_model": "{{实际可知信息}}",
+        "prompt_or_process_reference": "{{媒体计划位置}}",
+        "source_assets": []
+      },
+      "governance": {
+        "rights_basis": "{{所有权、授权、许可或待核状态}}",
+        "privacy_review_status": "pending",
+        "learner_disclosure": "{{需向学习者披露的生成、重建或数据使用信息}}",
+        "retention": "{{源文件与记录保存策略}}"
+      },
+      "accessibility": {
+        "learning_goal": "{{该资产支持的目标}}",
+        "equivalent_path": "{{字幕、文本、键盘、替代教具等能达到同一学习目标的路径}}",
+        "status": "planned"
+      },
+      "delivery": {
+        "formal_linear_video": true,
+        "embedded_voice": false,
+        "environment_and_action_audio": false,
+        "separate_web_audio_stems": false,
+        "separate_branch_audio": false,
+        "branch_audio_not_applicable_reason": null,
+        "audio_probe_evidence_references": []
+      },
+      "acceptance": {
+        "asset_version": null,
+        "file_snapshots": [],
+        "checks": [],
+        "evidence_references": []
+      }
+    },
+    {
+      "asset_identifier": "diagram_core",
+      "kind": "diagram",
+      "asset_version": "0.1",
+      "delivery_class": "formal",
+      "required": true,
+      "teaching_role": "local_exploration",
+      "status": "planned",
+      "files": [],
+      "provenance": {
+        "origin": "{{来源类型}}",
+        "tool_and_model": "{{工具或制作方式}}",
+        "prompt_or_process_reference": "{{制作记录}}",
+        "source_assets": []
+      },
+      "governance": {
+        "rights_basis": "{{权利依据}}",
+        "privacy_review_status": "pending",
+        "learner_disclosure": "{{生成或重建披露}}",
+        "retention": "{{保存策略}}"
+      },
+      "accessibility": {
+        "learning_goal": "{{学习目标}}",
+        "equivalent_path": "{{目标等价路径}}",
+        "status": "planned"
+      },
+      "acceptance": {
+        "asset_version": null,
+        "file_snapshots": [],
+        "checks": [],
+        "evidence_references": []
+      }
+    }
+  ],
+  "evaluation_capabilities": {
+    "deterministic_checks": ["{{数值、结构或状态规则}}"],
+    "open_response_review": {
+      "mode": "human_review",
+      "rubric_reference": "{{评价方案位置}}"
+    },
+    "ai_evaluation": {
+      "enabled": false,
+      "validation_evidence_references": [],
+      "uncertainty_statement": "{{未启用；启用时写适用边界与误差}}",
+      "fallback": "human_review"
+    }
+  },
+  "learning_records": {
+    "storage": "local_only",
+    "minimum_fields": [
+      "material_version", "first_response", "assistance_used", "operation_help",
+      "knowledge_help", "feedback_revision", "independent_result",
+      "evidence_interpretation", "instructional_action", "recheck_result",
+      "submission_status", "evaluation_status", "assistance_status",
+      "objective_performance", "evaluation_source"
+    ],
+    "identity_linked": false,
+    "upload_enabled": false,
+    "purpose_and_disclosure": "{{本地记录用途}}",
+    "retention": "{{本地保存期限或由学习者控制}}",
+    "export_path": "{{导出入口}}",
+    "deletion_path": "{{删除或重置入口}}"
+  },
+  "effect_result": {
+    "conclusion": null,
+    "objective_identifiers": [],
+    "conditions": null,
+    "uncertainty": null,
+    "retention_and_transfer_scope": null,
+    "evidence_references": []
+  },
+  "evidence_files": [
+    {
+      "reference_identifier": "content_quality",
+      "path": "content-design-quality.json",
+      "kind": "content_design_quality"
+    },
+    {
+      "reference_identifier": "clarification_intake",
+      "path": "clarification-intake.md",
+      "kind": "clarification_intake"
+    },
+    {
+      "reference_identifier": "course_design",
+      "path": "course-design.md",
+      "kind": "course_design"
+    },
+    {
+      "reference_identifier": "media_plan",
+      "path": "media-plan.md",
+      "kind": "media_plan"
+    },
+    {
+      "reference_identifier": "evaluation_plan",
+      "path": "evaluation-plan.md",
+      "kind": "evaluation_plan"
+    },
+    {
+      "reference_identifier": "course_blueprint",
+      "path": "course-blueprint.json",
+      "kind": "course_blueprint"
+    },
+    {
+      "reference_identifier": "scene_interaction_plan",
+      "path": "scene-interaction-plan.json",
+      "kind": "scene_interaction_plan"
+    },
+    {
+      "reference_identifier": "verification",
+      "path": "verification.md",
+      "kind": "verification"
+    }
+  ]
+}

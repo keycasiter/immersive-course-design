@@ -1,0 +1,23 @@
+{
+  "schema_version": "2.0",
+  "catalog": "immersion-evaluation-criteria.v2.json",
+  "default_score": null,
+  "eligibility": ["applicable", "not_applicable_with_reason", "not_evaluated"],
+  "semantic_scale": {
+    "0": "观察到与criterion直接矛盾的内容或行为",
+    "1": "只有声明或表面线索，关键联系薄弱",
+    "2": "本样本中有一个明确成立实例",
+    "3": "在相关前后时刻持续成立，有至少两个证据定位",
+    "4": "在声明且相关的失败、重入或等价路线仍成立，须实际观察"
+  },
+  "rules": [
+    "Evaluate applicability before observation; no evidence means null, not zero.",
+    "No-character and no-control-promise routes may be not applicable with a reason.",
+    "Keep design prediction, media review, learner experience and demonstrated learning separate.",
+    "Calibrate reviewers before acceptance use; author self-review remains diagnostic.",
+    "Do not sum or average into an immersion score; two is not a validated learner cutoff.",
+    "A complete record is not proof of semantic validity, authenticated identity or learner effect.",
+    "Report actual contradictions, weak observations, missing evidence and unresolved coverage separately.",
+    "Learner and full-journey records have no expert 0-4 score."
+  ]
+}

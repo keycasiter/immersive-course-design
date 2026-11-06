@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.1",
+  "video_element_id": "course-video",
+  "media_source": "./media/course-video.mp4",
+  "duration_seconds": 480,
+  "cue_tolerance_seconds": 0.25,
+  "timeline_mapping": {
+    "mode": "composed_single_file",
+    "main_timeline_identifier": "mainline",
+    "completed_event_seek_policy": "restore_completed_state_without_reopening",
+    "branch_return_policy": "return_to_declared_global_resume_seconds"
+  },
+  "resource_admission": {
+    "course_entry": {
+      "required_asset_identifiers": ["video_main", "audio_main", "captions_main", "runtime", "scene_first"],
+      "checks": ["present", "version_compatible", "loadable", "playable", "runtime_ready"],
+      "failure_policy": "retry_or_block"
+    },
+    "event_entry": {
+      "checks": ["present", "version_compatible", "loadable", "playable", "runtime_capability"],
+      "failure_policy": "retry_or_block",
+      "degraded_path": false
+    }
+  },
+  "events": [
+    {
+      "beat_id": "beat_practice",
+      "timeline_identifier": "mainline",
+      "clip_identifier": "clip_question",
+      "media_source_identifier": "video_introduction",
+      "global_offset_seconds": 0,
+      "cue_seconds": 42,
+      "pause_seconds": 42,
+      "resume_seconds": 42,
+      "interaction_id": "task_practice",
+      "event_class": "judgment",
+      "required_asset_identifiers": ["scene_interaction_Q01"],
+      "evidence_required": true,
+      "completion_condition": "learner_evidence_validated",
+      "retry_policy": {"max_attempts": 3, "actions": ["retry_load", "reload_event", "reenter_event"], "on_exhausted": "block_progression"},
+      "resume_state": {"scene_id": "S01", "pov": "observational_first_person", "audio": "restore", "captions": "restore", "objects": "restore"}
+    }
+  ]
+}

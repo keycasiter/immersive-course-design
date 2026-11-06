@@ -1,0 +1,48 @@
+{
+  "schema_version": "2.0",
+  "course_identifier": "REPLACE",
+  "course_version": "REPLACE",
+  "scope": "complete_course",
+  "scope_description": "REPLACE with actual entries, scenes, devices and routes",
+  "catalog_sha256": "REPLACE with actual bundled catalogue hash",
+  "rubric_sha256": "REPLACE with actual bundled rubric hash",
+  "coverage": [
+    {"atom_identifier":"M13-A01","applicability":"applicable","applicability_reason":"REPLACE","unit_identifiers":["entry_observation"]},
+    {"atom_identifier":"M13-A02","applicability":"not_evaluated","applicability_reason":"REPLACE","unit_identifiers":[]},
+    {"atom_identifier":"M13-A03","applicability":"not_evaluated","applicability_reason":"REPLACE","unit_identifiers":[]},
+    {"atom_identifier":"M13-A04","applicability":"not_evaluated","applicability_reason":"REPLACE","unit_identifiers":[]},
+    {"atom_identifier":"M13-A05","applicability":"not_evaluated","applicability_reason":"REPLACE","unit_identifiers":[]},
+    {"atom_identifier":"M13-A06","applicability":"not_evaluated","applicability_reason":"REPLACE","unit_identifiers":[]},
+    {"atom_identifier":"M13-A07","applicability":"not_evaluated","applicability_reason":"REPLACE","unit_identifiers":[]},
+    {"atom_identifier":"M13-A08","applicability":"not_evaluated","applicability_reason":"REPLACE","unit_identifiers":[]},
+    {"atom_identifier":"M13-A09","applicability":"not_evaluated","applicability_reason":"REPLACE","unit_identifiers":[]},
+    {"atom_identifier":"M13-A10","applicability":"not_evaluated","applicability_reason":"REPLACE","unit_identifiers":[]},
+    {"atom_identifier":"M13-A11","applicability":"not_evaluated","applicability_reason":"REPLACE","unit_identifiers":[]},
+    {"atom_identifier":"M13-A12","applicability":"not_evaluated","applicability_reason":"REPLACE","unit_identifiers":[]},
+    {"atom_identifier":"M13-A13","applicability":"not_evaluated","applicability_reason":"REPLACE","unit_identifiers":[]},
+    {"atom_identifier":"M13-A14","applicability":"not_evaluated","applicability_reason":"REPLACE","unit_identifiers":[]},
+    {"atom_identifier":"M13-A15","applicability":"not_evaluated","applicability_reason":"REPLACE","unit_identifiers":[]},
+    {"atom_identifier":"M18-A08","applicability":"not_evaluated","applicability_reason":"REPLACE","unit_identifiers":[]},
+    {"atom_identifier":"M18-A09","applicability":"not_evaluated","applicability_reason":"REPLACE","unit_identifiers":[]},
+    {"atom_identifier":"M18-C01-v2","applicability":"not_evaluated","applicability_reason":"REPLACE","unit_identifiers":[]}
+  ],
+  "units": [
+    {
+      "identifier": "entry_observation",
+      "atom_identifier": "M13-A01",
+      "evaluation_stage": "design",
+      "experience_intent": "REPLACE with the actual entry intent",
+      "construct": "orientation",
+      "element_identifiers": [],
+      "design_decisions": ["REPLACE with concrete visual, audio or interaction decisions"],
+      "scene_identifiers": ["REPLACE"],
+      "beat_identifiers": ["REPLACE"],
+      "shot_identifiers": [],
+      "asset_identifiers": [],
+      "observable_success": "REPLACE with an observable criterion",
+      "observable_failure": "REPLACE with the corresponding contradiction",
+      "required_routes": ["REPLACE with applicable normal, reentry or equivalent routes"],
+      "comparison_plan": "REPLACE with paired removal/low-motion design or reason not needed"
+    }
+  ]
+}

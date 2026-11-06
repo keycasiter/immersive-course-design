@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "decisions": [
+    {
+      "decision_identifier": "delivery_route",
+      "decision_version": "0.1",
+      "status": "confirmed",
+      "question": "{{会改变课程方案的实际问题}}",
+      "source_basis": ["{{用户输入、来源或已确认材料引用}}"],
+      "selected_direction": "{{实际选择}}",
+      "rationale": "{{本课依据与取舍}}",
+      "affected_identifiers": ["{{目标、场景、资产或运行契约 ID}}"],
+      "body_sha256": "{{以上规范正文的 SHA256}}"
+    }
+  ]
+}

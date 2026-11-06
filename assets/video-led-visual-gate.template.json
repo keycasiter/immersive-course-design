@@ -1,0 +1,68 @@
+{
+  "contract_version": "1.1",
+  "course_version": "0.1",
+  "runtime_fingerprints": {},
+  "runtime_file_snapshots": [],
+  "profile_identifier": "video_led_web",
+  "status": "planned",
+  "states": [
+    {
+      "state_identifier": "playback",
+      "primary_surface": "scene-media",
+      "allowed_layers": ["scene-shade", "course-caption", "on-demand-controls", "scene-objects"],
+      "forbidden_persistent_layers": ["course-header", "sidebar", "directory", "footer", "result-card"],
+      "primary_action_count": 0,
+      "evidence_status": "planned",
+      "evidence_references": []
+    },
+    {
+      "state_identifier": "paused",
+      "primary_surface": "scene-media",
+      "allowed_layers": ["one-task-surface", "course-caption", "current-object"],
+      "forbidden_persistent_layers": ["parallel-task-surface", "unrelated-panel", "decorative-navigation"],
+      "primary_action_count": 1,
+      "evidence_status": "planned",
+      "evidence_references": []
+    },
+    {
+      "state_identifier": "feedback",
+      "primary_surface": "task-surface",
+      "allowed_layers": ["evidence-feedback", "help", "revision"],
+      "forbidden_persistent_layers": ["unrelated-card", "badge", "unsupported-progress"],
+      "primary_action_count": 1,
+      "evidence_status": "planned",
+      "evidence_references": []
+    },
+    {
+      "state_identifier": "return",
+      "primary_surface": "scene-media",
+      "allowed_layers": ["course-caption", "focus", "draft-state"],
+      "forbidden_persistent_layers": ["stale-task-surface", "result-long-text", "floating-decoration"],
+      "primary_action_count": 1,
+      "evidence_status": "planned",
+      "evidence_references": []
+    }
+  ],
+  "decorations": [
+    {
+      "decoration_identifier": "decoration_example",
+      "state_scope": "paused",
+      "visual_role": "object-location",
+      "teaching_purpose": "帮助学习者定位当前证据对象",
+      "removal_loss": "移除后无法识别当前对象入口",
+      "asset_or_css_reference": "page-design.md#visual-gate",
+      "acceptance_evidence": "evidence_visual_gate_paused"
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_identifier": "evidence_visual_gate_playback",
+      "state_identifier": "playback",
+      "status": "planned",
+      "viewport": "1440x900",
+      "browser": "planned",
+      "entry_action": "play",
+      "result": "planned"
+    }
+  ]
+}

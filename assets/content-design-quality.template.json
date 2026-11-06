@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.1",
+  "course_version": "0.1",
+  "core_objective_identifiers": ["objective_core"],
+  "source_identifiers": ["source_identifier"],
+  "experience_design_mode": "imagineering_only",
+  "content_candidates": [
+    {
+      "candidate_id": "candidate_core_01",
+      "subject": "language",
+      "grade_band": "replace",
+      "objective_identifier": "objective_core",
+      "problem_type": "explanation",
+      "learner_problem": "replace with a concrete problem",
+      "subject_move": "replace with a real disciplinary action",
+      "key_constraints": ["replace"],
+      "learner_actions": ["notice", "compare", "explain", "revise"],
+      "student_product": "replace",
+      "likely_misconceptions": ["replace"],
+      "transfer_condition": "replace",
+      "experience_world": "replace",
+      "immersion_increment": "replace",
+      "source_boundary": ["source_identifier"],
+      "quality_scores": {
+        "disciplinary_authenticity": 0,
+        "problem_tension": 0,
+        "learner_agency": 0,
+        "evidence_visibility": 0,
+        "progression": 0,
+        "memory_value": 0,
+        "contextual_fit": 0,
+        "production_feasibility": 0
+      },
+      "quality_decision": "content_review_pending",
+      "reviewer_notes": []
+    }
+  ],
+  "selected_candidate_ids": [],
+  "immersion_elements": [],
+  "content_review": {
+    "status": "pending",
+    "review_owner": "replace",
+    "reviewed_version": "0.1",
+    "reviewed_content_sha256": null,
+    "reviewed_at": null,
+    "evidence_references": [],
+    "evidence_files": []
+  }
+}

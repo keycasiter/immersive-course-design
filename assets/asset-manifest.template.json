@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.2",
+  "course_identifier": "parent_course",
+  "course_version": "0.1",
+  "current_status": null,
+  "work_status": "in_progress",
+  "work_scope": {
+    "scope_type": "media_assets",
+    "scope_identifier": "asset_repair",
+    "learner_delivery_type": "interactive_web",
+    "description": "{{指定资产制作或维护}}",
+    "endpoint": "assets_accepted",
+    "parent_manifest_reference": "{{父课程清单路径；不修改其阶段}}",
+    "covered_objective_identifiers": ["objective_core"],
+    "excluded_objective_identifiers": [],
+    "covered_asset_identifiers": ["diagram_core"],
+    "excluded_asset_identifiers": [],
+    "inherited_confirmations": []
+  },
+  "assets": [
+    {
+      "asset_identifier": "diagram_core",
+      "asset_version": "0.1",
+      "kind": "diagram",
+      "delivery_class": "formal",
+      "required": true,
+      "teaching_role": "{{服务的学习动作}}",
+      "status": "planned",
+      "files": [],
+      "provenance": {
+        "origin": "{{来源类型}}",
+        "tool_and_model": "{{工具或制作方法}}",
+        "prompt_or_process_reference": "{{制作记录}}",
+        "source_assets": []
+      },
+      "governance": {
+        "rights_basis": "{{权利依据}}",
+        "privacy_review_status": "pending",
+        "learner_disclosure": "{{披露}}",
+        "retention": "{{保存策略}}"
+      },
+      "accessibility": {
+        "learning_goal": "{{学习目标}}",
+        "equivalent_path": "{{目标等价路径}}",
+        "status": "planned"
+      },
+      "acceptance": {
+        "asset_version": null,
+        "file_snapshots": [],
+        "checks": [],
+        "evidence_references": []
+      }
+    }
+  ],
+  "evidence_files": [
+    {"reference_identifier": "asset_process", "kind": "production_record", "path": "asset-process.md"}
+  ]
+}

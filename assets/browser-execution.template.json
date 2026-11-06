@@ -1,0 +1,29 @@
+{
+  "contract_version": "1.0",
+  "course_version": "0.1",
+  "runtime_mode": "storyboard_events",
+  "runtime_fingerprints": {},
+  "tests": [
+    {
+      "test_identifier": "test_practice_normal_desktop",
+      "status": "not_run",
+      "path_category": "normal",
+      "viewport_class": "desktop",
+      "viewport": {"width": 1440, "height": 900},
+      "browser": "{{实际浏览器和版本}}",
+      "captured_at": "{{实际执行时间}}",
+      "entry_action": "{{进入方式和操作步骤}}",
+      "expected_result": "{{预期可观察结果}}",
+      "observed_result": "{{实际结果}}",
+      "beat_identifiers": ["beat_practice"],
+      "objective_identifiers": ["objective_core"],
+      "knowledge_object_identifiers": ["knowledge_core"],
+      "runtime_locator": {
+        "page": "index.html", "selector_or_component": "#task-surface", "state_key": "interaction_core"
+      },
+      "artifacts": [
+        {"kind": "operation_log", "path": "{{实际记录文件}}", "content_sha256": "{{实际SHA256}}"}
+      ]
+    }
+  ]
+}

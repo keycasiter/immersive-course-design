@@ -1,0 +1,36 @@
+{
+  "matrix_version": "1.1",
+  "course_version": "0.1",
+  "rows": [
+    {
+      "knowledge_object_id": "knowledge_core",
+      "objective_identifier": "objective_core",
+      "beat_id": "beat_practice",
+      "interaction_id": "interaction_core",
+      "learner_action": "{{与目标对应的知识动作}}",
+      "source_ids": ["source_material"],
+      "event_class": "judgment",
+      "input_contract": "{{允许动作和输入}}",
+      "success_criteria": "{{可观察判定依据}}",
+      "incorrect_response_mapping": [
+        {"response_id": "response_incorrect", "misconception": "{{误解}}",
+         "feedback": "{{针对依据的反馈}}", "revision_action": "{{可修订动作}}"}
+      ],
+      "media_cue_or_scene_window": {"entry": "{{事件}}", "pause": "{{暂停条件}}", "resume": "{{同一事件返回}}"},
+      "feedback_contract": "{{判断依据和对象}}",
+      "help_contract": "{{不替代判断的帮助}}",
+      "revision_contract": "{{保留首答、修改与复查}}",
+      "return_state": "{{事件、草稿和焦点}}",
+      "accessibility_equivalent": "{{键盘、触摸与等价材料}}",
+      "content_review": {
+        "owner": "{{实际审阅者}}", "status": "pending", "reviewed_version": "0.1",
+        "evidence_reference": "demo_content_review"
+      },
+      "runtime_locator": {
+        "page": "index.html", "selector_or_component": "#task-surface", "state_key": "interaction_core"
+      },
+      "browser_test_identifiers": [],
+      "demo_status": "review_pending"
+    }
+  ]
+}

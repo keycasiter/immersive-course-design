@@ -1,0 +1,373 @@
+{
+  "schema_version": "1.0",
+  "study_date": "2026-11-05",
+  "repository": "calesthio/OpenMontage",
+  "commit": "d21f5d4eaa08422b09c7091757a05affcbabb35b",
+  "commit_timestamp": "2026-11-03T17:41:59Z",
+  "license": "AGPL-3.0",
+  "license_file_sha256": "0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0",
+  "tree_entries": 2669,
+  "tree_file_entries": 2209,
+  "tree_truncated": false,
+  "reading_boundary": "Full tree inventoried; selected relevant files/sections read. Hashing is not a reading claim.",
+  "independence": "One repository source family; code and same-repository tests are not independent research sources.",
+  "adoption": "Generic methods independently implemented; no imported OpenMontage code or runtime.",
+  "sources": [
+    {
+      "path": "AGENT_GUIDE.md",
+      "file_sha256": "a779a351b6815575c633bde650909a3a884a1b84479de871b4ec70e3b2abb677",
+      "line_count": 720,
+      "reading_depth": "selected_lines",
+      "read_line_ranges": [
+        [
+          1,
+          455
+        ]
+      ],
+      "method": "stage loading and source/delivery routing",
+      "owner": "references/production-workflow.md",
+      "url": "https://github.com/calesthio/OpenMontage/blob/d21f5d4eaa08422b09c7091757a05affcbabb35b/AGENT_GUIDE.md",
+      "runtime_verification": "source_and_tests_read; original_project_suite_not_executed"
+    },
+    {
+      "path": "docs/ARCHITECTURE.md",
+      "file_sha256": "630b6476faef145c463bea6f7ceeb9c42aeddb581e0e13e0812aee19b0c48f8a",
+      "line_count": 527,
+      "reading_depth": "selected_lines",
+      "read_line_ranges": [
+        [
+          1,
+          210
+        ]
+      ],
+      "method": "architecture and artifact boundaries",
+      "owner": "references/openmontage-methods.md",
+      "url": "https://github.com/calesthio/OpenMontage/blob/d21f5d4eaa08422b09c7091757a05affcbabb35b/docs/ARCHITECTURE.md",
+      "runtime_verification": "source_and_tests_read; original_project_suite_not_executed"
+    },
+    {
+      "path": "pipeline_defs/animated-explainer.yaml",
+      "file_sha256": "b836a0c0b9a7f1300b591fbbd2f6db7e7cd66c1135ee04fb047f11c5b2245d89",
+      "line_count": 269,
+      "reading_depth": "full",
+      "read_line_ranges": [
+        [
+          1,
+          269
+        ]
+      ],
+      "method": "stage sequence and rejected quotas",
+      "owner": "references/openmontage-methods.md",
+      "url": "https://github.com/calesthio/OpenMontage/blob/d21f5d4eaa08422b09c7091757a05affcbabb35b/pipeline_defs/animated-explainer.yaml",
+      "runtime_verification": "source_and_tests_read; original_project_suite_not_executed"
+    },
+    {
+      "path": "pipeline_defs/screen-demo.yaml",
+      "file_sha256": "6862febd4e4a957d9c8ca08ec25c93195b3213e9033005857c398672dc5911ac",
+      "line_count": 246,
+      "reading_depth": "full",
+      "read_line_ranges": [
+        [
+          1,
+          246
+        ]
+      ],
+      "method": "actual screen recording versus controlled demo",
+      "owner": "references/video-timeline-and-quality.md",
+      "url": "https://github.com/calesthio/OpenMontage/blob/d21f5d4eaa08422b09c7091757a05affcbabb35b/pipeline_defs/screen-demo.yaml",
+      "runtime_verification": "source_and_tests_read; original_project_suite_not_executed"
+    },
+    {
+      "path": "lib/source_media_review.py",
+      "file_sha256": "22fd87421312651be1d56215387424e0f5cae795dc7f2c30a5b6c1c854104faf",
+      "line_count": 414,
+      "reading_depth": "full",
+      "read_line_ranges": [
+        [
+          1,
+          414
+        ]
+      ],
+      "method": "real input inspection and fail-open counterexample",
+      "owner": "references/source-media-admission.md",
+      "url": "https://github.com/calesthio/OpenMontage/blob/d21f5d4eaa08422b09c7091757a05affcbabb35b/lib/source_media_review.py",
+      "runtime_verification": "source_and_tests_read; original_project_suite_not_executed"
+    },
+    {
+      "path": "schemas/artifacts/source_media_review.schema.json",
+      "file_sha256": "2cb5093ba786dd63d583a8090dec567fd474782f20353e58069d1b2efa610d89",
+      "line_count": 83,
+      "reading_depth": "full",
+      "read_line_ranges": [
+        [
+          1,
+          83
+        ]
+      ],
+      "method": "weak reviewed flag and empty-input ambiguity",
+      "owner": "references/source-media-admission.md",
+      "url": "https://github.com/calesthio/OpenMontage/blob/d21f5d4eaa08422b09c7091757a05affcbabb35b/schemas/artifacts/source_media_review.schema.json",
+      "runtime_verification": "source_and_tests_read; original_project_suite_not_executed"
+    },
+    {
+      "path": "tests/lib/test_source_media_review_real_media.py",
+      "file_sha256": "0cd4a97a6bacaeaca45e57f1876f5331ec5f5574a44f80e87ca2539473f2c8d0",
+      "line_count": 127,
+      "reading_depth": "full",
+      "read_line_ranges": [
+        [
+          1,
+          127
+        ]
+      ],
+      "method": "actual probes, frame unpacking and per-source evidence",
+      "owner": "scripts/check_media_admission.py",
+      "url": "https://github.com/calesthio/OpenMontage/blob/d21f5d4eaa08422b09c7091757a05affcbabb35b/tests/lib/test_source_media_review_real_media.py",
+      "runtime_verification": "source_and_tests_read; original_project_suite_not_executed"
+    },
+    {
+      "path": "tests/lib/test_source_media_review_empty.py",
+      "file_sha256": "28e7ed13e85d67972eae306452535a489ba35ad0afb8e4486e5da05601f940d9",
+      "line_count": 29,
+      "reading_depth": "full",
+      "read_line_ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "method": "empty source semantics",
+      "owner": "scripts/check_media_admission.py",
+      "url": "https://github.com/calesthio/OpenMontage/blob/d21f5d4eaa08422b09c7091757a05affcbabb35b/tests/lib/test_source_media_review_empty.py",
+      "runtime_verification": "source_and_tests_read; original_project_suite_not_executed"
+    },
+    {
+      "path": "tools/base_tool.py",
+      "file_sha256": "042ea955b093faafc146ec612e45c6aa71f73f411815d74cb3d8d06142a6b35b",
+      "line_count": 703,
+      "reading_depth": "selected_lines",
+      "read_line_ranges": [
+        [
+          248,
+          405
+        ],
+        [
+          577,
+          632
+        ]
+      ],
+      "method": "content inputs, determinism classification and format cache identity",
+      "owner": "references/media-job-execution.md",
+      "url": "https://github.com/calesthio/OpenMontage/blob/d21f5d4eaa08422b09c7091757a05affcbabb35b/tools/base_tool.py",
+      "runtime_verification": "source_and_tests_read; original_project_suite_not_executed"
+    },
+    {
+      "path": "lib/asset_cache.py",
+      "file_sha256": "2aefeee23c888312e7146e3808956b2883698c01e77afd5d7d1e96fd6c88f581",
+      "line_count": 563,
+      "reading_depth": "selected_lines",
+      "read_line_ranges": [
+        [
+          322,
+          454
+        ]
+      ],
+      "method": "restoration integrity and destination preservation counterexample",
+      "owner": "references/media-job-execution.md",
+      "url": "https://github.com/calesthio/OpenMontage/blob/d21f5d4eaa08422b09c7091757a05affcbabb35b/lib/asset_cache.py",
+      "runtime_verification": "source_and_tests_read; original_project_suite_not_executed"
+    },
+    {
+      "path": "tests/tools/test_asset_cache_dry_run.py",
+      "file_sha256": "bf79cdc93df63a3bb51373a1efa71e349687d46c7292ea1497267d047aca523f",
+      "line_count": 84,
+      "reading_depth": "full",
+      "read_line_ranges": [
+        [
+          1,
+          84
+        ]
+      ],
+      "method": "dry-run does not restore outputs",
+      "owner": "references/media-job-execution.md",
+      "url": "https://github.com/calesthio/OpenMontage/blob/d21f5d4eaa08422b09c7091757a05affcbabb35b/tests/tools/test_asset_cache_dry_run.py",
+      "runtime_verification": "source_and_tests_read; original_project_suite_not_executed"
+    },
+    {
+      "path": "tests/tools/test_asset_cache_output_references.py",
+      "file_sha256": "bfb0d884a74580547860e2e7a3b9c90a1f2f83c2f25446c095b18adc31907a46",
+      "line_count": 123,
+      "reading_depth": "full",
+      "read_line_ranges": [
+        [
+          1,
+          123
+        ]
+      ],
+      "method": "only declared output aliases rebound",
+      "owner": "references/media-job-execution.md",
+      "url": "https://github.com/calesthio/OpenMontage/blob/d21f5d4eaa08422b09c7091757a05affcbabb35b/tests/tools/test_asset_cache_output_references.py",
+      "runtime_verification": "source_and_tests_read; original_project_suite_not_executed"
+    },
+    {
+      "path": "tests/tools/test_base_tool_cache_formats.py",
+      "file_sha256": "686d0dcff5de97759a7e390a6a45963681b501cec0c78c3a0f6b4c1d9e43d1d2",
+      "line_count": 82,
+      "reading_depth": "full",
+      "read_line_ranges": [
+        [
+          1,
+          82
+        ]
+      ],
+      "method": "format-sensitive cache identity",
+      "owner": "references/media-job-execution.md",
+      "url": "https://github.com/calesthio/OpenMontage/blob/d21f5d4eaa08422b09c7091757a05affcbabb35b/tests/tools/test_base_tool_cache_formats.py",
+      "runtime_verification": "source_and_tests_read; original_project_suite_not_executed"
+    },
+    {
+      "path": "lib/verify_scene_pacing.py",
+      "file_sha256": "e42df59316dccfc7fe3ecfdedf2b0da64052db83ceb001433df847dfa55b1ef2",
+      "line_count": 134,
+      "reading_depth": "full",
+      "read_line_ranges": [
+        [
+          1,
+          134
+        ]
+      ],
+      "method": "renderer frame math and time-only cue matching counterexample",
+      "owner": "references/video-timeline-and-quality.md",
+      "url": "https://github.com/calesthio/OpenMontage/blob/d21f5d4eaa08422b09c7091757a05affcbabb35b/lib/verify_scene_pacing.py",
+      "runtime_verification": "source_and_tests_read; original_project_suite_not_executed"
+    },
+    {
+      "path": "lib/delivery_promise.py",
+      "file_sha256": "6183ddd954388b7bd734c67d2d689eff79842ca49a214f351a6db7e383f0dde4",
+      "line_count": 247,
+      "reading_depth": "full",
+      "read_line_ranges": [
+        [
+          1,
+          247
+        ]
+      ],
+      "method": "shot-count motion threshold and permissive fallback counterexample",
+      "owner": "references/openmontage-methods.md",
+      "url": "https://github.com/calesthio/OpenMontage/blob/d21f5d4eaa08422b09c7091757a05affcbabb35b/lib/delivery_promise.py",
+      "runtime_verification": "source_and_tests_read; original_project_suite_not_executed"
+    },
+    {
+      "path": "skills/meta/voice-performance-director.md",
+      "file_sha256": "acf20fababe7c8a90db962f658e9567a986b239535f6410c6958dd97575d0944",
+      "line_count": 93,
+      "reading_depth": "full",
+      "read_line_ranges": [
+        [
+          1,
+          93
+        ]
+      ],
+      "method": "observable performance and authoritative spoken text boundary",
+      "owner": "references/openmontage-methods.md",
+      "url": "https://github.com/calesthio/OpenMontage/blob/d21f5d4eaa08422b09c7091757a05affcbabb35b/skills/meta/voice-performance-director.md",
+      "runtime_verification": "source_and_tests_read; original_project_suite_not_executed"
+    },
+    {
+      "path": "skills/meta/video-reference-analyst.md",
+      "file_sha256": "4842c789369025ad6514fe32430fd4569f3a366bb1365d4862e6dbb922f6caac",
+      "line_count": 417,
+      "reading_depth": "selected_lines",
+      "read_line_ranges": [
+        [
+          1,
+          175
+        ]
+      ],
+      "method": "reference observation versus provenance claims",
+      "owner": "references/openmontage-methods.md",
+      "url": "https://github.com/calesthio/OpenMontage/blob/d21f5d4eaa08422b09c7091757a05affcbabb35b/skills/meta/video-reference-analyst.md",
+      "runtime_verification": "source_and_tests_read; original_project_suite_not_executed"
+    },
+    {
+      "path": "lib/events.py",
+      "file_sha256": "2e906a9148f2c179d831cf4caf4859880bd7271a2963c15291d8c1c7c3e8c21a",
+      "line_count": 118,
+      "reading_depth": "full",
+      "read_line_ranges": [
+        [
+          1,
+          118
+        ]
+      ],
+      "method": "optional observer versus required audit",
+      "owner": "references/production-workflow.md",
+      "url": "https://github.com/calesthio/OpenMontage/blob/d21f5d4eaa08422b09c7091757a05affcbabb35b/lib/events.py",
+      "runtime_verification": "source_and_tests_read; original_project_suite_not_executed"
+    },
+    {
+      "path": "tools/provider_jobs.py",
+      "file_sha256": "b933f0c4c9a026e6ceef63c4fa21ccdb6c073f11fe34fa4cb4967f538dbabdfd",
+      "line_count": 67,
+      "reading_depth": "full",
+      "read_line_ranges": [
+        [
+          1,
+          67
+        ]
+      ],
+      "method": "task lifecycle and observer events",
+      "owner": "references/production-workflow.md",
+      "url": "https://github.com/calesthio/OpenMontage/blob/d21f5d4eaa08422b09c7091757a05affcbabb35b/tools/provider_jobs.py",
+      "runtime_verification": "source_and_tests_read; original_project_suite_not_executed"
+    },
+    {
+      "path": "lib/checkpoint.py",
+      "file_sha256": "fb33f7910d8e1e482ee8e4d326d5e94ba138ebc912fadf9ec560272644213ae4",
+      "line_count": 640,
+      "reading_depth": "selected_lines",
+      "read_line_ranges": [
+        [
+          1,
+          225
+        ]
+      ],
+      "method": "partial progress and pipeline resume identity",
+      "owner": "references/production-workflow.md",
+      "url": "https://github.com/calesthio/OpenMontage/blob/d21f5d4eaa08422b09c7091757a05affcbabb35b/lib/checkpoint.py",
+      "runtime_verification": "source_and_tests_read; original_project_suite_not_executed"
+    },
+    {
+      "path": "tests/lib/test_checkpoint_resume_identity.py",
+      "file_sha256": "d9cb62e44615583184f0158ce01f070d5fbd907e3160570fde7d71afd88f8e09",
+      "line_count": 39,
+      "reading_depth": "full",
+      "read_line_ranges": [
+        [
+          1,
+          39
+        ]
+      ],
+      "method": "cross-pipeline state cannot silently resume",
+      "owner": "references/production-workflow.md",
+      "url": "https://github.com/calesthio/OpenMontage/blob/d21f5d4eaa08422b09c7091757a05affcbabb35b/tests/lib/test_checkpoint_resume_identity.py",
+      "runtime_verification": "source_and_tests_read; original_project_suite_not_executed"
+    },
+    {
+      "path": "skills/meta/checkpoint-protocol.md",
+      "file_sha256": "2e51666f59a14f56506e0b5546178d4659434ce72d215452e10ae8a2d4c37cfe",
+      "line_count": 246,
+      "reading_depth": "full",
+      "read_line_ranges": [
+        [
+          1,
+          246
+        ]
+      ],
+      "method": "checkpoint consumption and resume boundaries",
+      "owner": "references/production-workflow.md",
+      "url": "https://github.com/calesthio/OpenMontage/blob/d21f5d4eaa08422b09c7091757a05affcbabb35b/skills/meta/checkpoint-protocol.md",
+      "runtime_verification": "source_and_tests_read; original_project_suite_not_executed"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>{{COURSE_TITLE}}</title>
+  <link rel="stylesheet" href="./course-page.css">
+</head>
+<body>
+  <main id="course-stage">
+    <div id="scene-media">{{CURRENT_MEDIA}}</div>
+    <div id="scene-shade" aria-hidden="true"></div>
+    <header id="course-header">
+      <p class="course-title">{{COURSE_TITLE}}<span class="course-place">{{CURRENT_PLACE}}</span></p>
+      <div class="tools">{{PAUSE_SOUND_FULLSCREEN_CONTROLS}}</div>
+    </header>
+    <section id="course-entry">{{SHORT_OPENING_AND_START}}</section>
+    <div id="scene-objects" hidden>{{CURRENT_OBJECT_BUTTONS}}</div>
+    <!-- 旁白隐藏姓名行；角色对白按需填入角色名并显示。 -->
+    <div id="course-caption" hidden><span class="speaker" hidden>{{CHARACTER_NAME}}</span><p>{{CURRENT_CAPTION}}</p></div>
+    <div id="course-actions" hidden>{{CURRENT_ACTION}}</div>
+    <!-- 通用工作面骨架。video_led_web 改用 video-led-course-page.template.html；不要将此大面板用于沉浸视频课。 -->
+    <div id="task-layer" hidden>
+      <section class="task-surface" role="dialog" aria-modal="true" aria-labelledby="task-title">
+        <header class="task-header"><p>{{OBJECT_NAME}}</p><button type="button">{{RETURN_ACTION}}</button></header>
+        <div class="task-body"><h2 id="task-title">{{CURRENT_QUESTION}}</h2>{{CURRENT_CONTENT}}</div>
+        <footer class="task-footer">{{HELP_AND_PRIMARY_ACTION}}</footer>
+      </section>
+    </div>
+    <div id="course-status" role="status" hidden></div>
+  </main>
+</body>
+</html>

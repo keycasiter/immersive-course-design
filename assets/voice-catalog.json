@@ -1,0 +1,184 @@
+{
+  "version": 1,
+  "language": "Chinese",
+  "language_requirement": "标准普通话",
+  "design_model": "Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign",
+  "clone_model": "Qwen/Qwen3-TTS-12Hz-1.7B-Base",
+  "package_version": "qwen-tts==0.1.1",
+  "reference_texts": {
+    "role": "你看，机器已经装好了，车间却还没有开工。棉花、工人和煤都要接到生产里，缺了哪一环，织机都可能停下来。先看看这份记录，你觉得现在最该检查什么？",
+    "narration": "十九世纪初，英国一些棉纺地区的生产，正从家庭和工坊转向集中使用机器的工厂。机器带来了新的生产方式，也需要原料、动力、工人和资金共同支持。接下来，我们走进一座新工厂，看看这些条件怎样联系起来。",
+    "thomas_original": "老车间响了，这边还没动。正核对。帮我看看。先查船上的货，还是问问来上工的人？"
+  },
+  "design_instruction_suffix": "使用标准普通话，四声自然准确，平翘舌和前后鼻音清楚，不使用地方口音或方言。只朗读给定文本，语速适中，停顿遵循句意，声音清晰自然。",
+  "design_generation": {
+    "compute_dtype": "float16",
+    "attention": "eager",
+    "max_new_tokens": 1536,
+    "do_sample": true,
+    "top_p": 1.0,
+    "top_k": 50,
+    "temperature": 0.9,
+    "repetition_penalty": 1.05,
+    "sample_rate": 24000,
+    "batch_note": "每批按 batch_index 排序。种子与描述记录来源，后续台词使用固定 WAV，不重新生成参考。"
+  },
+  "voices": [
+    {
+      "id": "VM01",
+      "group": "male_role",
+      "title": "清朗青年",
+      "direction": "青年男性，声音清朗，交流自然。",
+      "voice_description": "一位二十五岁左右的成年男性，清朗的中音声线，略轻的声质，发音位置靠前，音色干净通透，带一点亲切笑意。声音是自然的青年男声，语气平等，像与身旁的同伴交流。",
+      "reference_audio": "voice-library/vm01.wav",
+      "reference_sha256": "2b5bb39647074e313659938f88adc98782400902708554ca76c4c2f6d3a9a5f4",
+      "reference_text_key": "role",
+      "batch_seed": 2026110200,
+      "batch_index": 0
+    },
+    {
+      "id": "VM02",
+      "group": "male_role",
+      "title": "温厚中音",
+      "direction": "成年男性，中低音，温和从容。",
+      "voice_description": "一位三十五岁左右的成年男性，温厚的男中音，音高在中低区间，口腔共鸣饱满，胸腔共鸣适度，声质柔和扎实，尾音收得平稳。说话温和从容，有技术人员与同伴认真讨论的感觉。",
+      "reference_audio": "voice-library/vm02.wav",
+      "reference_sha256": "ef65150fc8c1c9b275b113ab2c02afa05a0e6febc5b4d4142b66b906bdf1e4ec",
+      "reference_text_key": "role",
+      "batch_seed": 2026110200,
+      "batch_index": 1
+    },
+    {
+      "id": "VM03",
+      "group": "male_role",
+      "title": "沉稳低音",
+      "direction": "成熟男性，低音，判断明确。",
+      "voice_description": "一位四十五岁左右的成熟男性，明显偏低的男低音，胸腔共鸣深而有力，音色厚实，声质带少量砂砾感，发音扎实，语调沉稳，句尾有明确落点。以平静而明确的语气与眼前的人商量事情。",
+      "reference_audio": "voice-library/vm03.wav",
+      "reference_sha256": "155818cc43b713711772d4299be66df6e24367e363f926786b5ed73a64cbcd0f",
+      "reference_text_key": "role",
+      "batch_seed": 2026110200,
+      "batch_index": 2
+    },
+    {
+      "id": "VM04",
+      "group": "male_role",
+      "title": "质朴熟龄",
+      "direction": "熟龄男性，中音，轻微沙哑。",
+      "voice_description": "一位五十五岁左右的熟龄男性，中等音高，声质有轻微自然沙哑和年龄感，喉部质感鲜明，声音质朴，字头清楚，语气耐心，节奏有自然停顿。像一位经验丰富的人在身边解释自己的观察。",
+      "reference_audio": "voice-library/vm04.wav",
+      "reference_sha256": "15acd6152f8cd9549265a90e36b47f9d174daa6779d50e38194c5e6ef2a56794",
+      "reference_text_key": "role",
+      "batch_seed": 2026110203,
+      "batch_index": 0
+    },
+    {
+      "id": "VM05",
+      "group": "male_role",
+      "title": "明亮轻快",
+      "direction": "年轻成年男性，音色明亮，有活力。",
+      "voice_description": "一位二十岁左右的成年男性，明亮略高的青年男声，声质轻而有弹性，较窄而清晰的共鸣，发音利落，句中起伏自然，语气积极，有活力与好奇心，最后的提问轻快但清楚。",
+      "reference_audio": "voice-library/vm05.wav",
+      "reference_sha256": "69595c16ef09ef997591f4f244b3d40faf1aa49c755f23a34f6c24dc383ed3ca",
+      "reference_text_key": "role",
+      "batch_seed": 2026110203,
+      "batch_index": 1
+    },
+    {
+      "id": "VF01",
+      "group": "female_role",
+      "title": "温柔自然",
+      "direction": "青年女性，中音，亲近自然。",
+      "voice_description": "一位二十五岁左右的成年女性，温柔自然的女性中音，声质柔软，音色温暖，发音轻柔而清楚，适度的口腔共鸣，语速舒适。像在身旁与同伴交流，亲切而平等，提问有真实的好奇。",
+      "reference_audio": "voice-library/vf01.wav",
+      "reference_sha256": "bc0bfa521d715fa6ab9104ed3f86c82cea52e1e1beeb757a25ea3bf42b0a54de",
+      "reference_text_key": "role",
+      "batch_seed": 2026110300,
+      "batch_index": 0
+    },
+    {
+      "id": "VF02",
+      "group": "female_role",
+      "title": "清冷低中音",
+      "direction": "成年女性，低中音，理性利落。",
+      "voice_description": "一位三十岁左右的成年女性，偏低的女中音，音色稍冷，声质紧实，带少量细腻的颗粒感，共鸣集中，字头利落，语调克制而明确，表达理性。自然地与对方核对观察结果。",
+      "reference_audio": "voice-library/vf02.wav",
+      "reference_sha256": "5853c268f76e4ddb49925046ac75515a3a750750f90630a15bb86ecdcf4e9782",
+      "reference_text_key": "role",
+      "batch_seed": 2026110300,
+      "batch_index": 1
+    },
+    {
+      "id": "VF03",
+      "group": "female_role",
+      "title": "圆润熟龄",
+      "direction": "成熟女性，中音，圆润耐心。",
+      "voice_description": "一位四十岁左右的成熟女性，饱满圆润的女性中音，声质厚而柔和，音色有自然的熟龄感，气息稳定，句子节奏舒展，语气耐心可靠。像一位熟练工人向同伴解释自己看见的情况。",
+      "reference_audio": "voice-library/vf03.wav",
+      "reference_sha256": "6fde036a750bebcf50b5642a3a2708a4ee8ff17a6ca3c3e273046f9d078db59f",
+      "reference_text_key": "role",
+      "batch_seed": 2026110300,
+      "batch_index": 2
+    },
+    {
+      "id": "VF04",
+      "group": "female_role",
+      "title": "明快高音",
+      "direction": "年轻成年女性，高中音，明快清楚。",
+      "voice_description": "一位二十二岁左右的成年女性，较高而明亮的女性声线，声质清脆，发音位置靠前，有清楚的金属亮度，语气轻快积极，句中起伏丰富但自然，是年轻成年女性的日常交流声音。",
+      "reference_audio": "voice-library/vf04.wav",
+      "reference_sha256": "8609998c74c03d31619a4609610998446313fd95787e0ac6ed3d6b9c8c8ef50d",
+      "reference_text_key": "role",
+      "batch_seed": 2026110303,
+      "batch_index": 0
+    },
+    {
+      "id": "VF05",
+      "group": "female_role",
+      "title": "柔和气声",
+      "direction": "成年女性，中高音，轻柔舒缓。",
+      "voice_description": "一位二十八岁左右的成年女性，中高音区，细腻轻柔的声线，带适度自然气声，声质有丝绒般的柔软感，共鸣较轻，语速稍舒缓，句尾轻轻收住，保持字词清晰，像轻声与身旁的人交谈。",
+      "reference_audio": "voice-library/vf05.wav",
+      "reference_sha256": "a4c6bf4f3de764a61242dfb05300ab627393a6170b8af93d25a455a16015ff11",
+      "reference_text_key": "role",
+      "batch_seed": 2026110303,
+      "batch_index": 1
+    },
+    {
+      "id": "NM01",
+      "group": "male_narration",
+      "title": "男声旁白",
+      "direction": "独立男声，清晰平稳的纪录片讲述。",
+      "voice_description": "一位三十八岁左右的成年男性旁白，宽而清晰的中音，声质平滑干净，气息连贯，口腔共鸣开阔，轻微的明亮鼻腔共鸣，音色沉静而通透。用克制的纪录片讲述方式说明历史背景，重音落在关键信息，段落层次清楚。",
+      "reference_audio": "voice-library/nm01.wav",
+      "reference_sha256": "4cf8703829485198f291e14581bff45baae0216f6b22285be94a8ac36ac6a28b",
+      "reference_text_key": "narration",
+      "batch_seed": 2026110203,
+      "batch_index": 2
+    },
+    {
+      "id": "NF01",
+      "group": "female_narration",
+      "title": "女声旁白",
+      "direction": "独立女声，清楚连贯的知识讲述。",
+      "voice_description": "一位三十五岁左右的成年女性旁白，清晰结实的中音声线，音色洁净明晰，气息支撑充足，发音有精确的字头和连贯的句尾，带少量清亮的头腔共鸣。用平和的知识纪录片讲述方式解释历史背景，语句连贯，重点和停顿清楚。",
+      "reference_audio": "voice-library/nf01.wav",
+      "reference_sha256": "6ac89f3a43c793a87e3a8a57bf5be6c2985bbcd35d7abc24c9672feb5a3001d2",
+      "reference_text_key": "narration",
+      "batch_seed": 2026110303,
+      "batch_index": 2
+    }
+  ],
+  "comparison_references": [
+    {
+      "id": "T00",
+      "group": "original_reference",
+      "title": "托马斯原声",
+      "source": "用户认可的既有生成视频对白节选，原模型未确认",
+      "reference_audio": "voice-library/thomas-original.wav",
+      "reference_sha256": "6a4bfdd899394877c6deb67be2f2659f3bfc31a6f35bca0e19e2279e30f5db71",
+      "reference_text_key": "thomas_original",
+      "continuity_status": "原声对照；新增台词复刻效果需另行试听，不计入12个候选"
+    }
+  ]
+}

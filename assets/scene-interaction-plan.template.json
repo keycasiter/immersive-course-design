@@ -1,0 +1,96 @@
+{
+  "schema_version": "1.1",
+  "experience_profile": "video_led_web",
+  "coverage_scope": "full_course",
+  "continuity": {
+    "primary_guide_identifier": "{{贯穿开场到结课的主引导NPC标识；无角色路线填 null}}",
+    "primary_guide_role": "{{角色目标、职责及怎样回应学习者；无角色路线填 null}}",
+    "continuity_anchor_identifier": "{{无角色路线的系统、对象、事件或资料集标识；第一人称角色路线可填 null}}",
+    "continuity_anchor_role": "{{该锚点怎样承接状态、证据、视点和返回位置；第一人称角色路线可填 null}}",
+    "primary_point_of_view": "learner_first_person",
+    "point_of_view_return_rule": "{{必要全局/微观/对象视点怎样通过同一对象、声音或动作返回第一人称}}",
+    "branch_policy": "local_consequence_then_rejoin",
+    "learner_language_policy": "{{学习者界面使用对象、动作、后果与下一步；内部核查/证据/待审/状态不直接外显}}"
+  },
+  "events": [
+    {
+      "beat_identifier": "beat_practice",
+      "interaction_identifier": "task_practice",
+      "objective_identifiers": ["{{objective_identifier}}"],
+      "event_class": "judgment",
+      "knowledge_action": "{{实际知识动作；不是点击进入}}",
+      "evidence_to_notice": ["{{当前判断所需的对象、条件或关系}}"],
+      "scene_anchor": {
+        "presentation_anchor_reference": null,
+        "object_identifier": "{{画内对象标识}}",
+        "trigger_type": "scene_object",
+        "trigger_description": "{{当前视频帧中的对象、NPC动作、声音线索或事件热区怎样自然打开交互}}",
+        "recognition_cue": "{{实际画面中怎样辨认对象及作用位置}}",
+        "availability": "{{有效窗口、稳定暂停帧、遮挡与手机裁切规则}}"
+      },
+      "surface": {
+        "kind": "object_inspection",
+        "selection_reason": "{{为什么该表面支持本次知识动作}}",
+        "simpler_representation": "{{先检验视频、图示或直接控件能否完成相同证据任务}}"
+      },
+      "information_layers": {
+        "before_action": [
+          {
+            "content": "{{一个当前目标或必要条件的实际文字/画面内容}}",
+            "purpose": "{{为什么当前行动必须先获得；区分学习者已知、角色已知与待验证信息}}",
+            "delivery": "scene_object"
+          }
+        ],
+        "on_demand": [
+          {
+            "content": "{{完整资料与来源入口的实际内容/定位；不标出正确证据}}",
+            "purpose": "{{取证或支持用途，说明取用动作、揭示时机与理解/回应时间}}",
+            "delivery": "scene_object"
+          }
+        ],
+        "after_action": [
+          {
+            "content": "{{针对当前提交的实际反馈，不提前泄露未提交答案}}",
+            "purpose": "{{定位关系缺口或确认成立依据}}",
+            "delivery": "scene_object"
+          }
+        ],
+        "source_access": "{{全文、顺序、条件和引用位置怎样保持可访问}}"
+      },
+      "attention": {
+        "primary_focus": "{{当前主任务、常驻/按需/结果信息和可同时查看的必要对照；保护实际操作区}}",
+        "pause_policy": "pause_on_entry",
+        "conflicting_narration": "pause",
+        "initial_unit_limit": 1,
+        "budget_basis": "{{按目标、先修、设备与必要证据解释本事件的局部意义单元预算}}"
+      },
+      "feedback": {
+        "visible_response": "{{实际对象、证据组织或输出变化，不只是按钮变色}}",
+        "knowledge_response": "{{与所需关系/证据对应的反馈规则及实际内容定位}}",
+        "repair_action": "{{主要误解时能修订什么、重看哪里}}",
+        "scene_connection": "{{结果怎样接回同一人物或现场事务}}",
+        "story_consequence": "{{对象状态、NPC回应、证据集合、后续条件或短视频发生什么真实变化；不能只换反馈文字}}",
+        "branch_rejoin": "{{局部分支在哪个视频事件、第一人称位置和对象状态回归主线}}"
+      },
+      "completion": {
+        "mode": "practice_with_feedback",
+        "evidence_required": true,
+        "evidence_fields": ["claim", "source_reference", "reason"],
+        "decision_rule": "{{什么关系或表现成立才完成；不能只以打开/点击/时长判定}}",
+        "action_only_is_mastery": false,
+        "close_behavior": "hold_pending"
+      },
+      "restoration": {
+        "return_anchor_identifier": "{{同一对象或匹配返回视点}}",
+        "resume_time_reference": "video-event-map.json#beat_practice",
+        "resume_interval_reason": null,
+        "state_fields": ["video_time", "viewpoint", "object_state", "learner_response", "focus", "audio", "captions", "completion"]
+      },
+      "accessibility": {
+        "input_methods": ["keyboard", "touch", "pointer"],
+        "equivalent_action": "{{定位/选择/数值输入等替代精细点击、拖动或旋转}}",
+        "equivalent_evidence": "{{保留相同判断及证据；改变评价条件的帮助另记}}"
+      }
+    }
+  ]
+}

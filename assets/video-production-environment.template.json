@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0",
+  "environment_identifier": "course_video_environment",
+  "recorded_on": "{{日期}}",
+  "defaults": {
+    "video_tool": "TRAE GenerateVideo",
+    "speech_engine": "Qwen3-TTS 1.7B Base with fixed reference",
+    "language": "zh-CN",
+    "production_system": "video-production-system"
+  },
+  "providers": [
+    {
+      "provider_identifier": "trae_video",
+      "tool": "TRAE GenerateVideo",
+      "tool_version": "unknown",
+      "model": "unknown",
+      "capabilities": {
+        "text_to_video": {"status": "unknown", "evidence": []},
+        "image_reference": {"status": "unknown", "evidence": []},
+        "first_frame": {"status": "unknown", "evidence": []},
+        "last_frame": {"status": "unknown", "evidence": []},
+        "video_reference": {"status": "unknown", "evidence": []},
+        "native_audio": {"status": "unknown", "evidence": []},
+        "voice_reference": {"status": "unknown", "evidence": []},
+        "audio_timing": {"status": "unknown", "evidence": []},
+        "audio_driven_lip_synchronization": {"status": "unknown", "evidence": []},
+        "multi_shot": {"status": "unknown", "evidence": []},
+        "extend_forward": {"status": "unknown", "evidence": []},
+        "extend_backward": {"status": "unknown", "evidence": []},
+        "regional_editing": {"status": "unknown", "evidence": []}
+      },
+      "duration_seconds": {"minimum": null, "maximum": null, "allowed_values": []},
+      "output_constraints": {
+        "aspect_ratios": [],
+        "resolutions": [],
+        "watermark_policy": "unknown",
+        "reference_limits": {}
+      },
+      "execution": {
+        "authorization_evidence": "{{既有授权引用}}",
+        "budget_limit": null,
+        "retry_limit": null,
+        "polling_policy": "{{实际通知或查询规则}}",
+        "shared_gpu_policy": "{{不适用或实际协调方式}}"
+      }
+    }
+  ],
+  "quality_detection": {
+    "scan_width_pixels": 480,
+    "pixel_change_threshold": 8,
+    "maximum_mean_difference": 0.015,
+    "maximum_changed_pixel_fraction": 0.000004,
+    "minimum_freeze_seconds": 0.5,
+    "stream_end_tolerance_seconds": 0.1,
+    "speech_silence_threshold_decibels": -50,
+    "speech_silence_minimum_seconds": 0.3
+  }
+}

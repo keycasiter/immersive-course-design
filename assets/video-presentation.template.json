@@ -1,0 +1,45 @@
+{
+  "contract_version": "1.0",
+  "timeline_mode": "composed_single_file",
+  "duration_seconds": 10,
+  "main_video_asset_identifier": "video_main",
+  "main_video_sha256": "{{ACTUAL_VIDEO_SHA256}}",
+  "source_dimensions": {"width": 1920, "height": 1080},
+  "projection": "centered_contain",
+  "atmosphere": {
+    "enabled": true,
+    "purpose": "atmosphere_only",
+    "required_for_learning": false,
+    "cues": [
+      {
+        "identifier": "atmosphere_scene_01",
+        "scene_identifier": "scene_01",
+        "start_seconds": 0,
+        "end_seconds": 10,
+        "motion": "ambient_loop",
+        "cycle_seconds": 8,
+        "transition_seconds": 0,
+        "states": [
+          {"world_state_identifier": "initial", "asset_identifier": "atmosphere_01", "still_asset_identifier": "atmosphere_01_still"}
+        ]
+      }
+    ]
+  },
+  "anchors": [
+    {
+      "identifier": "anchor_object_01",
+      "beat_identifier": "beat_practice",
+      "object_identifier": "object_01",
+      "start_seconds": 2,
+      "end_seconds": 4,
+      "interpolation": "linear",
+      "coordinate_space": "normalized_source_rectangle",
+      "keyframes": [
+        {"presentation_seconds": 2, "rectangle": {"x": 0.2, "y": 0.3, "width": 0.15, "height": 0.25}},
+        {"presentation_seconds": 4, "rectangle": {"x": 0.4, "y": 0.3, "width": 0.15, "height": 0.25}}
+      ],
+      "occlusions": [{"start_seconds": 3, "end_seconds": 3.25}],
+      "fallback": "same_object_accessible_entry"
+    }
+  ]
+}

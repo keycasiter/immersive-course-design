@@ -1,0 +1,389 @@
+{
+  "schema_version": "1.3",
+  "course_identifier": "sample_course",
+  "course_title": "{{课程标题}}",
+  "course_version": "0.1",
+  "learning_core": "{{学完能自己完成什么}}",
+  "experience_design_mode": "imagineering_only",
+  "content_quality": {
+    "schema_version": "1.0",
+    "reference": "content-design-quality.json",
+    "status": "content_review_pending",
+    "selected_candidate_ids": [],
+    "content_review_evidence_references": []
+  },
+  "scope_coverage": {
+    "contract_version": "1.0",
+    "scope_claim": "full_course",
+    "inventory_basis": "{{依据用户要求、指定来源、深度和明确排除范围，说明怎样得到必需内容清单}}",
+    "completeness_rationale": "{{说明这些内容项为何足以构成当前完整课程；不能用场景数量或页面数量作理由}}",
+    "required_content_inventory": [
+      {
+        "content_identifier": "content_core",
+        "title": "{{一个可教、可练或可综合的具体内容项}}",
+        "requirement": "{{学习者必须掌握的概念、事件、过程、关系或判断边界}}",
+        "source_identifiers": ["source_material"],
+        "objective_identifiers": ["objective_core"]
+      }
+    ],
+    "coverage_map": [
+      {
+        "content_identifier": "content_core",
+        "knowledge_identifiers": ["knowledge_core"],
+        "scene_identifiers": [
+          "scene_introduction", "scene_instruction", "scene_practice",
+          "scene_transfer", "scene_summary"
+        ],
+        "beat_identifiers": [
+          "beat_introduction", "beat_instruction", "beat_practice",
+          "beat_transfer", "beat_summary"
+        ],
+        "content_functions": [
+          "orientation", "instruction", "guided_practice",
+          "independent_application", "synthesis"
+        ],
+        "coverage_status": "complete"
+      }
+    ],
+    "excluded_content": [],
+    "deferred_content": []
+  },
+  "opening": {
+    "contract_version": "1.2",
+    "scene_identifier": "scene_introduction",
+      "beat_identifiers": ["beat_introduction"],
+    "course_introduction": "{{面向学习者的本节主题、学习用途和学完能自己完成的动作；实际可听可读正文}}",
+    "background_input": "{{必要背景及实际画面、对白或旁白}}",
+    "prior_knowledge_connection": "{{已有认识连接和按需基础输入}}",
+    "motivating_problem": "{{由具体事件引出的问题}}",
+    "learner_role": "{{学习者与对象、人物或任务的关系}}",
+    "first_action": "{{当前可理解的第一个教学动作}}",
+    "transition": "{{背景与首场的对象、视线、动线、声音或概念衔接}}",
+    "understanding_check": "{{观察或交流：讲什么、对象是什么、为什么做、先做什么；不强制答题、不计知识掌握}}",
+    "experience_entry": {
+      "intensity": "standard",
+      "reality_anchor": "{{进入课程前可理解的现实地点、物件、消息、问题或日常操作}}",
+      "inciting_event": "{{与本课核心问题有因果关系的变化、异常、委托或发现}}",
+      "threshold_transition": "{{转换前状态、连续线索、可感知变化和转换后状态；不只写播放转场}}",
+      "identity_landing": "{{人物回应、工具权限、工作位置或对象移交怎样确认学习者能做什么}}",
+      "first_consequential_action": "{{无需猜未教知识即可完成，且改变对象、记录、设备、人物或下一步状态的动作}}",
+      "persistent_carrier": "{{贯穿教学、练习、反馈与结课并保存学习痕迹的物件、记录、地图、样本、仪表或作品}}",
+      "world_rule_continuity": "{{开场建立的目标、限制、对象和反馈方式怎样继续约束核心练习与结课}}",
+      "accessibility_equivalent": "{{静音、低动态等主动等价路线怎样保持同一目标；必需媒体故障另按重试/阻断处理}}",
+      "skip_replay_reentry": "{{跳过动态、重看和恢复怎样保留必要背景、持续载体、首答与下一动作}}",
+      "design_rationale": "{{为何选择 compact／standard／extended；与学习目标、内容复杂度、设备和制作能力的关系}}"
+    },
+    "orientation_bootstrap": {
+      "assumed_entry_state": "{{默认学习者不了解当前世界、对象、术语、角色和流程；只保留已经验证且本入口会实际激活的先修}}",
+      "host_welcome": "{{人物、主持者、旁白、系统或对象怎样建立课程定位与可回应关系；无角色路线写系统/对象承接，不强制欢迎语或自我介绍}}",
+      "minimal_world_model": "{{用新手可理解的语言说明这个地点/系统通常负责什么、为何重要、正常状态是什么、当前对象处在什么位置；不是百科长讲解}}",
+      "key_objects_and_terms": "{{首动作前必须认识的对象、名称、符号和状态怎样随画面或实物逐一建立含义}}",
+      "learning_journey_preview": "{{说明当前要完成的任务目标、接下来会观察/尝试/修订什么、怎样参与以及最终提交什么；不列制作目录、不泄露答案}}",
+      "role_and_collaboration": "{{学习者、NPC/系统和其他角色分别负责什么，谁提供材料、谁判断、谁执行或回应}}",
+      "first_action_handoff": "{{哪项画面、动作、台词或对象变化在必要信息充分后自然接入第一项有效行动；不要求背景简报}}",
+      "comprehension_safeguard": "{{明确不要求哪些未学背景；看不懂时用什么简短样例、重述、静态图或词义支持补齐，且不把支持算作掌握}}"
+    },
+    "entry_mode": "standalone",
+    "first_task_identifiers": ["task_practice"],
+    "information_units": [
+      {
+        "information_identifier": "opening_course_introduction",
+        "purposes": ["course_introduction", "host_welcome"],
+        "scene_identifier": "scene_introduction",
+        "delivery": "inline",
+        "content_reference": "opening.course_introduction",
+        "presentation_event": "scene_enter",
+        "presentation_reference": "{{实际开篇脚本/镜头/字幕/页面位置；实现后关联同标识的呈现事件}}",
+        "media_resource_identifiers": ["video_introduction"],
+        "equivalent_content": "{{静音或媒体失败时实际呈现的课程定位正文}}",
+        "equivalent_presentation_reference": "{{本地文本或字幕入口及首任务前呈现事件}}",
+        "inherited_context": null
+      },
+      {
+        "information_identifier": "opening_scenario_context",
+        "purposes": ["background", "world_model", "journey_preview", "problem", "learner_role", "first_action"],
+        "scene_identifier": "scene_introduction",
+        "delivery": "inline",
+        "content_reference": "scene.narration",
+        "presentation_event": "scene_enter",
+        "presentation_reference": "{{整体背景、关键对象含义、问题和人物职责接到首动作的实际脚本/镜头/页面位置}}",
+        "media_resource_identifiers": ["video_introduction"],
+        "equivalent_content": "{{本地完整背景、对象含义、问题与行动说明；不能只写请看视频}}",
+        "equivalent_presentation_reference": "{{本地替代正文的位置与先呈现再开放任务的事件}}",
+        "inherited_context": null
+      }
+    ],
+    "essential_terms": [],
+    "reentry_policy": "{{核对当前版本和实际呈现记录；缺失或不匹配时先显示本地背景，再开放任务；可回顾且不清空原答案}}"
+  },
+  "sources": [
+    {
+      "source_identifier": "source_material",
+      "title": "{{教材或原课标题}}",
+      "location": "{{来源位置}}",
+      "version": "{{版本或日期}}",
+      "verification_status": "provided"
+    }
+  ],
+  "learning_objectives": [
+    {
+      "objective_identifier": "objective_core",
+      "statement": "{{可观察的必需学习目标}}",
+      "required": true,
+      "source_identifiers": ["source_material"],
+      "success_criteria": ["{{结果、依据、推理或作品的必要要点}}"],
+      "anticipated_difficulties": ["{{典型误解、技能或解释困难}}"]
+    }
+  ],
+  "knowledge_organization": {
+    "prior_knowledge_check": "{{实际基础诊断、证据不确定时的支持；不是按年龄推断}}",
+    "units": [
+      {
+        "knowledge_identifier": "knowledge_core",
+        "description": "{{具体概念、程序、关系或判断条件}}",
+        "source_identifiers": ["source_material"],
+        "objective_identifiers": ["objective_core"],
+        "assumed_known": false,
+        "teaching_scene_identifiers": ["scene_instruction"]
+      }
+    ],
+    "relations": [],
+    "sequence_rationale": "{{本示例只有一个单元；多单元按真实关系增加relations，区分知识依赖、教学顺序与叙事时间}}",
+    "integration_task_identifiers": ["task_transfer"]
+  },
+  "instructional_design": {
+    "contract_version": "1.0",
+    "whole_task": {
+      "description": "{{贯穿本课、整合多项知识或步骤的真实问题／完整表现；简单课也写最终完整任务}}",
+      "presentation_scene_identifier": "scene_introduction",
+      "learner_output": "{{学习者最终提交的判断、解释、作品或操作}}",
+      "success_standard": "{{完成整任务所需的结果、依据、过程与边界}}",
+      "sequencing_strategy": "demonstration_first",
+      "sequencing_rationale": "{{demonstration_first／attempt_first／mixed 的选择依据；结合先修、任务复杂度、试错代价和诊断价值}}"
+    },
+    "objective_plans": [
+      {
+        "objective_identifier": "objective_core",
+        "knowledge_identifiers": ["knowledge_core"],
+        "teaching_scene_identifiers": ["scene_instruction"],
+        "guidance_and_fading": "{{讲解、示范、引导练习与撤除条件；学生实际独立做哪一步}}",
+        "retrieval_and_spacing": "{{关键关系怎样检索与回访／延后检查；不能实施的范围及理由}}",
+        "transfer_change": "{{新任务保留的关系、变化的材料或条件、适用边界}}",
+        "demonstration": {
+          "decision": "included",
+          "rationale": "{{为何需要完整示范／思维示范／对比例；若不单设，说明基础和风险依据}}",
+          "scene_identifiers": ["scene_instruction"],
+          "content": "{{示范实际做什么、为何这样做、适用条件和怎样自检；不是只写“教师讲解”}}"
+        },
+        "guided_practice_task_identifiers": ["task_practice"],
+        "independent_task_identifiers": ["task_transfer"],
+        "application_conditions": "{{引导练习允许哪些提示，何时撤除；独立应用允许哪些正常资料、工具和无障碍支持}}",
+        "articulation_and_reflection": {
+          "decision": "embedded",
+          "rationale": "{{为何独立成段或嵌入任务；简单事实或程序若不需要单设，写明理由}}",
+          "task_identifiers": ["task_transfer"],
+          "prompt": "{{让学习者表达所用依据、适用条件、与示范差异或仍不确定之处}}"
+        }
+      }
+    ]
+  },
+  "media_resources": [
+    {
+      "resource_identifier": "video_introduction",
+      "media_type": "video",
+      "teaching_role": "progression",
+      "required": true,
+      "production_status": "planned",
+      "file_path": null,
+      "projection": null
+    },
+    {
+      "resource_identifier": "diagram_core",
+      "media_type": "diagram",
+      "teaching_role": "local_exploration",
+      "required": true,
+      "production_status": "planned",
+      "file_path": null,
+      "projection": null
+    }
+  ],
+  "entry_scene_identifier": "scene_introduction",
+  "summary_scene_identifier": "scene_summary",
+  "completion_policy": "{{必需教学任务完成，新情境已尝试并查看反馈；理解结果分别记录}}",
+  "scenes": [
+    {
+      "scene_identifier": "scene_introduction",
+      "beat_identifiers": ["beat_introduction"],
+      "title": "{{背景引入与接受任务}}",
+      "kind": "introduction",
+      "required": true,
+      "objective_identifiers": ["objective_core"],
+      "media_resource_identifiers": ["video_introduction"],
+      "narration": "{{从零背景出发的可录制/可读开场：在首任务前覆盖本路径所需的课程定位、背景、问题、学习者角色和第一动作；可由画面、对象、动作、人物/系统回应和按需说明逐步承担，不固定欢迎、简报和转换顺序}}",
+      "task": null,
+      "next_scene_identifier": "scene_instruction"
+    },
+    {
+      "scene_identifier": "scene_instruction",
+      "beat_identifiers": ["beat_instruction"],
+      "title": "{{观察与讲解}}",
+      "kind": "instruction",
+      "required": true,
+      "objective_identifiers": ["objective_core"],
+      "media_resource_identifiers": ["diagram_core"],
+      "narration": "{{具体知识、模型规则与观察要点}}",
+      "task": null,
+      "next_scene_identifier": "scene_practice"
+    },
+    {
+      "scene_identifier": "scene_practice",
+      "beat_identifiers": ["beat_practice"],
+      "title": "{{核心操作}}",
+      "kind": "practice",
+      "required": true,
+      "objective_identifiers": ["objective_core"],
+      "media_resource_identifiers": ["diagram_core"],
+      "narration": "{{提出实际操作与解释要求}}",
+      "task": {
+        "task_identifier": "task_practice",
+        "pedagogical_role": "core_reasoning",
+        "cognitive_action": "{{学习者必须自己思考哪一步}}",
+        "learning_evidence": "{{答案、依据、推理或作品，不只点击}}",
+        "removal_cost": "{{删掉会失去哪项推理或诊断机会}}",
+        "prompt": "{{实际题目与给定条件}}",
+        "response_type": "constructed_response",
+        "evaluation": {
+          "expected_result": "{{确定结果或开放题评价要点}}",
+          "explanation": "{{结果与原因的必要联系}}"
+        },
+        "feedback": {
+          "success": "{{正确结果与解释}}",
+          "needs_help": "{{具体错误与检查对象}}"
+        },
+        "recovery": {
+          "hints": ["{{对象提示}}", "{{关系提示}}", "{{分步示范}}"],
+          "explanation": "{{完整解释后需学生实际再做}}",
+          "retry_available": true
+        },
+        "outcomes": {
+          "success": "scene_transfer",
+          "needs_help": "scene_practice"
+        }
+      },
+      "next_scene_identifier": null
+    },
+    {
+      "scene_identifier": "scene_transfer",
+      "beat_identifiers": ["beat_transfer"],
+      "title": "{{新情境应用}}",
+      "kind": "transfer",
+      "required": true,
+      "objective_identifiers": ["objective_core"],
+      "media_resource_identifiers": [],
+      "narration": "{{换对象、数据或条件，说明独立尝试}}",
+      "task": {
+        "task_identifier": "task_transfer",
+        "pedagogical_role": "independent_assessment",
+        "cognitive_action": "{{换材料后独立判断或解释}}",
+        "learning_evidence": "{{首次独立依据与推理，记录帮助和修订}}",
+        "removal_cost": "{{失去该目标独立应用的证据}}",
+        "prompt": "{{新的题目与条件}}",
+        "response_type": "constructed_response",
+        "evaluation": {
+          "expected_result": "{{结果或评价要点}}",
+          "explanation": "{{迁移所需理由}}"
+        },
+        "feedback": {
+          "success": "{{联系知识目标的解释}}",
+          "needs_help": "{{错误反馈与回看入口}}"
+        },
+        "recovery": {
+          "hints": ["{{按需提示并记录辅助}}"],
+          "explanation": "{{结课解释与待练内容}}",
+          "retry_available": true
+        },
+        "outcomes": {
+          "success": "scene_summary",
+          "needs_help": "scene_transfer",
+          "continue_after_review": "scene_summary"
+        },
+        "outcome_conditions": {
+          "continue_after_review": ["attempt_saved", "feedback_viewed"]
+        }
+      },
+      "next_scene_identifier": null
+    },
+    {
+      "scene_identifier": "scene_summary",
+      "beat_identifiers": ["beat_summary"],
+      "title": "{{回顾与结课}}",
+      "kind": "summary",
+      "required": true,
+      "objective_identifiers": ["objective_core"],
+      "media_resource_identifiers": [],
+      "narration": "{{展示证据、操作与各目标结果，给出相关回看入口}}",
+      "task": null,
+      "next_scene_identifier": null
+    }
+  ],
+  "evaluation_plan": {
+    "objective_evaluations": [
+      {
+        "objective_identifier": "objective_core",
+        "evidence": "{{与成功标准对应的可观察表现}}",
+        "practice_task_identifiers": ["task_practice"],
+        "independent_task_identifiers": ["task_transfer"],
+        "independent_success_rule": "{{必要依据与推理成立，当前新任务未用该目标提示或答案解释}}",
+        "rubric_reference": "{{量规维度、表现描述、成立／部分成立及边界例的实际位置}}",
+        "assessment_conditions": "{{给定材料、允许工具、知识／操作帮助定义及反馈时机}}"
+      }
+    ],
+    "formative_assessment": [
+      {
+        "task_identifier": "task_practice",
+        "evidence_interpretations": [
+          {
+            "objective_identifier": "objective_core",
+            "observed_response": "{{具体结果、理由或操作表现；按主要困难增加条目}}",
+            "interpretation": "{{对照成功标准的可能缺口，不能由一次答错确定误解}}",
+            "alternative_explanation": "{{计算、表达、控件或语言障碍等；证据不足时怎样补取证}}",
+            "instructional_action": "{{实际说明／对比／示范／支持，及学生自己修订什么}}",
+            "recheck_task_identifier": "task_transfer"
+          }
+        ]
+      }
+    ],
+    "design_review": {
+      "status": "planned",
+      "method": "{{开场、目标、互动思考与证据、任务有效性、反馈、删减损失和注意力成本}}",
+      "evidence_references": []
+    },
+    "learner_trial": {
+      "status": "planned",
+      "method": "{{少量不同先修学习者观察，区分知识与操作困难；不据此承诺效果}}",
+      "evidence_references": []
+    },
+    "learning_effectiveness": {
+      "status": "not_evaluated",
+      "method": "{{学习变化用可比新材料；需要归因时比较版本与条件，记录样本和不确定性；未执行时说明范围}}",
+      "evidence_references": []
+    },
+    "record_fields": [
+      "material_version",
+      "first_response",
+      "assistance_used",
+      "operation_help",
+      "knowledge_help",
+      "feedback_revision",
+      "independent_result",
+      "evidence_interpretation",
+      "instructional_action",
+      "recheck_result",
+      "submission_status",
+      "evaluation_status",
+      "assistance_status",
+      "objective_performance",
+      "evaluation_source"
+    ]
+  }
+}
