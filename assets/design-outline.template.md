@@ -33,7 +33,9 @@
 
 ### 内容候选与收敛
 
-先读取 `references/content-design-quality.md` 和 `assets/content-design-quality.template.json`。围绕每个核心目标至少生成 5 个候选，覆盖至少 3 种问题类型，再记录评分、淘汰理由和最终选择。候选不等于剧情提案；每个候选必须有真实学科动作、学生产物、证据、迁移条件和 Imagineering 增量。
+先读取 `references/contextual-knowledge-weaving.md`，写出会改变核心理解的语境主干；再读取 `references/subject-pedagogy.md` 及当前知识类型，随后读取 `references/content-design-quality.md` 和 `assets/content-design-quality.template.json`。围绕每个核心目标至少生成 5 个候选，覆盖至少 3 种问题类型，再记录评分、淘汰理由和最终选择。候选不等于剧情提案；每个候选必须有真实学科动作、学生产物、证据、迁移条件、语境回返和 Imagineering 增量。
+
+教学选择：{{核心知识难点与具体诊断；至少两种教法及所选理由；主辅表征如何对应；体验关键时刻的声画、动作和后果；撤架后的新材料与独立证据；来源支持范围。与主稿共享记录，已有内容直接引用}}。
 
 | Candidate ID | 问题类型 | 学科动作 | 学生产物 | 迁移条件 | 质量分 | 决定与理由 |
 |---|---|---|---|---|---|---|

@@ -12,14 +12,14 @@
       "objective_identifier": "objective_core",
       "problem_type": "explanation",
       "learner_problem": "replace with a concrete problem",
-      "subject_move": "replace with a real disciplinary action",
-      "key_constraints": ["replace"],
+      "subject_move": "replace with the chosen teaching mechanism and concrete disciplinary action",
+      "key_constraints": ["replace with content conditions and explicit mappings between representations"],
       "learner_actions": ["notice", "compare", "explain", "revise"],
-      "student_product": "replace",
-      "likely_misconceptions": ["replace"],
-      "transfer_condition": "replace",
+      "student_product": "replace with inspectable reasoning, object state or work",
+      "likely_misconceptions": ["replace with the specific knowledge difficulty; mark unobserved diagnosis as a hypothesis"],
+      "transfer_condition": "replace with withdrawn scaffolds and changed relationship, representation or conditions",
       "experience_world": "replace",
-      "immersion_increment": "replace",
+      "immersion_increment": "replace with the key perceptual moment, concrete sound/visual/space decisions and action consequences",
       "source_boundary": ["source_identifier"],
       "quality_scores": {
         "disciplinary_authenticity": 0,
@@ -32,7 +32,7 @@
         "production_feasibility": 0
       },
       "quality_decision": "content_review_pending",
-      "reviewer_notes": []
+      "reviewer_notes": ["replace with a reference to the actual pedagogy comparison, selection rationale and source scope in course-design.md"]
     }
   ],
   "selected_candidate_ids": [],

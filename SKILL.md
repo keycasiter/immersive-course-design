@@ -35,7 +35,7 @@ description: Design, implement, validate, and evaluate immersive lessons. Use fo
 
 ## 3. 当前阶段读取
 
-课程主链为：内容边界 → 候选发散 → 目标与证据 → 示范/引导/独立/修订/迁移 → 体验适配 → 媒体/页面 → 实现与验收。每段边做边保存；[执行入口](references/execution-flow.md)规定该段的最小读取顺序与落盘条件。
+课程主链为：内容边界 → 语境知识图与贯穿线 → 知识点难点与学科教学选择 → 候选发散 → 目标与证据 → 示范/引导/独立/修订/迁移 → 体验适配 → 媒体/页面 → 实现与验收。新课、重大教学改稿及涉及教学方式的分镜生成/评审，在首版剧情与媒体选择前读取[语境知识编织](references/contextual-knowledge-weaving.md)，再读取[学科教学与体验选择](references/subject-pedagogy.md)及适用知识类型；先确定哪些背景、人物、事件、典故、谱系或影响会改变核心理解，再决定怎样教以及用什么世界和工具呈现。每段边做边保存；[执行入口](references/execution-flow.md)规定该段的最小读取顺序与落盘条件。
 
 新建或修订独立评价／迁移任务时执行[评价完整性](references/course-evaluation.md#评价完整性合同)与实质迁移对照；科学观察与机制判断按[学科证据规则](references/subject-interaction-guidance.md#observable-evidence-in-science)核查实际可取得的材料。
 

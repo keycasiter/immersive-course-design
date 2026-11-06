@@ -42,6 +42,7 @@ Skill 维护分支完整执行其入口后交付，在此退出课程流程。�
 
 ```text
 学习情境与内容边界
+→ 知识点难点与学科教学选择
 → 内容候选发散
 → 学习目标与成功证据
 → 教学序列：示范/引导/独立/修订/迁移
@@ -114,11 +115,11 @@ Skill 维护分支完整执行其入口后交付，在此退出课程流程。�
 
 ## 3. 从知识推导体验与教学
 
-必读[内容设计质量与 Imagineering 路由](references/content-design-quality.md)、[知识到体验](references/knowledge-to-immersive-experience.md)、[知识组织](references/knowledge-organization.md)、[教学设计](references/instructional-design.md)、[学科交互](references/subject-interaction-guidance.md)与[课程评价](references/course-evaluation.md)。
+首轮已读的[学科教学与体验选择](references/subject-pedagogy.md)及适用知识类型继续作为教法依据；未覆盖知识点按该 owner 定点补查。必读[内容设计质量与 Imagineering 路由](references/content-design-quality.md)、[知识到体验](references/knowledge-to-immersive-experience.md)、[知识组织](references/knowledge-organization.md)、[教学设计](references/instructional-design.md)、[学科交互](references/subject-interaction-guidance.md)与[课程评价](references/course-evaluation.md)。
 
 固定推导链，保持课程方案开放：
 
-`目标与未知点 → 知识对象、关系与边界 → 学习者动作 → 证据 → 承载世界/事务 → 视角与权限 → 视频事件 → 互动、反馈、修订与返回 → 新条件下独立应用`
+`目标与未知点 → 知识对象、关系与边界 → 学科难点、教学机制与表征桥梁 → 学习者动作 → 证据 → 体验关键时刻 → 承载世界/事务 → 视角与权限 → 视频事件 → 互动、反馈、修订与返回 → 新条件下独立应用`
 
 至少比较两个结构不同的承载候选。先选择 `experience_design_mode`，再设计世界、人物、视角、技术与互动；Imagineering 负责体验与生产层，PBL 仅在筛分适配时启用。每项必需目标落实适当讲解/示范、引导练习、帮助撤除、针对性反馈、补救再做与独立应用。
 
@@ -218,6 +219,7 @@ delivery endpoint、acceptance status 与 accepted scope 分别记录，不能�
 |---|---|
 | 知识载体矩阵、完整 Demo 覆盖 | [知识载体与 Demo](references/knowledge-surface-and-demo-contract.md) |
 | 内容候选发散、质量评分、Imagineering 体验增量 | [内容设计质量与 Imagineering 路由](references/content-design-quality.md) |
+| 新课、重大教学改稿、教学分镜的首版生成或教法评审 | [学科教学与体验选择](references/subject-pedagogy.md)及其按知识类型路由的指南 |
 | 沉浸构建、逐项评判、真实体验测量、全程或背景比较 | [沉浸设计取证与体验评价](references/immersion-evaluation.md) |
 | 浏览器运行时、时钟与 seeking | [视频网页运行](references/video-led-web-course.md)、[实现落地](references/implementation-playbook.md) |
 | 页面动态背景、逐帧热区、投影或遮挡 | [呈现、背景与锚点契约](references/video-presentation-contract.md) |

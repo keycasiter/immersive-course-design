@@ -16,9 +16,9 @@
 
 ### 第一次：实际课程主稿
 
-首轮只读用户来源、[澄清门](clarification-gate.md)和[内容设计质量](content-design-quality.md)。据已知输入创建 `clarification-intake.md` 与 `course-design.md`，再进入后续参考。
+首轮读取用户来源、[澄清门](clarification-gate.md)、[语境知识编织](contextual-knowledge-weaving.md)、[内容设计质量](content-design-quality.md)，以及[学科教学与体验选择](subject-pedagogy.md)路由的适用知识类型。具名作品、人物、事件、理论或发明缺少背景输入时，先按语境 owner 做有限定向检索并保存 `context_source_packet`；未提供资料不等于背景不适用。随后完成语境图与贯穿线，再完成知识点难点、教法比较、表征桥梁和体验关键时刻，之后固定剧情与媒体；不通读全部学科指南。据已知输入创建 `clarification-intake.md` 与 `course-design.md`，再进入后续参考。
 
-主稿写实际内容边界、核心目标的候选与取舍、独立表现、示范/引导/独立教学链、持续事务及必需节点的首版材料、台词、动作和反馈。事实与情境创作分开；缺项集中列入核验区，不在每个场景重复风险和未执行声明。按[大胆设计、小心求证](content-design-quality.md#大胆设计小心求证)先完成鲜明、具体的课堂，再把版本状态、确认和证据限制集中写入 `verification.md`。已知资料、题干或反馈直接写正文，不能只有章节名和待办清单。
+主稿写实际内容边界、语境图中候选联系与选中主干、核心目标的候选与取舍、独立表现、示范/引导/独立教学链、持续事务及必需节点的首版材料、台词、动作和反馈。选中的背景必须连接核心材料、揭示时刻、学生使用和后续回返；事实与情境创作分开。缺项集中列入核验区，不在每个场景重复风险和未执行声明。按[大胆设计、小心求证](content-design-quality.md#大胆设计小心求证)先完成鲜明、具体的课堂，再把版本状态、确认和证据限制集中写入 `verification.md`。已知资料、题干或反馈直接写正文，不能只有章节名和待办清单。
 
 候选发散在世界、剧情与媒体规格之前完成。`content_review_pending` 等状态如实保留；自拟分数用于比较候选，不冒充教师审批。
 
@@ -30,7 +30,7 @@
 
 | 正在补的模块 | 对应读取 |
 |---|---|
-| 来源、目标覆盖、知识关系与教学链 | 阶段参考 §2—3；`work-scope.md`、`knowledge-organization.md`、`instructional-design.md`、`knowledge-to-immersive-experience.md`、`subject-interaction-guidance.md` 的适用学科 |
+| 来源、语境主干、目标覆盖、知识关系与教学链 | 阶段参考 §2—3；`work-scope.md`、`contextual-knowledge-weaving.md`、`knowledge-organization.md`、`instructional-design.md`、`knowledge-to-immersive-experience.md`；复用首轮 `subject-pedagogy.md` 的教学选择，再用 `subject-interaction-guidance.md` 映射界面 |
 | 体验候选、Imagineering 增量、PBL 适配 | 阶段参考 §3；`imagineering-for-learning.md`、`pbl-fit-screening.md`；其他组合只在实际选择后读取 |
 | 开场与持续事务 | 阶段参考 §4；`situated-entry-and-world-transition.md`、`course-opening.md`、`narrative-scale-and-perspective.md`、`experience-framing-and-learner-language.md` |
 | 逐 Beat 分镜、对白、资料、分支、反馈和恢复 | 阶段参考 §4；`narrative-storyboard-integration.md`、`storyboard-review.md`、`experience-blueprint.md`、`storyboard-and-interaction-spec.md`、`beat-production-specification.md`、`spoken-language-and-review.md`；人物出现时读人物契约 |

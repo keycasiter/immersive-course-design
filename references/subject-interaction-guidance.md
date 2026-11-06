@@ -1,13 +1,15 @@
 # Subject Interaction Guidance
 
-This file owns subject-specific interaction guidance. It does not provide page templates. It routes each knowledge target to an object, learner action, interaction surface, feedback contract and acceptance evidence.
+This file owns subject-specific interaction implementation guidance. It does not provide page templates or select a pedagogy from a subject label. Before selecting surfaces, use [subject pedagogy](subject-pedagogy.md) and its applicable knowledge-type guide to diagnose the difficulty, compare teaching mechanisms, map representations and design the key experience. This file then routes that choice to an object, learner action, interaction surface, feedback contract and acceptance evidence.
 
 ## Routing contract
 
 For every target, resolve:
 
 ```text
-subject context
+subject context and knowledge difficulty
+→ selected teaching mechanism and representation mapping
+→ intended perceptual experience
 → knowledge object
 → required learner action
 → visible evidence
@@ -67,7 +69,7 @@ Subject labels never select an interaction by themselves. The same subject may u
 ## Interaction selection rules
 
 1. Start with the action and evidence, not the subject label.
-2. Use the lowest-complexity surface that preserves the intended action.
+2. Optimize surface complexity only after preserving both the intended knowledge action and the explicit perceptual experience; text carrying the same facts is not automatically experience-equivalent.
 3. Prefer scene-bound manipulation for spatial, procedural and causal knowledge.
 4. Use bounded choices when the answer is deterministic and the evidence is visible.
 5. Use structured editing when the learner must organize or revise a finite structure.
