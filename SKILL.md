@@ -1,57 +1,50 @@
 ---
 name: immersive-course-design
-description: Design, produce and evaluate immersive learning through video, real-time 3D or hybrid experiences. Use for course design/revision, student Demos, media production, learner trials and Skill maintenance. Preserve learning evidence, authorized endpoints and actual confirmations.
+description: 设计、制作与打磨以Three.js实时场景为主的沉浸式学习，让学习者通过观察、第一人称或其他适合的视点、探索、对话和行动理解内容。用于新课、体验改编、代表场景、完整课程与本Skill维护。
 ---
 
 # 沉浸式学习设计与制作
 
-从学习目标、知识动作和可观察证据推导教学，再推导世界、媒体和互动。先确定本轮能完成的阶段，完成一段实际工作并保存，再加载下一段材料。新课与重大改稿执行[大胆设计、小心求证](references/content-design-quality.md#大胆设计小心求证)：创作层作出鲜明选择，证据层集中核对，不让防御性声明淹没课程正文。
+学习者进入一个有具体内容的情境，通过看、听、靠近、查看、换视点、对话与参与事件，在现场回应中形成理解。场景、人物、资料与交互共同承载内容。新课采用代码生成的Three.js实时主场景；GLB、Blender和预渲染影片不作为前提。
 
-## 1. 派发
+## 先确定当前工作
 
-| 当前要求 | 先读的执行入口 | 本轮完成条件 |
-|---|---|---|
-| 优化本 Skill、路由、模板或校验器 | [Skill 维护](references/skill-maintenance.md)，同时使用 writing-for-agents | 授权维护实际更新启用目录并完成相关回归；仅审查保存问题和证据 |
-| 单独生成/审阅教学分镜，或用多案例优化分镜 | [分镜独立审阅](references/storyboard-review.md)；维护同时进入 Skill 维护 | 实际分镜、范围与字节绑定、正文诊断及适用复测；不触发整课生产 |
-| 参考外部课件、借鉴案例或扩充跨学科候选 | [外部课件参考库](references/external-courseware-reference-library.md)，再进入当前设计/分镜 owner | 标明实际观察层级、所用体验族、抽象结构与未验证范围 |
-| 新课、重大改稿、设计稿、Demo | [执行与持续落盘](references/execution-flow.md) §1—2 | 先复用明确输入，完成可审设计，再按有效确认进入授权终点 |
-| 评测既有设计、Demo、沉浸或验收主张 | [执行与持续落盘](references/execution-flow.md) §3 | 实际检查与版本证据、持续保存的报告、未执行项及可用结论 |
-| 局部页面、媒体、台词或互动修改 | [工作范围](references/work-scope.md)，再读[执行与持续落盘](references/execution-flow.md) §1、4 | 修改覆盖授权范围，更新受影响的绑定、确认和检查 |
-| 实时3D、程序动画、空间/机制教具或视频混合课程 | [空间学习生产](references/spatial-learning-production.md)，契约见[场景与状态](references/spatial-learning-contract.md) | 按授权阶段完成学科规则、候选正式画质、操作/反馈和状态恢复；实现仍经过既有门禁 |
-| 已确认设计的实现、媒体生产、启动或试学 | [执行与持续落盘](references/execution-flow.md) §4 | 从最早失效阶段恢复，达到已授权终点并保存真实证据 |
+| 请求 | 当前交付与读取 |
+|---|---|
+| 设计、改编或审阅体验 | [体验设计](references/experience-design.md)、[语境与学科](references/content-and-context.md)；写完整可感知主稿，按需读取其他参考 |
+| 制作代表场景或全课 | [生产流程](references/production-workflow.md)、[场景契约](references/scene-contract.md)；复用已有授权，从最早未完成阶段继续 |
+| 人物、声音、页面或运行修复 | 定向读取[人物声音](references/character-and-sound.md)、[页面](references/page-and-accessibility.md)或[运行契约](references/runtime-contract.md)，复验受影响范围 |
+| 评价体验或验收主张 | [真实验收](references/validation.md)、[体验走访](references/experience-review.md)，记录实际观察与未覆盖条件 |
+| 更新Skill、模板或校验 | [维护](references/skill-maintenance.md)和[同步约定](AGENTS.md)；不自动制作课程 |
 
-维护分支完成后退出课程流程。具体课程只作隔离验证样例，不写入通用规则。
+已明确的输入与授权直接沿用。缺少会改变内容、参与方式或成本的决定时才询问；普通可逆选择自行落实。局部场景只报告其覆盖范围，完整课以实际内容清单核对全量覆盖。
 
-## 2. 阶段门
+## 体验与制作边界
 
-新课与重大改稿先执行[澄清门](references/clarification-gate.md)。充分明确输入直接引用原证据；未决且会改变方案的决定才询问。设计草稿可继续完成，人类确认绑定实际版本。
+- 以内容与参与动机组织体验，不编排题目、练习、考试、评分、标准答案或答对解锁。自然对话和选择带来现场回应，不伪装成隐蔽测验。探索与查看不强制制造正误、重做或全部热区打卡。
+- 真实资料、学科规则、解释与创作分开。数学/科学关系从可靠规则求值；演示性抬起、剖切、尺度或时间变化明确含义，不从视觉猜出事实。
+- Three.js负责主场景及其对象。长文、公式、资料、对话与必要控件使用清晰的网页层；直接操作不强制套模态弹窗，也不统一固定版式。
+- 调用已安装的`threejs-anime-short`时先读其SKILL，再按问题读取资产、程序化生成、渲染、动作和验收参考。技术方法在该Skill维护；本Skill负责教学情境、参与与交接。学习参考的原理/生成方法/流程，为当前对象独立实现，不直接搬参考角色、场景或专用源码。
+- 代表场景必须使用候选最终品质，并成为成品的一部分；不另做无目标试片。画风、景别和设备标准逐课确定，不以顶点数、特效数、文件存在或脚本通过代替质感。
 
-- 设计稿终点是 `design_draft`；静态预览使用 `static_design_prototype` 标签。
-- Demo 实现同时要求有效澄清、`content_approved` 与 `design_confirmed`。缺确认时先交完整可审设计和确认事项。
-- 完整 Demo 按[工作范围](references/work-scope.md)与[Demo 契约](references/knowledge-surface-and-demo-contract.md)覆盖全课；唯一可延期工作由 `video_only_delta` 限定。
-- 正式成品生产要求 `demo_accepted` 与适用最难媒体闭环确认。
-- Agent 与脚本只记录真实授权、观察和执行结果；教师确认、审阅校准、真实学习者证据按各 owner 执行。
+## 制作顺序
 
-字段、状态及版本有效性按[归属表](references/contract-ownership.md)。终点、当前进度和验收状态分别报告。
+1. **完整体验设计**：核对内容、来源、学习者背景和设备，选择能使核心关系可感知的情境、视点与参与方式。写实际画面、台词、声音、对象行为和自然接续；入口补足场景、人物、对象与首动作背景。详见[设计](references/experience-design.md)。
+2. **落实结构与规则**：用[场景计划2.0](assets/scene-plan.template.json)维护一份语义来源；[编译器](scripts/compile_experience.py)派生可读主稿与运行索引。设计正文与实现配置分区，实际验收另存；同一事实/互动只维护一处。字段见[契约](references/scene-contract.md)。
+3. **确认设计并完成代表场景**：设计确认绑定真实内容。选最能暴露全课风险的成品场景，完成“进入—观察/参与—可见变化/自然回应—继续/返回”，检验形体、光色、动作、声音与设备/恢复风险。确认后扩展全课，不先要求全课Demo。确认规则见[生产与版本](references/production-and-version.md)。
+4. **全量制作与复验**：角色、物件、镜头、交互、声音共用对象/事件标识与状态。局部改动查受影响部分，合并和交付再查完整连续性与内容覆盖。连续两次同类修正失败时重查表示与前置设计，停止同层调参。
+5. **真实验收与交付**：规则检查、原尺寸画面、连续动作、CUA/MCP实际参与路径、声音与性能分别取证。只保存目标页面视口；导出帧不冒充交互证据。交付实际入口、当前阶段与覆盖条件；真实学习者走访观察感受、参与和理解联系，不把观看/点击换算掌握率。
 
-## 3. 当前阶段读取
+制作确认集中在完整设计与代表场景两处；修复使实现符合已确认设计、补截图或普通排版调整不重复确认。改变教学含义或已确认表现约定时只重开受影响范围。用户的现有明确授权优先，工具/付费/发布按实际授权执行。
 
-课程主链为：内容边界 → 语境知识图与贯穿线 → 知识点难点与学科教学选择 → 候选发散 → 目标与证据 → 示范/引导/独立/修订/迁移 → 体验适配 → 媒体/页面 → 实现与验收。新课、重大教学改稿及涉及教学方式的分镜生成/评审，在首版剧情与媒体选择前读取[语境知识编织](references/contextual-knowledge-weaving.md)，再读取[学科教学与体验选择](references/subject-pedagogy.md)及适用知识类型；先确定哪些背景、人物、事件、典故、谱系或影响会改变核心理解，再决定怎样教以及用什么世界和工具呈现。每段边做边保存；[执行入口](references/execution-flow.md)规定该段的最小读取顺序与落盘条件。
+## 按问题补读
 
-新建或修订独立评价／迁移任务时执行[评价完整性](references/course-evaluation.md#评价完整性合同)与实质迁移对照；科学观察与机制判断按[学科证据规则](references/subject-interaction-guidance.md#observable-evidence-in-science)核查实际可取得的材料。
+| 问题 | 参考 |
+|---|---|
+| 场景入口、角色/对象连续、事件动机与分镜 | [情境与分镜](references/situation-and-storyboard.md) |
+| 从文字/结构规格落实造型、光影与参与 | [空间制作](references/spatial-production.md) |
+| 既有图片/资料/声音、权利与保存 | [来源与资产](references/sources-and-assets.md) |
+| 当前工具、语言和声音偏好 | [项目配置](references/project-production-profile.md)，工具可用性由当前环境核对 |
+| 借鉴优秀案例与技术实现 | [参考研究](references/reference-research.md)，研究范围不自动启动制作 |
 
-完整阶段要求保留在 [COURSE-PIPELINE.md](COURSE-PIPELINE.md)。进入对应阶段时读取其相关节及 owner；字段缺口定点查 owner、模板或脚本 `--help`。实现或生产阶段的全文、模板与环境探测在其触发后加载。
-
-`video_led_web` 必须使用[视频主舞台契约](references/video-surface-contract.md)：播放态视频主导，控制与章节按需显示；暂停态围绕同一视频事件只打开一个当前判断和主动作；反馈、关闭后回到原事件。生成页面前使用视频模板并完成 `video_led_visual_gate`，实际检查按阶段参考 §6—8 执行。
-
-教学编排、学科规则与视觉制作分层：本Skill负责目标、先修、任务/补救、独立应用和评价；确定性规则负责对象关系、允许操作和判定；`threejs-anime-short`负责把结构规格落实为造型、材质/光色、镜头、动画与运行证据。学科模型同时供给画面、标签和反馈，播放完成与学习掌握分别记录。
-
-选择体验路线时按[工作范围派发](references/work-scope.md)：`video_led_web`沿用真实视频主舞台；`spatial_native_web`允许实时教具成为主媒体；`hybrid_web`逐场指定主媒体和桥接。3D可由程序化源码、DCC资产或混合制作，不强制GLB，不把代码量/顶点数当质量。读取技术Skill当前入口并按问题加载，不复制其全文；通用技术归技术Skill，教学/场景交接归本Skill。
-
-## 4. 完成与交付
-
-课程设计达到[颗粒度标准](references/design-detail-standard.md)，全量内容有来源、教学、反馈、撤架和新材料独立任务。完整范围、教学质量、沉浸计划、版本绑定及全部适用结构检查保持原 owner 要求。
-
-设计检查按阶段参考 §5 与[生产清单](references/production-manifest.md)执行；完整 Demo 和功能课程按阶段参考 §6—8 执行全部适用页面、媒体、浏览器与无障碍检查。结构 valid、页面可打开及自动化操作通过分别报告，不替代语义或真实学习效果。
-
-交付链接指向实际文件或运行入口。写明授权终点、当前阶段、完成内容、实际检查、未执行项、确认事项和限制；首份工作快照不自动算完整交付。仍有已授权且可执行的工作，继续完成。
+版本2.0是体验驱动的新合同。历史课程留在原版本，新流程不自动迁移历史包；当前活动Skill不维护旧视频/考核流水线。

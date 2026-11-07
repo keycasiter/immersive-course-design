@@ -1,0 +1,68 @@
+{
+  "schema_version": "2.0",
+  "experience_identifier": "sample_experience",
+  "experience_version": "0.1",
+  "profile": "threejs_experience",
+  "learning": {
+    "title": "{{课程标题}}",
+    "learner_context": "{{先修、语言、设备/学习场景、已知支持需要与未知项}}",
+    "experience_promise": "{{学生将进入哪里、感受什么、怎样参与及逐渐理解什么}}",
+    "understanding_focus": ["{{核心对象、关系或处境，不写考试表现}}"],
+    "audio_enabled": false,
+    "audio_rationale": "{{本课有声/无声设计及必要信息的等价呈现}}",
+    "sources": [
+      {"source_identifier": "source_core", "title": "{{实际来源}}", "reference": "{{版本、页码或直接来源}}", "supports": "{{支持范围与不确定项}}", "verification_status": "provided"}
+    ],
+    "required_content": [
+      {"content_identifier": "content_core", "description": "{{必需体验的内容}}", "source_identifiers": ["source_core"]}
+    ],
+    "entry_scene_identifier": "scene_entry",
+    "characters": [],
+    "objects": [
+      {"object_identifier": "object_core", "meaning": "{{对象是什么、为何与内容相关}}", "source_identifiers": ["source_core"], "rule_identifiers": []}
+    ],
+    "rules": [],
+    "scenes": [
+      {
+        "scene_identifier": "scene_entry",
+        "title": "{{当前场景}}",
+        "required": true,
+        "content_identifiers": ["content_core"],
+        "object_identifiers": ["object_core"],
+        "character_identifiers": [],
+        "orientation": "{{实际入口背景、参与身份、对象含义、首动作与支持；无人物时由现场/旁白/界面自然建立}}",
+        "perception": {"see": "{{具体看见什么及关键变化}}", "hear": "{{实际声音或无声等价}}", "relationship": "{{这段体验使哪一关系可感知}}"},
+        "events": [
+          {"event_identifier": "event_discovery", "trigger": "{{进入/时间/对象行动的实际触发}}", "visible_change": "{{对象、人物或信息的实际变化/回应}}", "sound_resource_identifier": null}
+        ],
+        "interactions": [
+          {"interaction_identifier": "inspect_core", "kind": "inspect", "target_identifier": "object_core", "invitation": "{{自然邀请或可发现入口}}", "response": "{{实际展开资料、对白或可感知信息}}", "visible_consequence": "{{行动在现场产生的响应}}", "emits_event_identifier": "event_discovery", "accessibility_equivalent": "{{键盘/触摸/低动态等价参与}}"}
+        ],
+        "progression": {"next_scene_identifiers": [], "required_event_identifiers": ["event_discovery"], "rationale": "{{内容/事件与参与接续依据；不要求全点热区或答对}}"}
+      }
+    ],
+    "accessibility": {"keyboard": "{{主要动作的键盘路径}}", "reduced_motion": "{{分步状态保留变化关系}}", "silent": "{{必要声音信息等价}}", "graphics_failure": "{{重试/经确认同目标路径及恢复}}"}
+  },
+  "presentation": {
+    "style_goal": "{{具体画风与空间/声场目标}}",
+    "structure_goal": "{{主形、比例、厚度/连接、中层与可读细节}}",
+    "lighting_and_materials": "{{光影如何揭示形体、材料与主次}}",
+    "viewpoint_policy": "{{第一人称/俯视/剖面等用途、切换连续与舒适度}}",
+    "typography_and_safety": "{{文字、单位、标签与关键对象安全区}}",
+    "target_devices": [{"device_identifier": "desktop", "viewport": {"width": 1280, "height": 720}, "acceptance_goal": "{{本课可读、操作/加载与运行预算及检查方式}}"}],
+    "character_profiles": [],
+    "scene_views": [{"scene_identifier": "scene_entry", "camera_and_projection": "{{主视点和目标景别}}", "attention_target": "object_core", "detail_and_motion": "{{近景结构、对象动作与目标像素稳定性}}"}]
+  },
+  "resources": [],
+  "implementation": {
+    "engine": "threejs",
+    "engine_version": "{{实际锁定版本}}",
+    "entry_file": "index.html",
+    "source_files": ["src/main.mjs"],
+    "bindings": [{"interaction_identifier": "inspect_core", "locator": "{{对象/可访问控件定位}}", "handler": "{{对应实现函数}}"}],
+    "rule_bindings": [],
+    "state_api": {"evaluate": "{{完整求值入口}}", "act": "{{动作与世界规则入口}}", "snapshot": "{{保存状态入口}}", "restore": "{{核对版本并恢复入口}}"},
+    "clock_policy": "{{主场景/音频时钟所有者、暂停和局部声音接续}}",
+    "lifecycle_policy": "{{准备、释放、上下文丢失/恢复和依赖失败}}"
+  }
+}

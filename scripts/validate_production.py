@@ -1,675 +1,234 @@
 #!/usr/bin/env python3
-"""Validate immersive-course production status and governance metadata."""
-
+"""Validate evidence structure and file provenance; never certify aesthetics or learning."""
 import argparse
-import hashlib
 import json
 import re
-import sys
+import struct
 from pathlib import Path
-from contract_checks import placeholder_paths
+from experience_contract import STAGES, design_digest, file_digest, representative_digest, runtime_digest, validate_plan
 
+DOMAINS = {'content':'content_review','visual':'visual_review','motion':'motion_review','interaction':'cua_operation','accessibility':'cua_operation','recovery':'cua_operation','performance':'performance_review','audio':'audio_review','rule':'command_run'}
+CUA_ACTIONS = {'enter','inspect','approach','viewpoint','follow','manipulate','dialogue','choose','read','return','replay','restore','keyboard','touch','mute','reduced_motion','resize','context_restore'}
 
-IDENTIFIER = re.compile(r"^[a-z][a-z0-9]*(?:[_-][a-z0-9]+)*$")
-PLACEHOLDER = re.compile(r"\{\{.+?\}\}|\bTBD\b", re.IGNORECASE)
-STATUSES = [
-    "design_draft",
-    "design_confirmed",
-    "media_sample_confirmed",
-    "production_complete",
-    "functional_accepted",
-    "learner_trial_complete",
-    "effect_evaluated",
-]
-EVIDENCE_TYPES = {
-    "sourced_fact", "reasoned_inference", "teaching_scenario", "unverified"
-}
-ASSET_STATUSES = ["planned", "draft", "ready", "accepted"]
-PRIVACY_STATUSES = {"pending", "not_applicable", "reviewed"}
-ACCESSIBILITY_STATUSES = {"planned", "tested", "accepted"}
-SUBJECT_GATES = {
-    "design": "design_confirmation",
-    "media_contract": "media_sample_confirmation",
-    "media_sample": "media_sample_confirmation",
-}
-DESIGN_COMPONENTS = {
-    "learning_objectives", "teaching_content", "task_evaluation",
-    "remediation", "independent_application",
-}
-SHA256 = re.compile(r"^[0-9a-f]{64}$")
-
-
-def json_pointer(value, pointer):
-    """Select an explicit JSON subtree; never silently ignore missing content."""
-    if not isinstance(pointer, str) or (pointer and not pointer.startswith("/")):
-        raise ValueError(f"Invalid JSON pointer: {pointer!r}")
-    for token in pointer.split("/")[1:] if pointer else []:
-        if re.search(r"~(?![01])", token):
-            raise ValueError(f"Invalid JSON pointer escape: {pointer!r}")
-        token = token.replace("~1", "/").replace("~0", "~")
-        if isinstance(value, dict):
-            value = value[token]
-        elif isinstance(value, list) and re.fullmatch(r"0|[1-9][0-9]*", token):
-            value = value[int(token)]
-        else:
-            raise ValueError(f"JSON pointer does not resolve: {pointer!r}")
-    return value
-
-
-def canonical_digest(value):
-    payload = json.dumps(value, ensure_ascii=False, sort_keys=True,
-                         separators=(",", ":"), allow_nan=False)
-    return hashlib.sha256(payload.encode("utf-8")).hexdigest()
-
-
-def file_digest(path):
-    checksum = hashlib.sha256()
-    with path.open("rb") as stream:
-        for chunk in iter(lambda: stream.read(1024 * 1024), b""):
-            checksum.update(chunk)
-    return checksum.hexdigest()
-
-
-def approval_fingerprint(data, subject, base_directory):
-    """Hash current scoped content. This never creates or updates an approval."""
-    evidence = {entry["reference_identifier"]: entry for entry in data["evidence_files"]}
-
-    def resolve(path_value):
-        path = Path(path_value)
-        return path if path.is_absolute() else base_directory / path
-
-    materials = []
-    for material in subject["materials"]:
-        source = material["source"]
-        mode = material["fingerprint_mode"]
-        if source not in ("manifest", "evidence_file") or mode not in ("bytes", "json"):
-            raise ValueError("Invalid approval material source or fingerprint mode")
-        if source == "manifest" and mode != "json":
-            raise ValueError("Manifest approval material requires json mode")
-        if source == "manifest":
-            value = data
-        else:
-            path = resolve(evidence[material["reference_identifier"]]["path"])
-            if mode == "bytes":
-                digest = file_digest(path)
-            else:
-                value = json.loads(path.read_text(encoding="utf-8"))
-        if mode == "json":
-            pointers = material["json_pointers"]
-            digest = canonical_digest([
-                {"pointer": pointer, "value": json_pointer(value, pointer)}
-                for pointer in pointers
-            ])
-        materials.append({**material, "content_sha256": digest})
-
-    payload = {
-        "course_identifier": data["course_identifier"],
-        "scope_identifier": subject["scope_identifier"],
-        "kind": subject["kind"],
-        "subject_version": subject["subject_version"],
-        "scope": subject["scope"],
-        "covered_identifiers": subject["covered_identifiers"],
-        "components": subject.get("components", []),
-        "materials": materials,
-    }
-    if "depends_on_scope_identifiers" in subject:
-        payload["depends_on_scope_identifiers"] = subject["depends_on_scope_identifiers"]
-    if subject["kind"] == "design" and "content_design" in data:
-        from validate_content_quality import manifest_content_fingerprint
-        payload["content_design"] = manifest_content_fingerprint(data, base_directory)
-    if subject["kind"] == "media_contract":
-        payload["visual_bible"] = data["visual_bible"]
-        contract = data["media_production_contract"]
-        payload["media_production_contract"] = contract
-        for reference_kind in ("voice", "visual"):
-            payload[f"{reference_kind}_references"] = [
-                {"reference_identifier": reference,
-                 "content_sha256": file_digest(resolve(evidence[reference]["path"]))}
-                for reference in contract[f"{reference_kind}_reference_identifiers"]
-            ]
-    elif subject["kind"] == "media_sample":
-        sample = data["representative_sample"]
-        delivery_type = data.get("work_scope", {}).get("learner_delivery_type")
-        if not sample["covered_asset_identifiers"] and \
-                delivery_type in ("interactive_web", "linear_media"):
-            raise ValueError("Representative sample has no covered assets")
-        payload["sample"] = {
-            key: sample[key] for key in (
-                "sample_identifier", "interaction_path", "covered_asset_identifiers")
-        }
-        for key in ("media_modes", "candidate_asset_versions", "risk_coverage"):
-            if key in sample:
-                payload["sample"][key] = sample[key]
-        assets = {asset["asset_identifier"]: asset for asset in data["assets"]}
-        payload["sample_files"] = []
-        for identifier in sample["covered_asset_identifiers"]:
-            asset = assets[identifier]
-            if not asset["files"]:
-                raise ValueError(f"Sample asset has no files: {identifier}")
-            payload["sample_files"].append({
-                "asset_identifier": identifier,
-                "files": [
-                    {**entry, "content_sha256": file_digest(resolve(entry["path"]))}
-                    for entry in asset["files"]
-                ],
-            })
-        payload["sample_evidence"] = [
-            {
-                "reference_identifier": reference,
-                "content_sha256": file_digest(resolve(evidence[reference]["path"])),
-            }
-            for reference in sample.get("acceptance_evidence_references", [])
-        ]
-    elif subject["kind"] == "demo":
-        from demo_contract import demo_fingerprint_payload
-        payload["demo_delivery"] = demo_fingerprint_payload(data, base_directory)
-    return canonical_digest(payload)
-
-
-def validate(data, base_directory, allow_placeholders=False, allow_missing_files=False):
-    if isinstance(data, dict) and "work_scope" in data:
-        from production_contract import validate_contract
-        return validate_contract(data, base_directory, allow_placeholders,
-                                 allow_missing_files, validate_structure)
-    return ["Manifest must use the current production-manifest structure"]
-
-
-def validate_structure(data, base_directory, allow_placeholders=False, allow_missing_files=False):
-    errors = []
-
-    def require(condition, message):
-        if not condition:
-            errors.append(message)
-
-    def text(value):
-        return isinstance(value, str) and bool(value.strip())
-
-    def obj(value, label):
-        require(isinstance(value, dict), f"{label} must be an object")
-        return value if isinstance(value, dict) else {}
-
-    def items(value, label, allow_empty=False):
-        require(isinstance(value, list), f"{label} must be a list")
-        result = value if isinstance(value, list) else []
-        require(allow_empty or bool(result), f"{label} cannot be empty")
+def validate_manifest(manifest, plan, base, previous=None):
+    errors = validate_plan(plan)
+    if errors: return errors
+    base = Path(base).resolve()
+    def need(ok, message):
+        if not ok: errors.append(message)
+    def txt(value): return isinstance(value,str) and bool(value.strip())
+    def rows(value, field):
+        if not isinstance(value,list): errors.append(field+' must be array'); return []
+        need(all(isinstance(x,dict) for x in value),field+' requires objects')
+        return [x for x in value if isinstance(x,dict)]
+    def index(value, field, label):
+        result={}
+        for row in rows(value,label):
+            key=row.get(field)
+            if not txt(key): errors.append(label+' missing '+field); continue
+            need(key not in result,label+' duplicate '+key); result[key]=row
         return result
-
-    if not isinstance(data, dict):
-        return ["Manifest must be a JSON object"]
-
-    identifier = data.get("course_identifier")
-    require(isinstance(identifier, str) and bool(IDENTIFIER.fullmatch(identifier)),
-            "Invalid course_identifier")
-    require(text(data.get("course_version")), "course_version must be non-empty text")
-
-    current_status = data.get("current_status")
-    require(current_status in STATUSES, "Invalid current_status")
-    current_index = STATUSES.index(current_status) if current_status in STATUSES else 0
-    history = items(data.get("status_history"), "status_history")
-    history_statuses = [
-        entry.get("status") for entry in history if isinstance(entry, dict)
-    ]
-    require(history_statuses == STATUSES[:current_index + 1],
-            "status_history must be the exact non-skipping prefix through current_status")
-
-    evidence_files = {}
-    for index, raw in enumerate(items(data.get("evidence_files"), "evidence_files")):
-        entry = obj(raw, f"evidence_files[{index}]")
-        reference = entry.get("reference_identifier")
-        require(isinstance(reference, str) and bool(IDENTIFIER.fullmatch(reference)),
-                f"evidence_files[{index}] has invalid reference_identifier")
-        if isinstance(reference, str):
-            require(reference not in evidence_files, f"Duplicate evidence reference: {reference}")
-            evidence_files[reference] = entry
-        require(text(entry.get("kind")), f"evidence_files[{index}] missing kind")
-        path_value = entry.get("path")
-        require(text(path_value), f"evidence_files[{index}] missing path")
-        if text(path_value):
-            path = Path(path_value)
-            path = path if path.is_absolute() else base_directory / path
-            if not allow_missing_files:
-                require(path.is_file(), f"Evidence file does not exist: {path_value}")
-
-    def evidence_refs(value, label, allow_empty=False):
-        refs = items(value, label, allow_empty)
-        for reference in refs:
-            require(isinstance(reference, str) and reference in evidence_files,
-                    f"{label} unknown evidence reference: {reference}")
-
-    for index, raw in enumerate(history):
-        entry = obj(raw, f"status_history[{index}]")
-        require(text(entry.get("recorded_at")), f"status_history[{index}] missing recorded_at")
-        evidence_refs(entry.get("evidence_references"),
-                      f"status_history[{index}].evidence_references")
-
-    learner = obj(data.get("learner_profile"), "learner_profile")
-    for key in ("prior_knowledge", "device_and_context", "accessibility_needs", "unknowns"):
-        values = items(learner.get(key), f"learner_profile.{key}")
-        require(all(text(value) for value in values),
-                f"learner_profile.{key} requires non-empty text entries")
-    require(text(learner.get("language")), "learner_profile.language must be non-empty")
-
-    registry = items(data.get("evidence_registry"), "evidence_registry")
-    seen_evidence = set()
-    for index, raw in enumerate(registry):
-        entry = obj(raw, f"evidence_registry[{index}]")
-        evidence_identifier = entry.get("evidence_identifier")
-        require(isinstance(evidence_identifier, str) and
-                bool(IDENTIFIER.fullmatch(evidence_identifier)),
-                f"evidence_registry[{index}] has invalid evidence_identifier")
-        if isinstance(evidence_identifier, str):
-            require(evidence_identifier not in seen_evidence,
-                    f"Duplicate evidence identifier: {evidence_identifier}")
-            seen_evidence.add(evidence_identifier)
-        evidence_type = entry.get("type")
-        require(isinstance(evidence_type, str) and evidence_type in EVIDENCE_TYPES,
-                f"evidence_registry[{index}] has invalid type")
-        require(text(entry.get("statement")), f"evidence_registry[{index}] missing statement")
-        sources = items(entry.get("source_references"),
-                        f"evidence_registry[{index}].source_references", True)
-        if evidence_type == "sourced_fact":
-            require(bool(sources), f"{evidence_identifier} sourced_fact needs source_references")
-        if isinstance(evidence_type, str) and evidence_type in {"reasoned_inference", "teaching_scenario"}:
-            require(text(entry.get("basis")), f"{evidence_identifier} needs basis")
-        if evidence_type == "unverified":
-            require(text(entry.get("follow_up")), f"{evidence_identifier} needs follow_up")
-
-    gates = obj(data.get("approval_gates"), "approval_gates")
-    for key, required_index in (
-            ("design_confirmation", 1), ("media_sample_confirmation", 2)):
-        gate = obj(gates.get(key), f"approval_gates.{key}")
-        expected_confirmed = current_index >= required_index
-        expected_status = "confirmed" if expected_confirmed else "pending"
-        require(gate.get("status") == expected_status,
-                f"approval_gates.{key}.status must be {expected_status}")
-
-    visual_bible = obj(data.get("visual_bible"), "visual_bible")
-    require(text(visual_bible.get("style_goal")), "visual_bible.style_goal is required")
-    for key in ("character_references", "environment_references",
-                "camera_and_composition", "exclusions"):
-        values = items(visual_bible.get(key), f"visual_bible.{key}")
-        require(all(text(value) for value in values),
-                f"visual_bible.{key} requires non-empty text entries")
-    evidence_refs(visual_bible.get("evidence_references"),
-                  "visual_bible.evidence_references")
-
-    sample = obj(data.get("representative_sample"), "representative_sample")
-    require(text(sample.get("sample_identifier")),
-            "representative_sample.sample_identifier is required")
-    require(text(sample.get("selection_reason")),
-            "representative_sample.selection_reason is required")
-    path = items(sample.get("interaction_path"), "representative_sample.interaction_path")
-    require(all(text(value) for value in path),
-            "representative_sample.interaction_path requires non-empty entries")
-    sample_assets = items(sample.get("covered_asset_identifiers"),
-                          "representative_sample.covered_asset_identifiers", True)
-    if current_index >= 2:
-        delivery_type = data.get("learner_delivery_type")
-        require(
-            bool(sample_assets) or
-            delivery_type in ("facilitated_instruction", "print_or_document"),
-            "Confirmed representative sample must cover assets unless delivery uses "
-            "a representative implementation or document walkthrough",
-        )
-        evidence_refs(sample.get("acceptance_evidence_references"),
-                      "representative_sample.acceptance_evidence_references")
-
-    assets = {}
-    for index, raw in enumerate(items(data.get("assets"), "assets")):
-        asset = obj(raw, f"assets[{index}]")
-        asset_identifier = asset.get("asset_identifier")
-        require(isinstance(asset_identifier, str) and
-                bool(IDENTIFIER.fullmatch(asset_identifier)),
-                f"assets[{index}] has invalid asset_identifier")
-        if isinstance(asset_identifier, str):
-            require(asset_identifier not in assets, f"Duplicate asset: {asset_identifier}")
-            assets[asset_identifier] = asset
-        require(text(asset.get("kind")), f"{asset_identifier} missing kind")
-        require(isinstance(asset.get("required"), bool), f"{asset_identifier} required must be boolean")
-        require(text(asset.get("teaching_role")), f"{asset_identifier} missing teaching_role")
-        status = asset.get("status")
-        require(status in ASSET_STATUSES, f"{asset_identifier} invalid status")
-
-        provenance = obj(asset.get("provenance"), f"{asset_identifier}.provenance")
-        governance = obj(asset.get("governance"), f"{asset_identifier}.governance")
-        accessibility = obj(asset.get("accessibility"), f"{asset_identifier}.accessibility")
-        acceptance = obj(asset.get("acceptance"), f"{asset_identifier}.acceptance")
-        for field in ("origin", "tool_and_model", "prompt_or_process_reference"):
-            require(text(provenance.get(field)), f"{asset_identifier}.provenance missing {field}")
-        items(provenance.get("source_assets"), f"{asset_identifier}.provenance.source_assets", True)
-        for field in ("rights_basis", "learner_disclosure", "retention"):
-            require(text(governance.get(field)), f"{asset_identifier}.governance missing {field}")
-        require(isinstance(governance.get("privacy_review_status"), str) and
-                governance.get("privacy_review_status") in PRIVACY_STATUSES,
-                f"{asset_identifier} invalid privacy_review_status")
-        for field in ("learning_goal", "equivalent_path"):
-            require(text(accessibility.get(field)),
-                    f"{asset_identifier}.accessibility missing {field}")
-        require(isinstance(accessibility.get("status"), str) and
-                accessibility.get("status") in ACCESSIBILITY_STATUSES,
-                f"{asset_identifier} invalid accessibility status")
-
-        files = items(asset.get("files"), f"{asset_identifier}.files", True)
-        if isinstance(status, str) and status in {"ready", "accepted"}:
-            require(bool(files), f"{asset_identifier} {status} asset needs files")
-            for file_index, file_entry in enumerate(files):
-                file_obj = obj(file_entry, f"{asset_identifier}.files[{file_index}]")
-                file_path = file_obj.get("path")
-                require(text(file_path), f"{asset_identifier} file missing path")
-                if text(file_path):
-                    resolved = Path(file_path)
-                    resolved = resolved if resolved.is_absolute() else base_directory / resolved
-                    if not allow_missing_files:
-                        require(resolved.is_file(),
-                                f"{asset_identifier} file does not exist: {file_path}")
-        if status == "accepted":
-            checks = items(acceptance.get("checks"), f"{asset_identifier}.acceptance.checks")
-            require(all(text(value) for value in checks),
-                    f"{asset_identifier}.acceptance.checks needs text")
-            evidence_refs(acceptance.get("evidence_references"),
-                          f"{asset_identifier}.acceptance.evidence_references")
-            require(isinstance(governance.get("privacy_review_status"), str) and
-                    governance.get("privacy_review_status") in {"not_applicable", "reviewed"},
-                    f"{asset_identifier} accepted asset needs privacy review")
-            require(accessibility.get("status") == "accepted",
-                    f"{asset_identifier} accepted asset needs accepted equivalent path")
-        if asset.get("kind") == "linear_video":
-            delivery = obj(asset.get("delivery"), f"{asset_identifier}.delivery")
-            if delivery.get("formal_linear_video") is True and status == "accepted":
-                for field in ("embedded_voice", "environment_and_action_audio",
-                              "separate_web_audio_stems", "separate_branch_audio"):
-                    require(delivery.get(field) is True,
-                            f"{asset_identifier} accepted formal video requires {field}=true")
-
-    for asset_identifier in sample_assets:
-        require(isinstance(asset_identifier, str) and asset_identifier in assets,
-                f"representative_sample unknown asset: {asset_identifier}")
-    if current_index >= 3:
-        for asset_identifier, asset in assets.items():
-            if asset.get("required") is True:
-                require(asset.get("status") == "accepted",
-                        f"production_complete requires accepted asset: {asset_identifier}")
-
-    contract = obj(data.get("media_production_contract"), "media_production_contract")
-    for key in ("voice_rules", "lip_synchronization_rules", "continuity_rules",
-                "equivalent_path_rules"):
-        require(text(contract.get(key)), f"media_production_contract missing {key}")
-    require(isinstance(contract.get("voice_present"), bool),
-            "media_production_contract.voice_present must be boolean")
-    evidence_refs(contract.get("voice_reference_identifiers"),
-                  "media_production_contract.voice_reference_identifiers", True)
-    evidence_refs(contract.get("visual_reference_identifiers"),
-                  "media_production_contract.visual_reference_identifiers", True)
-    if current_index >= 0:
-        if current_index >= 2 and contract.get("voice_present") is True:
-            require(bool(contract.get("voice_reference_identifiers")),
-                    "Confirmed media contract with voices requires actual voice references")
-
-        subjects = {}
-        subject_kinds = set()
-        for index, raw in enumerate(items(data.get("approval_subjects"), "approval_subjects")):
-            label = f"approval_subjects[{index}]"
-            subject = obj(raw, label)
-            scope_identifier = subject.get("scope_identifier")
-            require(isinstance(scope_identifier, str) and
-                    bool(IDENTIFIER.fullmatch(scope_identifier)),
-                    f"{label} has invalid scope_identifier")
-            if isinstance(scope_identifier, str):
-                require(scope_identifier not in subjects,
-                        f"Duplicate approval scope: {scope_identifier}")
-                subjects[scope_identifier] = subject
-            kind = subject.get("kind")
-            require(isinstance(kind, str) and kind in SUBJECT_GATES,
-                    f"{label} invalid kind")
-            if isinstance(kind, str):
-                subject_kinds.add(kind)
-            for field in ("subject_version", "scope"):
-                require(text(subject.get(field)), f"{label} missing {field}")
-            covered = items(subject.get("covered_identifiers"), f"{label}.covered_identifiers")
-            require(all(text(value) for value in covered),
-                    f"{label}.covered_identifiers needs non-empty text")
-            if kind == "design":
-                components = items(subject.get("components"), f"{label}.components")
-                require(all(isinstance(value, str) for value in components) and
-                        DESIGN_COMPONENTS.issubset(
-                            value for value in components if isinstance(value, str)),
-                        f"{label}.components must cover goals, content, task evaluation, "
-                        "remediation and independent application")
-            materials = items(subject.get("materials"), f"{label}.materials",
-                              kind in ("media_contract", "media_sample") and current_index < 2)
-            for material_index, raw_material in enumerate(materials):
-                material_label = f"{label}.materials[{material_index}]"
-                material = obj(raw_material, material_label)
-                source = material.get("source")
-                mode = material.get("fingerprint_mode")
-                require(source in ("evidence_file", "manifest"),
-                        f"{material_label} invalid source")
-                require(mode in ("bytes", "json"), f"{material_label} invalid fingerprint_mode")
-                if source == "evidence_file":
-                    reference = material.get("reference_identifier")
-                    require(isinstance(reference, str) and reference in evidence_files,
-                            f"{material_label} unknown evidence reference: {reference}")
-                elif source == "manifest":
-                    require(mode == "json", f"{material_label} manifest source requires json mode")
-                if mode == "json":
-                    pointers = items(material.get("json_pointers"),
-                                     f"{material_label}.json_pointers")
-                    require(all(isinstance(pointer, str) and
-                                (not pointer or pointer.startswith("/")) for pointer in pointers),
-                            f"{material_label} invalid JSON pointers")
-                    if source == "manifest":
-                        permitted = ("/learner_profile", "/visual_bible",
-                                     "/media_production_contract", "/evaluation_capabilities",
-                                     "/experience_profile/profile_identifier",
-                                     "/experience_profile/outline_reference",
-                                     "/experience_profile/beat_identifiers",
-                                     "/experience_profile/trace_matrix_reference")
-                        require(all(isinstance(pointer, str) and
-                                    any(pointer == prefix or pointer.startswith(prefix + "/")
-                                        for prefix in permitted) for pointer in pointers),
-                                f"{material_label} manifest pointers must select subject content, "
-                                "not approval or status metadata")
-            changes = items(subject.get("editorial_changes"), f"{label}.editorial_changes", True)
-            require(kind != "media_sample" or not changes,
-                    f"{label}: actual sample changes cannot use an editorial exception")
-            for change_index, raw_change in enumerate(changes):
-                change_label = f"{label}.editorial_changes[{change_index}]"
-                change = obj(raw_change, change_label)
-                for field in ("approved_sha256", "current_sha256"):
-                    value = change.get(field)
-                    require(isinstance(value, str) and bool(SHA256.fullmatch(value)),
-                            f"{change_label} invalid {field}")
-                for field in ("recorded_by", "recorded_at", "reason"):
-                    require(text(change.get(field)), f"{change_label} missing {field}")
-                require(change.get("classification") == "non_semantic_editorial",
-                        f"{change_label} only non_semantic_editorial changes qualify")
-                evidence_refs(change.get("evidence_references"),
-                              f"{change_label}.evidence_references")
-        require(set(SUBJECT_GATES).issubset(subject_kinds),
-                "approval_subjects must include design, media_contract and media_sample scopes")
-
-        for gate_key, required_index in (
-                ("design_confirmation", 1), ("media_sample_confirmation", 2)):
-            gate = obj(gates.get(gate_key), f"approval_gates.{gate_key}")
-            confirmations = items(gate.get("confirmations"),
-                                  f"approval_gates.{gate_key}.confirmations", True)
-            by_scope = {}
-            for confirmation_index, raw_confirmation in enumerate(confirmations):
-                label = f"approval_gates.{gate_key}.confirmations[{confirmation_index}]"
-                confirmation = obj(raw_confirmation, label)
-                scope_identifier = confirmation.get("scope_identifier")
-                require(isinstance(scope_identifier, str) and scope_identifier in subjects,
-                        f"{label} unknown approval scope")
-                if not isinstance(scope_identifier, str) or scope_identifier not in subjects:
-                    continue
-                require(scope_identifier not in by_scope,
-                        f"{label} duplicate confirmation for {scope_identifier}")
-                by_scope[scope_identifier] = confirmation
-                subject = subjects[scope_identifier]
-                kind = subject.get("kind")
-                require(isinstance(kind, str) and SUBJECT_GATES.get(kind) == gate_key,
-                        f"{label} scope belongs to another gate")
-                for field in ("confirmed_by", "confirmed_at", "confirmed_version"):
-                    require(text(confirmation.get(field)), f"{label} missing {field}")
-                approved_digest = confirmation.get("content_sha256")
-                require(isinstance(approved_digest, str) and
-                        bool(SHA256.fullmatch(approved_digest)),
-                        f"{label} invalid content_sha256")
-                evidence_refs(confirmation.get("evidence_references"),
-                              f"{label}.evidence_references")
-                require(confirmation.get("confirmed_version") == subject.get("subject_version"),
-                        f"{scope_identifier}: confirmed_version does not match subject_version")
-                try:
-                    actual_digest = approval_fingerprint(data, subject, base_directory)
-                except (OSError, ValueError, KeyError, IndexError, TypeError) as exc:
-                    require(False, f"{scope_identifier}: cannot fingerprint approval content: {exc}")
-                    continue
-                changes = subject.get("editorial_changes")
-                changes = changes if isinstance(changes, list) else []
-                editorial_matches = [
-                    change for change in changes
-                    if isinstance(change, dict) and
-                    change.get("approved_sha256") == approved_digest and
-                    change.get("current_sha256") == actual_digest and
-                    change.get("classification") == "non_semantic_editorial"
-                ]
-                require(actual_digest == approved_digest or
-                        (kind != "media_sample" and len(editorial_matches) == 1),
-                        f"{scope_identifier}: approval content changed; "
-                        "affected scope requires reconfirmation")
-            if current_index >= required_index:
-                expected_scopes = {
-                    identifier for identifier, subject in subjects.items()
-                    if isinstance(subject.get("kind"), str) and
-                    SUBJECT_GATES.get(subject["kind"]) == gate_key
-                }
-                require(expected_scopes.issubset(by_scope),
-                        f"{gate_key}: missing confirmations for "
-                        f"{sorted(expected_scopes.difference(by_scope))}")
-
-    capabilities = obj(data.get("evaluation_capabilities"), "evaluation_capabilities")
-    deterministic = items(capabilities.get("deterministic_checks"),
-                          "evaluation_capabilities.deterministic_checks", True)
-    require(all(text(value) for value in deterministic),
-            "deterministic_checks requires text entries")
-    open_review = obj(capabilities.get("open_response_review"), "open_response_review")
-    require(isinstance(open_review.get("mode"), str) and
-            open_review.get("mode") in {"self_review", "human_review", "verified_ai"},
-            "open_response_review.mode is invalid")
-    require(text(open_review.get("rubric_reference")),
-            "open_response_review.rubric_reference is required")
-    ai_evaluation = obj(capabilities.get("ai_evaluation"), "ai_evaluation")
-    require(isinstance(ai_evaluation.get("enabled"), bool),
-            "ai_evaluation.enabled must be boolean")
-    require(text(ai_evaluation.get("uncertainty_statement")),
-            "ai_evaluation.uncertainty_statement is required")
-    require(text(ai_evaluation.get("fallback")), "ai_evaluation.fallback is required")
-    if ai_evaluation.get("enabled") is True:
-        evidence_refs(ai_evaluation.get("validation_evidence_references"),
-                      "ai_evaluation.validation_evidence_references")
-    require((open_review.get("mode") == "verified_ai") ==
-            (ai_evaluation.get("enabled") is True),
-            "verified_ai mode and ai_evaluation.enabled must agree")
-
-    records = obj(data.get("learning_records"), "learning_records")
-    require(isinstance(records.get("storage"), str) and
-            records.get("storage") in {"local_only", "remote"},
-            "learning_records.storage is invalid")
-    for field in ("purpose_and_disclosure", "retention", "export_path", "deletion_path"):
-        require(text(records.get(field)), f"learning_records missing {field}")
-    require(isinstance(records.get("identity_linked"), bool),
-            "learning_records.identity_linked must be boolean")
-    require(isinstance(records.get("upload_enabled"), bool),
-            "learning_records.upload_enabled must be boolean")
-    minimum_fields = items(records.get("minimum_fields"), "learning_records.minimum_fields")
-    require(all(text(value) for value in minimum_fields),
-            "learning_records.minimum_fields requires text")
-    if records.get("storage") == "local_only":
-        require(records.get("upload_enabled") is False,
-                "local_only learning records cannot enable upload")
-    if records.get("upload_enabled") is True or records.get("identity_linked") is True:
-        require(records.get("storage") == "remote",
-                "uploaded or identity-linked records require remote storage declaration")
-
-    if current_index >= 4:
-        require(any(entry.get("kind") == "functional_acceptance"
-                    for entry in evidence_files.values()),
-                "functional_accepted requires a functional_acceptance evidence file")
-    if current_index >= 5:
-        require(any(entry.get("kind") == "learner_trial"
-                    for entry in evidence_files.values()),
-                "learner_trial_complete requires a learner_trial evidence file")
-    if current_index >= 6:
-        require(any(entry.get("kind") == "effect_evaluation"
-                    for entry in evidence_files.values()),
-                "effect_evaluated requires an effect_evaluation evidence file")
-
-    if not allow_placeholders:
-        for field in placeholder_paths(data):
-            errors.append(f"{field}: unfilled template or TBD marker")
+    def identifiers(value, allowed, label, nonempty=False):
+        if not isinstance(value,list): errors.append(label+' must be array'); return set()
+        valid=[x for x in value if isinstance(x,str)]
+        need(len(valid)==len(value) and len(valid)==len(set(valid)),label+' invalid or duplicate identifiers')
+        need(set(valid)<=set(allowed),label+' unknown reference')
+        need(not nonempty or bool(valid),label+' is empty')
+        return set(valid)
+    def checked_file(row,label):
+        path=row.get('path'); sha=row.get('content_sha256')
+        if not txt(path) or not isinstance(sha,str) or not re.fullmatch('[0-9a-f]{64}',sha):
+            errors.append(label+' needs path and SHA256'); return None
+        target=(base/path).resolve()
+        try:
+            need(target.is_file() and target.stat().st_size>0,label+' missing or empty file')
+            if target.is_file(): need(file_digest(target)==sha,label+' hash mismatch')
+            return target if target.is_file() else None
+        except OSError as e: errors.append(label+' file unavailable: '+str(e)); return None
+    if not isinstance(manifest,dict): return ['manifest must be object']
+    m=manifest
+    need(m.get('schema_version')=='2.0','manifest schema_version must be 2.0')
+    for key in ('experience_identifier','experience_version'): need(m.get(key)==plan.get(key),'manifest '+key+' differs from plan')
+    stage=m.get('current_status'); need(stage in STAGES,'invalid current_status')
+    level=STAGES.index(stage) if stage in STAGES else 0
+    scenes={s['scene_identifier']:s for s in plan['learning']['scenes']}
+    required={sid for sid,s in scenes.items() if s['required']}
+    devices={d['device_identifier']:d for d in plan['presentation']['target_devices']}
+    files=index(m.get('files'),'file_identifier','files')
+    rep=m.get('representative')
+    if not isinstance(rep,dict): errors.append('representative must be object'); rep={}
+    selected=identifiers(rep.get('scene_identifiers'),scenes,'representative.scene_identifiers',True)
+    candidates=index(rep.get('candidate_files'),'file_identifier','candidate_files')
+    for label, group in [('files',files),('candidate_files',candidates)]:
+        for key,f in group.items():
+            checked_file(f,label+'.'+key)
+            need(f.get('role') in ('entry','source','resource','reference'),label+' invalid role')
+    if level>=2:
+        need(bool(candidates),'representative needs frozen candidate files')
+        need(any(f.get('role')=='entry' for f in candidates.values()),'candidate needs entry')
+        paths={f.get('path') for f in files.values() if txt(f.get('path'))}
+        expected={plan['implementation']['entry_file'],*plan['implementation']['source_files'],*[r['file'] for r in plan['resources']]}
+        need(expected<=paths,'current files coverage must include entry, all source and resources')
+    evidence=index(m.get('evidence'),'evidence_identifier','evidence')
+    receipts={}
+    for eid,e in evidence.items():
+        path=checked_file(e,'evidence.'+eid)
+        if path:
+            try:
+                value=json.loads(path.read_text())
+                if not isinstance(value,dict): raise ValueError('receipt must be object')
+                receipts[eid]=value
+                need(value.get('kind')==e.get('kind'),'evidence kind mismatch: '+eid)
+            except (OSError,ValueError) as ex: errors.append('invalid receipt '+eid+': '+str(ex))
+    approvals=rows(m.get('approvals'),'approvals')
+    approval_index=index(approvals,'approval_identifier','approvals')
+    if previous is not None:
+        old=previous.get('approvals',[]) if isinstance(previous,dict) else None
+        need(isinstance(old,list) and approvals[:len(old)]==old,'approval history must preserve previous prefix')
+    for a in approvals:
+        signer=a.get('confirmed_by')
+        need(txt(signer) and not re.search(r'\b(agent|codex|script|assistant|automation)\b|智能体|脚本|自动签',signer,re.I),'approval requires actual human confirmation')
+        need(a.get('kind') in ('design','representative'),'approval invalid kind')
+        need(txt(a.get('confirmed_at')),'approval missing time')
+        receipt=receipts.get(a.get('evidence_identifier')) if isinstance(a.get('evidence_identifier'),str) else None
+        need(isinstance(receipt,dict) and receipt.get('kind')=='human_confirmation','approval missing human confirmation evidence')
+        if receipt:
+            for key in ('confirmed_by','confirmed_at','subject_sha256'): need(receipt.get(key)==a.get(key),'approval evidence differs: '+key)
+            need(txt(receipt.get('confirmation_text')),'confirmation needs actual text/reference')
+    checks=index(m.get('checks'),'check_identifier','checks')
+    sample_checks=identifiers(rep.get('check_identifiers'),checks,'representative.check_identifiers',level>=2)
+    def active(kind,subject,minimum):
+        ref=m.get('active_'+kind+'_approval')
+        if ref is None and level<minimum: return
+        a=approval_index.get(ref) if isinstance(ref,str) else None
+        need(a is not None and a.get('kind')==kind,kind+' approval missing')
+        if a: need(a.get('subject_sha256')==subject,kind+' fingerprint differs from confirmed subject')
+    active('design',design_digest(plan),1)
+    try: sample_digest=representative_digest(plan,rep,list(checks.values()),list(evidence.values()))
+    except (TypeError,ValueError,KeyError): sample_digest=None; errors.append('representative fingerprint input invalid')
+    active('representative',sample_digest,2)
+    current_digest=runtime_digest(list(files.values())) if files and all(all(k in f for k in ('path','content_sha256')) for f in files.values()) else None
+    candidate_digest=runtime_digest(list(candidates.values())) if candidates and all(all(k in f for k in ('path','content_sha256')) for f in candidates.values()) else None
+    coverage={}
+    for cid,c in checks.items():
+        domain=c.get('domain'); need(isinstance(domain,str) and domain in DOMAINS,cid+' invalid domain')
+        scope=identifiers(c.get('scene_identifiers'),scenes,cid+'.scenes',True)
+        refs=identifiers(c.get('evidence_identifiers'),evidence,cid+'.evidence',c.get('status')=='passed')
+        need(c.get('status') in ('pending','passed','failed','blocked','superseded'),cid+' invalid status')
+        need(txt(c.get('scope')),cid+' scope required')
+        bound=set(); device_coverage=set(); tested_actions=set()
+        if c.get('status')!='passed': continue
+        need(bool(refs),cid+' passed needs real evidence')
+        for ref in refs:
+            r=receipts.get(ref)
+            if not r: continue
+            kind=DOMAINS.get(domain) if isinstance(domain,str) else None
+            need(r.get('kind')==kind,cid+' incorrect evidence kind')
+            if r.get('kind')!=kind: continue
+            if kind=='command_run':
+                need(r.get('execution_status')=='completed' and type(r.get('exit_code')) is int and r['exit_code']==0,cid+' command did not pass')
+                need(r.get('inputs_unchanged') is True,cid+' command changed bound inputs')
+                need(isinstance(r.get('command'),list) and bool(r['command']),cid+' needs real command')
+                for time in ('cwd','started_at','finished_at'): need(txt(r.get(time)),cid+' command missing '+time)
+                record_path=(base/evidence[ref]['path']).resolve()
+                for stream in ('stdout','stderr'):
+                    name=r.get(stream+'_reference'); sha=r.get(stream+'_sha256')
+                    log=record_path.parent/name if isinstance(name,str) else None
+                    need(log is not None and log.is_file() and file_digest(log)==sha,cid+' command log hash mismatch')
+                inputs=rows(r.get('input_snapshots'),cid+'.input_snapshots')
+                need(bool(inputs),cid+' command inputs missing')
+                input_paths=set()
+                for inp in inputs:
+                    target=checked_file(inp,cid+'.input')
+                    if target: input_paths.add(target)
+                bindings={b['rule_identifier']:b['source_file'] for b in plan['implementation']['rule_bindings']}
+                rules=[x for x in plan['learning']['rules'] if x.get('test_check_identifier')==cid and x['verification']=='executable']
+                need(bool(rules),cid+' executable rule binding missing')
+                need(all((base/bindings[x['rule_identifier']]).resolve() in input_paths for x in rules),cid+' rule source not bound to actual command')
+                continue
+            need(r.get('result')=='passed' and txt(r.get('observed_result')) and txt(r.get('reviewed_by')),cid+' needs actual observations and reviewer')
+            receipt_scope=identifiers(r.get('scene_identifiers'),scenes,cid+'.receipt.scenes',True)
+            need(scope<=receipt_scope,cid+' receipt scene coverage incomplete')
+            artifacts=rows(r.get('artifacts'),cid+'.artifacts'); need(bool(artifacts),cid+' artifacts missing')
+            for art in artifacts: checked_file(art,cid+'.artifact')
+            if kind=='audio_review': need(any(a.get('kind')=='audio' for a in artifacts),cid+' audio listening needs audio artifact')
+            rd=r.get('runtime_digest')
+            need(isinstance(rd,str) and bool(re.fullmatch('[0-9a-f]{64}',rd)),cid+' runtime digest missing/invalid')
+            if isinstance(rd,str): bound.add(rd)
+            if kind=='cua_operation':
+                need(r.get('tool') in ('cua','mcp'),cid+' requires actual CUA/MCP operation')
+                for key in ('target_url','captured_at'): need(txt(r.get(key)),cid+' CUA missing '+key)
+                did=r.get('device_identifier'); device=devices.get(did) if isinstance(did,str) else None
+                need(device is not None and r.get('viewport')==device['viewport'],cid+' CUA viewport/device mismatch')
+                if device: device_coverage.add(did)
+                actions=rows(r.get('actions'),cid+'.actions'); need(bool(actions),cid+' CUA actions missing')
+                targets={x for sid in scope for x in scenes[sid]['object_identifiers']+scenes[sid]['character_identifiers']}|set(scenes)
+                for a in actions:
+                    need(a.get('kind') in CUA_ACTIONS if isinstance(a.get('kind'),str) else False,cid+' CUA action invalid')
+                    need(a.get('target_identifier') in targets if isinstance(a.get('target_identifier'),str) else False,cid+' CUA target unknown')
+                    need(txt(a.get('observed_result')),cid+' CUA response missing')
+                    aid=a.get('interaction_identifier')
+                    if aid is not None:
+                        declared={x['interaction_identifier']:x for sid in scope for x in scenes[sid]['interactions']}
+                        interaction=declared.get(aid) if isinstance(aid,str) else None
+                        need(interaction is not None and interaction['target_identifier']==a.get('target_identifier') and interaction['kind']==a.get('kind'),cid+' CUA interaction binding mismatch')
+                        if interaction: tested_actions.add(aid)
+                screenshots=[a for a in artifacts if a.get('kind')=='screenshot']
+                need(bool(screenshots),cid+' CUA needs target viewport screenshot')
+                for art in screenshots:
+                    path=checked_file(art,cid+'.screenshot')
+                    if path and path.suffix.lower()=='.png':
+                        raw=path.read_bytes()
+                        dims=struct.unpack('>II',raw[16:24]) if len(raw)>=24 and raw[:8]==b'\x89PNG\r\n\x1a\n' else None
+                        vp=r.get('viewport',{})
+                        need(isinstance(vp,dict) and dims==(vp.get('width'),vp.get('height')),cid+' CUA screenshot viewport size differs')
+        coverage[cid]=(domain,scope,bound,device_coverage,tested_actions)
+    common={'content','visual','motion','interaction','accessibility','recovery','performance'}
+    if plan['learning']['audio_enabled']: common.add('audio')
+    def cover(ids,needed,rd,label):
+        for domain in common:
+            covered=set()
+            for cid,(d,s,b,devs,actions) in coverage.items():
+                if cid in ids and d==domain and rd is not None and rd in b: covered|=s
+            need(needed<=covered,label+' coverage missing for '+domain)
+        for did in devices:
+            covered=set()
+            for cid,(d,s,b,devs,actions) in coverage.items():
+                if cid in ids and d=='interaction' and rd in b and did in devs: covered|=s
+            need(needed<=covered,label+' CUA device coverage missing: '+did)
+        actions=set()
+        for cid,(d,s,b,devs,a) in coverage.items():
+            if cid in ids and d=='interaction' and rd is not None and rd in b: actions|=a
+        expected={a['interaction_identifier'] for sid in needed for a in scenes[sid]['interactions']}
+        need(expected<=actions,label+' CUA declared interaction coverage missing')
+    if level>=2: cover(sample_checks,selected,candidate_digest,'representative')
+    if level>=4:
+        cover(set(checks),required,current_digest,'current final')
+        for rule in plan['learning']['rules']:
+            if rule['verification']=='executable':
+                c=checks.get(rule.get('test_check_identifier'),{})
+                need(c.get('domain')=='rule' and c.get('status')=='passed','current executable rule needs passed command check')
+        need(all(s['verification_status']!='unverified' for s in plan['learning']['sources']),'final content has unverified sources')
+    trial=m.get('learner_trial')
+    if level>=5:
+        need(isinstance(trial,dict) and trial.get('authorized') is True,'learner trial needs actual authorized participation')
+        if isinstance(trial,dict):
+            ref=trial.get('evidence_identifier'); r=receipts.get(ref) if isinstance(ref,str) else None
+            need(r is not None and r.get('kind')=='experience_trial' and r.get('runtime_digest')==current_digest,'learner trial evidence missing/current version differs')
+            if r:
+                for k in ('observed_result','reviewed_by','participation_context','privacy_basis'): need(txt(r.get(k)),'learner trial missing '+k)
     return errors
 
-
 def main():
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("manifest")
-    parser.add_argument("--allow-placeholders", action="store_true")
-    parser.add_argument("--allow-missing-files", action="store_true")
-    parser.add_argument("--show-approval-fingerprints", action="store_true",
-                        help="Print current scope fingerprints without changing any confirmations")
-    parser.add_argument("--previous-manifest", type=Path,
-                        help="Compare against the preserved previous manifest; detect rewritten history")
-    parser.add_argument("--joint", action="store_true",
-                        help="Validate the referenced blueprint and cross-file contract")
-    parser.add_argument("--show-event-fingerprints", action="store_true",
-                        help="Print event hashes without changing history")
-    args = parser.parse_args()
+    p=argparse.ArgumentParser(description=__doc__); p.add_argument('manifest',type=Path); p.add_argument('--plan',required=True,type=Path); p.add_argument('--previous-manifest',type=Path); p.add_argument('--fingerprints',action='store_true'); a=p.parse_args()
     try:
-        path = Path(args.manifest)
-        data = json.loads(path.read_text(encoding="utf-8"))
-        errors = validate(
-            data,
-            path.resolve().parent,
-            args.allow_placeholders,
-            args.allow_missing_files,
-        )
-        if args.previous_manifest:
-            from production_contract import check_previous
-            previous = json.loads(args.previous_manifest.read_text(encoding="utf-8"))
-            errors.extend(check_previous(previous, data))
-        if args.joint:
-            from production_contract import validate_joint
-            errors.extend(validate_joint(data, path.resolve().parent,
-                                         not args.allow_placeholders))
-        if args.show_event_fingerprints:
-            from production_contract import event_digest
-            for event in data.get("status_history", []) if isinstance(data, dict) else []:
-                if isinstance(event, dict):
-                    print(f"EVENT: {event.get('event_identifier', '?')} sha256={event_digest(event)}")
-        if args.show_approval_fingerprints:
-            raw_subjects = data.get("approval_subjects", []) if isinstance(data, dict) else []
-            for subject in raw_subjects if isinstance(raw_subjects, list) else []:
-                try:
-                    digest = approval_fingerprint(data, subject, path.resolve().parent)
-                    print(f"FINGERPRINT: {subject['scope_identifier']} "
-                          f"version={subject['subject_version']} sha256={digest}")
-                except (OSError, ValueError, KeyError, IndexError, TypeError) as exc:
-                    label = subject.get("scope_identifier", "?") if isinstance(subject, dict) else "?"
-                    print(f"UNAVAILABLE: {label}: {exc}")
-    except (OSError, ValueError) as exc:
-        errors = [str(exc)]
-    for message in errors:
-        print(f"ERROR: {message}")
-    if errors:
-        print(f"FAIL: {len(errors)} production manifest error(s)")
-        return 1
-    print("PASS: production status, evidence, assets and governance are structurally valid")
-    if args.allow_placeholders or args.allow_missing_files:
-        print("TEMPLATE CHECK: relaxed checks are not formal production acceptance.")
-    print("Teaching quality, media quality, legal rights and learning effects require human evidence.")
-    print("Fingerprints check content integrity, not human identity or semantic equivalence.")
-    return 0
+        m=json.loads(a.manifest.read_text()); plan=json.loads(a.plan.read_text()); old=json.loads(a.previous_manifest.read_text()) if a.previous_manifest else None
+        errors=validate_manifest(m,plan,a.manifest.parent,old)
+        if a.fingerprints and not validate_plan(plan):
+            print(json.dumps({'design_sha256':design_digest(plan),'representative_sha256':representative_digest(plan,m.get('representative',{}),m.get('checks',[]),m.get('evidence',[]))},ensure_ascii=False))
+        for e in errors: print('ERROR: '+e)
+        if not errors: print('VALID: structure and referenced evidence; actual quality requires review')
+        return bool(errors)
+    except (OSError,ValueError,KeyError,TypeError) as ex: print('ERROR: '+str(ex)); return 1
 
-
-if __name__ == "__main__":
-    sys.exit(main())
+if __name__=='__main__': raise SystemExit(main())

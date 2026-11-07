@@ -1,63 +1,24 @@
 # Immersive Course Design
 
-面向 Agent 的沉浸式课程 Skill，覆盖教学设计、分镜审阅、学生Demo、视频/实时3D/混合媒体生产、功能验收与学习效果评价。
+以Three.js实时场景承载体验驱动的沉浸式学习。学习者通过观察、查看、换视点、第一人称参与、对话和行动理解内容。
 
-从学习目标、知识动作和可观察证据推导教学，再设计世界、媒体与互动。课程设计、实现和验收分别记录实际完成范围与版本证据；自动化检查不替代教师确认或真实试学。
+入口：[SKILL.md](SKILL.md)，阶段速查见[制作索引](COURSE-PIPELINE.md)。安装时保留整个目录的相对路径。需要空间制作时协同[threejs-anime-short](https://github.com/keycasiter/threejs-anime-short)；课程不要求GLB、Blender或预渲染影片。普通动画制作仍由技术Skill独立负责。
 
-设计时按知识难点调用 [学科教学指引](references/subject-pedagogy.md)，覆盖语言与文学、数学、自然科学、人文与实践类内容；通过 [语境知识编织](references/contextual-knowledge-weaving.md)把背景、人物、典故、事件与知识谱系接回学生的判断和修订。
+## 2.0结构
 
-## 安装
-
-克隆到 Agent 支持的 Skill 目录。例如 Trae：
-
-```bash
-mkdir -p ~/.trae/skills
-git clone https://github.com/keycasiter/immersive-course-design.git \
-  ~/.trae/skills/immersive-course-design
-```
-
-其他支持 `SKILL.md` 的 Agent 可将整个仓库放入其 Skill 目录，保留相对路径。入口为 [SKILL.md](SKILL.md)。
-
-## 使用
-
-在支持 Skill 的 Agent 中提出课程任务，例如：
-
-- “使用 immersive-course-design，设计一节二年级《登鹳雀楼》课程，先交完整设计稿。”
-- “审阅这份教学分镜，检查学生行动、反馈和故事后果是否一致。”
-- “评测这个课程 Demo，区分结构检查、实际操作与学习效果。”
-- “参考外部课件案例，说明观察层级并提取可复用的互动结构。”
-
-Agent 按任务加载对应执行入口。新课和重大改稿先完成可审设计；后续 Demo、正式生产和试学沿用 Skill 中的真实确认与阶段要求。
-
-## 实时3D与程序化教学
-
-按学习目标选择video_led_web、spatial_native_web或hybrid_web。课程Skill维护教学、学科规则、证据和既有门禁；[threejs-anime-short](https://github.com/keycasiter/threejs-anime-short)提供通用造型、渲染、动画和视觉验收能力，进入对应制作阶段时按需读取。它是可协同的独立Skill，不复制其技术文档或作品资产到此仓库。
-
-原生空间课按[空间学习生产](references/spatial-learning-production.md)与[场景契约](references/spatial-learning-contract.md)交接，不强制Blender/GLB或假视频。数学/学科规则、画质、操作恢复和实际学习表现分别取证；结构校验不等于教学效果通过。
-
-## 文件结构
-
-| 路径 | 内容 |
-|---|---|
-| [SKILL.md](SKILL.md) | 任务派发与阶段入口 |
-| [COURSE-PIPELINE.md](COURSE-PIPELINE.md) | 完整课程生产流程 |
-| `references/` | 教学、叙事、媒体、评价与验收契约 |
-| `assets/` | JSON、Markdown、HTML/CSS/JavaScript 模板与固定声音参考 |
-| `scripts/` | 校验器、回归检查和配音工具 |
-
-## 校验
-
-结构校验和常规回归使用 Python 3.10 或更新版本。以下命令在仓库根目录执行：
+- `scene-plan.json`：体验语义、表现约定和实现配置的唯一机器来源。
+- `experience.md`与运行索引：由编译器派生，便于审阅和实现，避免重复写互动正文。
+- `production-manifest.json`：当前文件、真实确认与实际验收证据，独立于设计语义。
+- `references/`：按问题读取的设计、制作与治理方法。
+- `assets/`：计划/清单模板、轻量状态控制器、声音参考。
+- `scripts/`：编译、静态核对、证据绑定与实际命令记录。
 
 ```bash
-python3 -m unittest discover -s scripts -p 'test_*.py'
-python3 scripts/check_contract_regressions.py
-python3 scripts/check_assessment_integrity.py
-python3 scripts/check_execution_flow.py
+python3 scripts/validate_experience.py path/to/scene-plan.json
+python3 scripts/compile_experience.py path/to/scene-plan.json --out path/to/derived
+python3 scripts/validate_production.py path/to/production-manifest.json --plan path/to/scene-plan.json
+python3 -m unittest discover -s scripts/tests -p 'test_*.py'
+node --test scripts/tests/runtime.test.mjs
 ```
 
-针对课程文件运行相应 `validate_*.py`，参数见脚本 `--help`。模板含待填写字段，不能直接作为已通过验收的课程。
-
-浏览器运行检查需要 Playwright 与浏览器。配音需要另行部署 Qwen3-TTS、模型权重及适配硬件的运行环境，见 [voice-continuity.md](references/voice-continuity.md)。这些依赖按进入的阶段准备。
-
-外部案例与方法引用保留各自来源和观察范围，见 [外部课件参考库](references/external-courseware-reference-library.md)。声音候选的模型、参考文字和校验值记录在 [voice-catalog.json](assets/voice-catalog.json)。
+这些检查不自动证明画质、声音自然、实际交互或学习效果。真实验收见[validation.md](references/validation.md)。当前版本移除了视频专用与练习/考试流水线；原版保留在Git历史，不自动迁移旧课程。现有声音参考原样保留，使用前核对来源、权利和当前授权。
