@@ -552,7 +552,8 @@ def validate(data, base_directory, complete_design=False, ready_media=False, lea
             require(role == "macro_narrative", f"{identifier} panorama must support macro_narrative")
             require(text(resource.get("projection")), f"{identifier} panorama missing projection")
         if role == "progression":
-            require(media_type == "video", f"{identifier} progression requires video")
+            require(media_type in {"video", "three_dimensional", "diagram"},
+                    f"{identifier} progression requires video, three_dimensional or diagram")
         if role == "macro_narrative":
             require(media_type == "panorama", f"{identifier} macro_narrative requires panorama")
         needs_file = resource.get("production_status") == "ready"

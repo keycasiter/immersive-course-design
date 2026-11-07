@@ -17,17 +17,18 @@
 
 - 图片生成工具固定为两类：TRAE 生图能力（`GenerateImage`）或 Codex `Image gen`。二者按当前会话实际可用性选择；不可用时标记 `unsupported`，不得静默切换到其他图片生成提供方。调用前核对输入、模型、计费和隐私限制。
 - 视频生成工具固定使用 TRAE `GenerateVideo`。其他视频生成后端不作为本项目正式视频生成路径；只有用户明确改变项目配置后，才可作为新路线重新做能力小样和验收。
-- 视频默认采用[通用视频生产系统](video-production-system.md)：先验证能力、拆解来源、建立实体参考及实际声音时间轴，再编译分镜/生成单元、制作、接续和完整准出。课程复制 `assets/video-production-environment.template.json` 与 `assets/video-production-plan.template.json` 保存本次实测配置；能力未验证不进入批量。
+- 生成式视频默认采用[通用视频生产系统](video-production-system.md)：先验证能力、拆解来源、建立实体参考及实际声音时间轴，再编译分镜/生成单元、制作、接续和完整准出。课程复制 `assets/video-production-environment.template.json` 与 `assets/video-production-plan.template.json` 保存本次实测配置；能力未验证不进入批量。
 - 参考图、首尾帧、视频引用、声音身份、声音时序、音频驱动口型、多镜头、延伸和局部编辑逐项记录 verified / unsupported / unknown。不将 Flova 的模型名、参考语法和固定时长写成本项目已支持能力。
 - 正式真人说话/行动按真实动态素材覆盖完整声音，不使用静帧、循环、倒放或数码缩放补时。静态教学图和互动等待仅按明确区间使用；原生细微口型、呼吸和自然停顿分别核对。
 - 写实课程以摄影级实景和明确虚构的人物参考锁定风格。Blender 场景只校验空间、机构和动线，除非课程已确认采用 CG 风格。
-- 3D 与可验证全景由 Blender 产出权威资产；生成式 3D 可作为草稿输入，须在 Blender 校正结构、部件、枢轴、材质与动画。
-- Three.js 只负责浏览器加载、状态和交互，不代替正式 3D 资产生产。
+- 3D可用程序化、DCC或混合路线。精确几何、变量教具和可重建机制由源码/规格制作；复杂有机外观、雕刻、扫描或外部装配资产可用Blender等DCC。图生3D只作未核实外形草稿，关键结构、部件、枢轴、材质与动画须校正。
+- Three.js既可生成/渲染程序化正式场景，也可加载GLB。权威源保留生成代码/参数/测试或DCC编辑文件/纹理/实际导出；统一核对学科规则、结构/厚度、中层、材质/光色、动作、运行和等价路径。按[空间学习生产](spatial-learning-production.md)交接。
+- 以上图片/视频提供方约束针对生成式媒体调用，不禁止已确认的确定性图形/Three.js正式制作路线；程序动画不能冒充生成式写实视频。
 
 ## 前端与运行时
 
 - 界面质量工作默认使用已有完整 UICraft，按[课程成品UI与布局](final-page-ui-quality.md)建立 `page-design.md`，根据本次问题选择布局、排版、精简或成品打磨工作流；Impeccable 与中文 `ai-style` 用于必要补充，不重复同一检查。
-- 工作文件脚手架只由 `experience_profile` 派发：本 Skill 的沉浸式 `interactive_web` 固定使用 `video_led_web`，并在写出视频时间线和事件边界后使用 `video-led-course-page.template.html`、通用 CSS 与视频覆盖 CSS；其他网页 profile 不替代视频主线。非网页 delivery 不生成 HTML 占位。脚手架实例不是正式页面，必须用本课真实内容和运行证据验证。
+- 工作文件脚手架只由`experience_profile`派发，路线归[工作范围](work-scope.md)所有。video_led_web使用真实视频及专属模板；spatial_native_web以可操作教具为主舞台；hybrid_web明确每场主媒体与返回检查点。非网页delivery不生成HTML占位。脚手架不是正式页面，须以真实内容和当前运行证据验收。
 - 成品采用清晰中文系统字体或已许可本地字体，以真实内容检验阅读、媒体安全区和操作。功能路径运行后及全课组装后完成布局、自然文案、状态、键盘、缩放和手机品质核对，保存本版证据。
 - character_introduction_duration_seconds 默认3，单课可覆盖；实际人物研究、视频内介绍与验收读取[人物契约](character-reference-and-introduction.md)，本文件只维护时长默认值。
 - 技术栈按实际交互选择；简单课程可用原生 HTML/CSS/JavaScript，复杂媒体或组件再使用适合的框架。

@@ -489,6 +489,23 @@ def validate_contract(data, base, allow_placeholders, allow_missing_files, struc
                 c.need(entry.get("kind") == kind,
                        f"{reference}: expected evidence kind {kind}")
 
+    if delivery_type == "interactive_web" and profile_identifier in {"spatial_native_web", "hybrid_web"}:
+        plans = [entry for entry in evidence.values() if entry.get("kind") == "spatial_learning_plan"]
+        blueprints = [entry for entry in evidence.values() if entry.get("kind") == "course_blueprint"]
+        c.need(len(plans) == 1, "spatial course requires one spatial_learning_plan evidence file")
+        c.need(len(blueprints) == 1, "spatial course requires one course_blueprint evidence file")
+        if len(plans) == 1 and len(blueprints) == 1:
+            from validate_spatial_learning import validate as spatial_check
+            try:
+                for entry in (plans[0], blueprints[0]):
+                    c.matches(entry.get("path"), entry.get("content_sha256"), "spatial design evidence")
+                plan = c.obj(json.loads(c.path(plans[0]["path"]).read_text(encoding="utf-8")), "spatial plan")
+                blueprint = c.obj(json.loads(c.path(blueprints[0]["path"]).read_text(encoding="utf-8")), "spatial blueprint")
+                c.errors.extend(spatial_check(plan, blueprint, c.base))
+                c.need(plan.get("experience_profile") == profile_identifier, "spatial design/profile differs")
+            except (OSError, ValueError, KeyError) as exc:
+                c.need(False, "spatial design evidence: " + str(exc))
+
     def version_binding(entry, label):
         """Package versions may change while the bound subject/asset stays identical."""
         if entry.get("course_version") == data.get("course_version"):

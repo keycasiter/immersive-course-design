@@ -36,8 +36,10 @@
 
 视频主导网页运行 `scripts/validate_video_led_runtime.py <event-map.json> <index.html> <runtime-source.ts-or-js>`，按事件图的 `runtime_mode` 派发：
 
-- `video_clock`：真实 `<video>` 时钟驱动事件，执行播放、seek、字幕同步和返回检查。正式课程只接受此模式。
+- `video_clock`：真实 `<video>` 时钟驱动事件，执行播放、seek、字幕同步和返回检查。video_led_web的正式运行只接受此模式。
 - `storyboard_events`：仅用于完整非视频 Demo；事件图 schema 1.2，稳定 Beat 顺序和已验收分镜承担事件推进，单一状态存储实现暂停工作面、关闭保留草稿并阻断必需任务、完成返回同一事件、回看和刷新恢复。读取 `assets/storyboard-event-map.template.json`、`storyboard-runtime.template.js` 与 `storyboard-demo.template.html`；填入真实内容后执行所有非视频路径和四态视觉门。可用 HTTP 本地服务进行浏览器测试，框架构建按项目真实命令执行。
+
+原生空间/混合路线使用`scene_state`和[场景计划](spatial-learning-contract.md)，按其入口/源码/知识矩阵/浏览器指纹与正式运行路径验收；不能把分镜载体改标签冒充正式3D。
 
 分镜检查明确报告真实播放/seek/字幕时序尚未验证；纯静态分镜不满足事件载体。正式视频接入使用独立 `runtime_delivery`、新浏览器记录和媒体回归，保留已确认的 `demo_runtime` 及其证据。结构检查和文件哈希只检查关联，实际操作仍须浏览器证据。
 

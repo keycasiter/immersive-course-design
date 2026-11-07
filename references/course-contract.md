@@ -162,12 +162,12 @@
 
 - `video`：推进或局部观察。
 - `panorama`：宏观叙事；填写实际 `projection`。
-- `three_dimensional`：局部模型。
+- `three_dimensional`：程序化场景、教具或加载模型，可为原生空间主媒体或局部操作。
 - `diagram`：精确图形、流程或数据教具。
 - `audio`：旁白与环境声。
 - `document`：证据与资料。
 
-教学作用用 `progression`、`macro_narrative`、`local_exploration`、`explanation`、`evidence` 或 `support`。视频不必只承担推进，但承担推进的资源应为视频；宏观全景采用 `panorama` 与 `macro_narrative`。
+教学作用用 `progression`、`macro_narrative`、`local_exploration`、`explanation`、`evidence` 或 `support`。`progression`可由`video`、`three_dimensional`或`diagram`承担，按体验路线选择；时间前进或媒体结束不直接满足学习完成条件。宏观全景采用 `panorama` 与 `macro_narrative`。
 
 资源制作状态为 `planned` 或 `ready`。`file_path` 在未制作时为 `null`；实际制作后可以填写相对蓝图文件的路径或文件 URL。标为 `ready` 时填写真实本地文件，不把规划路径写成可用资源。远程资源可在设计中记录来源，验收交付时保存经过验证的本地文件。
 

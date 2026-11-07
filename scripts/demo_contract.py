@@ -180,9 +180,15 @@ def validate_runtime_delivery(data, base, formal=None):
     runtime = c.obj(data.get("runtime_delivery" if formal else "demo_runtime"), "runtime_delivery")
     c.need(runtime.get("contract_version") == "1.0", "runtime_delivery.contract_version must be 1.0")
     mode = runtime.get("runtime_mode")
-    c.need(isinstance(mode, str) and mode in {"storyboard_events", "video_clock"},
-           "runtime_mode must be storyboard_events or video_clock")
-    if formal:
+    c.need(isinstance(mode, str) and mode in {"storyboard_events", "video_clock", "scene_state"},
+           "runtime_mode must be storyboard_events, video_clock or scene_state")
+    profile = data.get("experience_profile", {}).get("profile_identifier")
+    native = profile in {"spatial_native_web", "hybrid_web"}
+    if mode == "scene_state":
+        c.need(native, "scene_state requires a spatial_native_web or hybrid_web profile")
+    if native:
+        c.need(mode == "scene_state", "spatial runtime requires scene_state; video/storyboard evidence cannot replace scene state")
+    if formal and not native:
         c.need(mode == "video_clock", "formal video runtime requires video_clock; storyboard evidence is not media acceptance")
     version = runtime.get("course_version")
     c.text(version, "runtime_delivery.course_version")
@@ -197,7 +203,7 @@ def validate_runtime_delivery(data, base, formal=None):
     runtime_paths = set()
     for key, kind, suffixes in (
         ("entry_reference", "runtime_entry", {".html"}),
-        ("source_reference", "runtime_source", {".js", ".ts", ".jsx", ".tsx"}),
+        ("source_reference", "runtime_source", {".js", ".mjs", ".ts", ".jsx", ".tsx"}),
     ):
         reference = runtime.get(key)
         item = evidence.get(reference, {}) if isinstance(reference, str) else {}
@@ -216,7 +222,8 @@ def validate_runtime_delivery(data, base, formal=None):
                 source_text = text
         except (OSError, ValueError) as exc:
             c.need(False, f"{kind}: {exc}")
-    event_map = load_evidence(c, evidence, runtime.get("event_map_reference"), "runtime_event_map", version)
+    event_map = load_evidence(c, evidence, runtime.get("event_map_reference"),
+                              "spatial_learning_plan" if mode == "scene_state" else "runtime_event_map", version)
     event_map = c.obj(event_map, "runtime_event_map")
     import re
     presentation_required = bool(re.search(r'data-atmosphere=["\']synchronized["\']|data-presentation-anchor=', entry_text))
@@ -298,6 +305,23 @@ def validate_runtime_delivery(data, base, formal=None):
             c.need(result.returncode == 0, "video_clock structural binding failed: " + result.stdout.strip())
         except (OSError, KeyError, ValueError, subprocess.SubprocessError) as exc:
             c.need(False, f"video_clock check failed: {exc}")
+    elif mode == "scene_state":
+        from validate_spatial_learning import validate as spatial_check
+        blueprints = [row for row in evidence.values() if row.get("kind") == "course_blueprint"]
+        c.need(len(blueprints) == 1, "spatial runtime requires one current blueprint")
+        blueprint = load_evidence(c, evidence, blueprints[0].get("reference_identifier"),
+                                  "course_blueprint", version) if len(blueprints) == 1 else {}
+        c.errors.extend(spatial_check(event_map, blueprint, c.base, delivery=True))
+        c.need(event_map.get("experience_profile") == profile, "spatial plan/profile differs")
+        embedded = re.search(r'<script\b[^>]*id=["\']spatial-learning-plan["\'][^>]*>(.*?)</script>',
+                             entry_text, re.I | re.S)
+        try:
+            c.need(bool(embedded) and json.loads(embedded.group(1)) == event_map,
+                   "HTML must embed the identical spatial-learning plan")
+        except ValueError:
+            c.need(False, "embedded spatial-learning plan is not JSON")
+        c.need(bool(re.search(r'data-runtime-mode=["\']scene_state["\']', entry_text)),
+               "spatial HTML requires scene_state runtime marker")
     matrix = c.obj(load_evidence(c, evidence, runtime.get("knowledge_matrix_reference"),
                                 "knowledge_surface_matrix", version), "knowledge matrix")
     from contract_checks import placeholder_paths
@@ -364,8 +388,14 @@ def validate_runtime_delivery(data, base, formal=None):
                    f"{identifier}: unsupported browser artifact")
             c.matches(artifact.get("path"), artifact.get("content_sha256"), f"{identifier}.artifact")
     if formal:
-        for path in ("media_timing", "hotspot_timing", "caption_sync", "return_state",
-                     "responsive_layout", "accessibility"):
+        required_integration_paths = ("scene_state", "parameter_boundaries", "context_restore",
+                                      "deterministic_seek", "caption_sync", "return_state",
+                                      "responsive_layout", "accessibility") if native else (
+            "media_timing", "hotspot_timing", "caption_sync", "return_state",
+            "responsive_layout", "accessibility")
+        if profile == "hybrid_web":
+            required_integration_paths += ("media_timing", "video_bridge")
+        for path in required_integration_paths:
             c.need(all(any(row.get("path_category") == path and
                                row.get("viewport_class") == viewport for row in tests.values())
                            for viewport in ("desktop", "narrow")),

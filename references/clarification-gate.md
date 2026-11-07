@@ -42,7 +42,7 @@
 
 ## 阶段 4：进入 Demo
 
-澄清有效、完整设计已达到 `design_confirmed` 后进入 Demo。分镜路线使用 `storyboard_events` 确定性事件载体，真实视频路线使用 `video_clock`；运行模式和适用检查见[前端契约](frontend-prototype-contract.md)。完整 Demo 必须满足：
+澄清有效、完整设计已达到 `design_confirmed` 后进入 Demo。分镜路线使用 `storyboard_events` 确定性事件载体，真实视频路线使用 `video_clock`；原生空间/混合路线按[场景契约](spatial-learning-contract.md)使用`scene_state`，同样保留内容/设计/Demo确认。运行模式和适用检查见[前端契约](frontend-prototype-contract.md)。完整 Demo 必须满足：
 
 - 全部目标、场景、Beat、知识动作、独立应用和无障碍等价路径已覆盖；
 - 页面、错误、求助、修订、关闭/返回、刷新恢复、桌面和窄屏路径已实现；

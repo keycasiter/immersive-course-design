@@ -23,6 +23,8 @@ This file defines which artifact owns each rule. `SKILL.md` is the orchestrator:
 | Subject interaction guidance | `subject-interaction-guidance.md` | implementation routes from selected pedagogy, knowledge-type surfaces, feedback targets and acceptance checks |
 | Participation and interaction surfaces | `scene-participation-design.md`, `interaction-surface-implementation-matrix.md`, `course-contract.md` | event class, knowledge action, surface selection, input, feedback and accessibility equivalent |
 | Knowledge-to-surface matrix | `knowledge-surface-and-demo-contract.md` | matrix schema, target/path/viewport browser coverage and Demo artifact blocking rules |
+| Spatial teaching production | `spatial-learning-production.md` | teaching-to-rule-to-visual handoff, procedural/DCC/hybrid selection, structural/look quality and stage dependencies; technical implementation remains in threejs-anime-short |
+| Spatial plan and scene-state runtime | `spatial-learning-contract.md` | optional plan 1.0, units/parameters/invariants, action consequences, clock/state ownership, native runtime binding and applicable evidence domains |
 | Video-led runtime | `video-led-web-course.md`, `video-timeline-and-quality.md`, `implementation-playbook.md` | real video clock, event map, pause/resume, seeking, recovery and browser runtime |
 | Presentation, synchronized atmosphere and exact anchors | `video-presentation-contract.md` | separate presented-frame clock, epoch reconstruction, cue/world-state/phase schema, optional static fallback, normalized rectangles, occlusion and centered contain projection |
 | Video-led visual surface | `video-surface-contract.md` | video-dominant playback, on-demand controls/chapters, paused focused work surface and return behavior |

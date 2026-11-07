@@ -1,6 +1,6 @@
 # Immersive Course Design
 
-面向 Agent 的沉浸式课程 Skill，覆盖教学设计、分镜审阅、学生 Demo、媒体生产、功能验收与学习效果评价。
+面向 Agent 的沉浸式课程 Skill，覆盖教学设计、分镜审阅、学生Demo、视频/实时3D/混合媒体生产、功能验收与学习效果评价。
 
 从学习目标、知识动作和可观察证据推导教学，再设计世界、媒体与互动。课程设计、实现和验收分别记录实际完成范围与版本证据；自动化检查不替代教师确认或真实试学。
 
@@ -28,6 +28,12 @@ git clone https://github.com/keycasiter/immersive-course-design.git \
 - “参考外部课件案例，说明观察层级并提取可复用的互动结构。”
 
 Agent 按任务加载对应执行入口。新课和重大改稿先完成可审设计；后续 Demo、正式生产和试学沿用 Skill 中的真实确认与阶段要求。
+
+## 实时3D与程序化教学
+
+按学习目标选择video_led_web、spatial_native_web或hybrid_web。课程Skill维护教学、学科规则、证据和既有门禁；[threejs-anime-short](https://github.com/keycasiter/threejs-anime-short)提供通用造型、渲染、动画和视觉验收能力，进入对应制作阶段时按需读取。它是可协同的独立Skill，不复制其技术文档或作品资产到此仓库。
+
+原生空间课按[空间学习生产](references/spatial-learning-production.md)与[场景契约](references/spatial-learning-contract.md)交接，不强制Blender/GLB或假视频。数学/学科规则、画质、操作恢复和实际学习表现分别取证；结构校验不等于教学效果通过。
 
 ## 文件结构
 

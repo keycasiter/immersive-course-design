@@ -1,0 +1,4 @@
+interface:
+  display_name: "沉浸式学习设计与制作"
+  short_description: "贯通教学、视频与实时3D制作，以学习证据验收沉浸式课程"
+  default_prompt: "使用 $immersive-course-design，按学习目标选择视频、实时3D或混合体验，完成本轮授权范围的设计、制作与验收。"

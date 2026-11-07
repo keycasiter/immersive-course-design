@@ -159,9 +159,9 @@ Imagineering 先读取[内容设计质量与 Imagineering 路由](references/con
 
 按本轮路径执行适用部分。澄清门有效且完整设计已 `design_confirmed` 后进入 Demo 或正式媒体小样；非网页交付按工作范围矩阵执行其代表性闭环。
 
-网页设计必读[视频舞台](references/video-surface-contract.md)、[页面结构](references/page-structure.md)、[成品 UI](references/final-page-ui-quality.md)和[UI 证据](references/ui-quality-evidence.md)。先填写 `video_led_visual_gate`，再使用 UICraft 设计/实现；Web Design Guidelines 审查为必需；需要追加打磨时使用 Impeccable，不重复同一审查。
+video_led_web网页设计必读[视频舞台](references/video-surface-contract.md)、[页面结构](references/page-structure.md)、[成品 UI](references/final-page-ui-quality.md)和[UI 证据](references/ui-quality-evidence.md)。先填写 `video_led_visual_gate`，再使用 UICraft 设计/实现；Web Design Guidelines 审查为必需；需要追加打磨时使用 Impeccable，不重复同一审查。
 
-网页实现时，写出时间线、事件、互动与返回契约后，再复制[视频页面模板](assets/video-led-course-page.template.html)及配套 CSS。使用动态背景或精确画面热区前，必读[呈现、背景与锚点契约](references/video-presentation-contract.md)，展开其数据模板，接入随包呈现模块并登记运行引用。模板是工作脚手架；用真实内容验证播放态视频主导、控件按需、暂停态单一工作面和窄屏阅读。
+video_led_web网页实现时，写出时间线、事件、互动与返回契约后，再复制[视频页面模板](assets/video-led-course-page.template.html)及配套 CSS。使用动态背景或精确画面热区前，必读[呈现、背景与锚点契约](references/video-presentation-contract.md)，展开其数据模板，接入随包呈现模块并登记运行引用。模板是工作脚手架；用真实内容验证播放态视频主导、控件按需、暂停态单一工作面和窄屏阅读。
 
 真实视频生产必读[视频生产系统](references/video-production-system.md)、[人物契约](references/character-reference-and-introduction.md)、[导演连续性](references/video-direction-and-continuity.md)、[声音连续性](references/voice-continuity.md)、[口语审阅](references/spoken-language-and-review.md)和[时间线质量](references/video-timeline-and-quality.md)。
 
@@ -173,9 +173,11 @@ Imagineering 先读取[内容设计质量与 Imagineering 路由](references/con
 
 **本步完成**：本轮适用的页面或代表性闭环有实际产物和本版证据；正式小样完成适用人类确认。原型继续非视频实现，小样终点在此交付。
 
+原生空间场景在教学与设计确认后读取[空间学习生产](references/spatial-learning-production.md)，按[场景计划](references/spatial-learning-contract.md)交接学科规则、结构/光色、操作反馈和状态恢复，调用threejs-anime-short的当前技术入口。核心镜头只是画质检查，Demo仍须完整知识动作和独立验收；未完成澄清/内容/设计门不得制作。hybrid_web的真实视频区间与空间桥接分别验收，不用一类通过替代另一类。
+
 ## 7. 全量生产与实现
 
-读取[生产工作流](references/production-workflow.md)；执行媒体 Job 时读取[媒体任务运行](references/media-job-execution.md)，网页实现时读取[实现落地](references/implementation-playbook.md)。在已授权范围继续组装、修复与验收；只有 `demo_accepted` 后才能进入正式成品生产，子工具静态结束不构成课程编排终点。
+读取[生产工作流](references/production-workflow.md)；执行媒体 Job 时读取[媒体任务运行](references/media-job-execution.md)，video_led_web实现时读取[实现落地](references/implementation-playbook.md)，原生空间/混合实现读取[场景契约](references/spatial-learning-contract.md)。在已授权范围继续组装、修复与验收；只有 `demo_accepted` 后才能进入正式成品生产，子工具静态结束不构成课程编排终点。
 
 每次 Job 保留真实输入、指纹、attempt、终态、成本与输出关联；已提交任务续取，不重复提交。实体身份、物体数量、时序、发声、帮助和返回按[媒体互动连续性](references/media-interaction-continuity.md)复查。
 
@@ -227,4 +229,5 @@ delivery endpoint、acceptance status 与 accepted scope 分别记录，不能�
 | 台词口语化、声音身份或替换 | [口语审阅](references/spoken-language-and-review.md)、[声音连续性](references/voice-continuity.md) |
 | 实际媒体连续性失败 | [媒体互动连续性](references/media-interaction-continuity.md)、[导演连续性](references/video-direction-and-continuity.md) |
 | 学习方法依据与适用边界 | [学习科学依据](references/learning-science-evidence.md) |
+| 用户明确需要对应课型示例 | [试点示例](references/pilot-examples.md)，只作说明，不作为题材或媒体配额 |
 | 专项聚合导航 | [戏剧与互动](references/drama-and-interaction.md)、[学习与媒体](references/learning-and-media.md)、[体验与资产](references/experience-and-asset-quality.md) |

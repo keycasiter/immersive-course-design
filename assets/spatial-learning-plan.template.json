@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0",
+  "course_identifier": "sample_course",
+  "course_version": "0.1",
+  "experience_profile": "spatial_native_web",
+  "runtime_mode": "scene_state",
+  "event_graph_version": "{{本版场景事件图版本}}",
+  "runtime": {
+    "engine": "threejs",
+    "engine_version": "{{项目锁定的精确版本}}",
+    "state_evaluation": "{{单一求值模块/接口及其状态、时间、参数和固定种子输入}}",
+    "clock_policy": "{{当前主媒体拥有时钟；学习状态单独按任务证据推进}}",
+    "rebuild_policy": "{{完整绝对求值或固定步长重放/检查点；标签与可见对象同步}}",
+    "checkpoint_fields": ["course_version", "scene_identifier", "task_identifier", "object_state", "parameters", "event_time", "camera", "first_response", "assistance", "revision", "focus"],
+    "context_loss_policy": "{{保存状态、暂停、重建资源并核对版本；失败提供同目标路径}}"
+  },
+  "scenes": [
+    {
+      "scene_identifier": "scene_practice",
+      "beat_identifiers": ["beat_practice"],
+      "objective_identifiers": ["objective_core"],
+      "media_resource_identifier": "diagram_core",
+      "task_identifiers": ["task_practice"],
+      "teaching_job": "{{学习者需要通过当前对象理解/完成什么；空间表示的必要性}}",
+      "representation": {
+        "route": "procedural",
+        "source_of_truth": "{{结构/参数规格和生成/求值模块，或DCC编辑源和导出接口}}",
+        "units": "{{场景/学科单位及显示单位换算}}",
+        "coordinate_system": "{{轴向、原点、局部/世界/屏幕坐标及锚点}}",
+        "parameters": [
+          {"name": "input_value", "unit": "{{实际单位}}", "min": 1, "max": 5, "default": 3}
+        ],
+        "invariants": [
+          {"invariant_identifier": "relation_core", "statement": "{{规则/保持关系及误差和简化边界}}", "source_identifiers": ["source_material"], "test_reference": "{{本版可失败测试/检查的定位}}"}
+        ]
+      },
+      "presentation": {
+        "attention_target": "{{本状态必须看清的对象与变化}}",
+        "camera_and_projection": "{{目标景别、视口、机位/投影、测量限制和移动端}}",
+        "structure_and_look": "{{主形、厚度/连接、中层、材料/光色和可读细节}}",
+        "labels_and_units": "{{世界锚点、数字/单位/符号、颜色冗余标记和安全区}}",
+        "approximation_boundary": "{{剖切/展开/抬起/放慢等演示手段的含义，准确模型与展示边界}}"
+      },
+      "learning_action_decision": "{{引导/独立任务及帮助撤除，或示范场景为何不单设任务}}",
+      "learning_actions": [
+        {
+          "action_identifier": "action_core",
+          "task_identifier": "task_practice",
+          "target": "{{真实可操作对象标识}}",
+          "input": "{{允许的测量/选择/构造/参数/解释及键盘等价}}",
+          "guard": "{{先修/当前状态/输入合法性；不能用未教知识阻挡入口}}",
+          "transition_rule": "{{学科求值与对象状态更新；渲染/标签/反馈消费同一结果}}",
+          "visible_consequence": "{{对象、证据或作品中可见的变化}}",
+          "learning_evidence": "{{记录推理/观察/构造依据，首答/帮助/修订分别保存}}",
+          "feedback_and_retry": "{{典型误解定位、提示、保留什么、修订再检查和返回}}"
+        }
+      ],
+      "continuity": {
+        "entry_condition": "{{背景/先修和状态就绪条件}}",
+        "completion_rule": "{{与蓝图task判定一致；媒体结束不单独记完成或掌握}}",
+        "return_checkpoint": "{{对象、参数、机位、事件/时间、任务草稿、声音和焦点的恢复}}"
+      },
+      "equivalent_path": {
+        "equivalent_task": "{{同目标的实际替代任务与证据}}",
+        "keyboard_actions": "{{不依赖拖拽的等价操作}}",
+        "reduced_motion": "{{分步静态/减少运动同时保留关键关系}}",
+        "media_failure": "{{重试/明确阻断或经确认等价资源；不能跳过目标}}"
+      }
+    }
+  ],
+  "delivery": {
+    "audio_included": true,
+    "no_audio_rationale": null,
+    "files": [],
+    "checks": []
+  }
+}

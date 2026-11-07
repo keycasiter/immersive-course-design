@@ -1,9 +1,9 @@
 ---
 name: immersive-course-design
-description: Design, implement, validate, and evaluate immersive lessons. Use for course design or revision, student-facing Demos, course media, learner trials, and maintenance of this Skill. Route to the authorized endpoint and preserve actual confirmation and acceptance evidence.
+description: Design, produce and evaluate immersive learning through video, real-time 3D or hybrid experiences. Use for course design/revision, student Demos, media production, learner trials and Skill maintenance. Preserve learning evidence, authorized endpoints and actual confirmations.
 ---
 
-# Immersive Course Design
+# 沉浸式学习设计与制作
 
 从学习目标、知识动作和可观察证据推导教学，再推导世界、媒体和互动。先确定本轮能完成的阶段，完成一段实际工作并保存，再加载下一段材料。新课与重大改稿执行[大胆设计、小心求证](references/content-design-quality.md#大胆设计小心求证)：创作层作出鲜明选择，证据层集中核对，不让防御性声明淹没课程正文。
 
@@ -17,6 +17,7 @@ description: Design, implement, validate, and evaluate immersive lessons. Use fo
 | 新课、重大改稿、设计稿、Demo | [执行与持续落盘](references/execution-flow.md) §1—2 | 先复用明确输入，完成可审设计，再按有效确认进入授权终点 |
 | 评测既有设计、Demo、沉浸或验收主张 | [执行与持续落盘](references/execution-flow.md) §3 | 实际检查与版本证据、持续保存的报告、未执行项及可用结论 |
 | 局部页面、媒体、台词或互动修改 | [工作范围](references/work-scope.md)，再读[执行与持续落盘](references/execution-flow.md) §1、4 | 修改覆盖授权范围，更新受影响的绑定、确认和检查 |
+| 实时3D、程序动画、空间/机制教具或视频混合课程 | [空间学习生产](references/spatial-learning-production.md)，契约见[场景与状态](references/spatial-learning-contract.md) | 按授权阶段完成学科规则、候选正式画质、操作/反馈和状态恢复；实现仍经过既有门禁 |
 | 已确认设计的实现、媒体生产、启动或试学 | [执行与持续落盘](references/execution-flow.md) §4 | 从最早失效阶段恢复，达到已授权终点并保存真实证据 |
 
 维护分支完成后退出课程流程。具体课程只作隔离验证样例，不写入通用规则。
@@ -42,6 +43,10 @@ description: Design, implement, validate, and evaluate immersive lessons. Use fo
 完整阶段要求保留在 [COURSE-PIPELINE.md](COURSE-PIPELINE.md)。进入对应阶段时读取其相关节及 owner；字段缺口定点查 owner、模板或脚本 `--help`。实现或生产阶段的全文、模板与环境探测在其触发后加载。
 
 `video_led_web` 必须使用[视频主舞台契约](references/video-surface-contract.md)：播放态视频主导，控制与章节按需显示；暂停态围绕同一视频事件只打开一个当前判断和主动作；反馈、关闭后回到原事件。生成页面前使用视频模板并完成 `video_led_visual_gate`，实际检查按阶段参考 §6—8 执行。
+
+教学编排、学科规则与视觉制作分层：本Skill负责目标、先修、任务/补救、独立应用和评价；确定性规则负责对象关系、允许操作和判定；`threejs-anime-short`负责把结构规格落实为造型、材质/光色、镜头、动画与运行证据。学科模型同时供给画面、标签和反馈，播放完成与学习掌握分别记录。
+
+选择体验路线时按[工作范围派发](references/work-scope.md)：`video_led_web`沿用真实视频主舞台；`spatial_native_web`允许实时教具成为主媒体；`hybrid_web`逐场指定主媒体和桥接。3D可由程序化源码、DCC资产或混合制作，不强制GLB，不把代码量/顶点数当质量。读取技术Skill当前入口并按问题加载，不复制其全文；通用技术归技术Skill，教学/场景交接归本Skill。
 
 ## 4. 完成与交付
 

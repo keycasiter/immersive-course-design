@@ -12,7 +12,7 @@
 
 `work_scope.learner_delivery_type` 必须为 `interactive_web`、`facilitated_instruction`、`linear_media` 或 `print_or_document`，并按[工作范围矩阵](work-scope.md)派发代表性闭环与功能验收。`experience_profile` 只派发体验/页面模板；项目 profile 只提供可发现的语言、工具和环境默认。
 
-`interactive_web` 沉浸式课堂的实现必须引用[视频主导课堂实现落地手册](implementation-playbook.md)，并在清单中登记运行时版本、视频事件图版本、入口文件、实际媒体哈希和浏览器验收证据。不能只登记页面截图或静态 DOM 作为运行交付。
+`interactive_web + video_led_web`实现引用[视频主导课堂实现手册](implementation-playbook.md)；原生空间及混合场景按[场景契约](spatial-learning-contract.md)执行。清单登记运行时/事件图版本、实际入口、资源哈希和浏览器证据，空间计划作为当前设计与运行的绑定材料。不能只登记页面截图或静态 DOM 作为运行交付。
 
 - 课程标识、版本、当前状态与完整状态历史。
 - 学习者画像：先修、语言、设备/场景、无障碍需要和未知项。
@@ -120,7 +120,7 @@
 
 新增 `clarification_confirmation` 和 `demo_confirmation`，分别归属 `approval_subjects.kind=clarification/demo`。每种恰有一个全范围 checkpoint，其 `covered_identifiers` 必须等于工作范围的全部目标；确认沿用 `confirmation_identifier`、实际确认人、时间、范围版本、内容 SHA256、依赖指纹和 `human_confirmation` 证据。澄清 subject 的 bytes 材料包含 `clarification.intake_reference`；`clarification.confirmation_basis` 读取澄清 owner，两条合法值均须原用户证据，`unresolved_decision_identifiers` 必须为空。design scopes 依赖澄清，Demo 依赖澄清与全部设计 scopes。
 
-Demo 使用 `demo_runtime`，正式视频使用独立 `runtime_delivery`；结构复制[运行绑定模板](../assets/runtime-delivery.template.json)。两个对象记录模式、course/runtime/event graph 版本、HTML 入口、JS/TS 源码、事件图、知识矩阵、浏览器执行和视觉门证据引用，以及 `bound_asset_identifiers`。文件证据分别使用 `runtime_entry`、`runtime_source`、`runtime_event_map`、`knowledge_surface_matrix`、`browser_execution`、`video_led_visual_gate` kind，并登记路径、当前版本和实际 SHA256。
+Demo使用`demo_runtime`，正式运行使用独立`runtime_delivery`；scene_state的字段适配和spatial_learning_plan引用按[场景契约](spatial-learning-contract.md)，video_led_visual_gate只适用于原视频路线。结构复制[运行绑定模板](../assets/runtime-delivery.template.json)。两个对象记录模式、course/runtime/event graph 版本、HTML 入口、JS/TS 源码、事件图、知识矩阵、浏览器执行和视觉门证据引用，以及 `bound_asset_identifiers`。文件证据分别使用 `runtime_entry`、`runtime_source`、`runtime_event_map`、`knowledge_surface_matrix`、`browser_execution`、`video_led_visual_gate` kind，并登记路径、当前版本和实际 SHA256。
 
 入口/源码必须属于已验收 `runtime` 资产。Demo 的绑定覆盖全部必需非视频及分镜替代资产；正式运行绑定覆盖全部必需资产。浏览器记录和视觉门保存运行文件、矩阵、资产版本与实际文件的 `runtime_fingerprints`，更换任一绑定内容使旧证据失效。Demo 确认自动指纹包含 `demo_runtime`、差额契约、当前运行与资产字节、浏览器记录和视觉门；独立保留这些文件，正式视频接入不覆盖原 Demo 证据。
 

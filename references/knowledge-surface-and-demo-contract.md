@@ -66,6 +66,8 @@ Each knowledge target has one or more Beat rows:
 }
 ```
 
+For spatial_native_web, keep this same matrix, target-path coverage and independent Demo review. Use scene-state windows instead of invented video timestamps. A formal native runtime uses scene_state mode and binds the spatial-learning plan, actual source/assets and browser evidence; it does not qualify for video_only_delta deferrals. Hybrid routes must additionally verify the actual video segments and bridge states. See [the spatial runtime contract](spatial-learning-contract.md).
+
 ## Coverage rule
 
 Do not impose an interaction-count quota. For each knowledge target:

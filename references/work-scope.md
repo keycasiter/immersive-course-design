@@ -18,7 +18,7 @@
 
 | `learner_delivery_type` | 增加的设计/生产产物 | 代表性闭环 | 功能验收 |
 |---|---|---|---|
-| `interactive_web` | `page-design.md`；实现时增加运行入口；沉浸式交互课堂固定增加 video-led participation plan、event map 和 runtime | 视频事件时间线→对象/阅读/仿真/空间交互→即时反馈→精确返回与恢复 | 浏览器正常/错误/求助/重试/回看/恢复、键盘/触摸、桌面/手机、媒体准入和无障碍等价 |
+| `interactive_web` | `page-design.md`；实现时增加运行入口；按profile增加视频参与/event map或空间学习计划与runtime | 当前主媒体/对象→阅读/仿真/空间操作→可见后果/反馈→修订与返回恢复 | 浏览器正常/错误/求助/重试/回看/恢复、键盘/触摸、桌面/手机、媒体准入和无障碍等价 |
 | `linear_media` | 媒体计划、时间线、字幕/文本等价、Job 与正式文件 | 最难内容、声音、画面和导航片段 | 完整播放、导航、字幕/文本等价、音画与内容连续性 |
 | `facilitated_instruction` | 主持指南、学习者材料、实施脚本、评价与恢复说明 | 代表性教学实施或完整彩排 | 完整材料走读、主持人交接、学习者产出、帮助撤除和恢复 |
 | `print_or_document` | 完整文档、版式/替代格式、跳转与答案/反馈边界 | 最难章节和任务的完整材料走读 | 顺序/跳转、可读性、替代格式、独立完成与反馈条件 |
@@ -63,13 +63,21 @@
 
 ## Profile 工作文件脚手架派发
 
-`experience_profile` 是工作文件脚手架的唯一派发字段。对本 Skill 的 `interactive_web` 沉浸式交互课堂，固定为 `video_led_web`：
+`experience_profile`是工作文件脚手架的唯一派发字段。interactive_web按目标选择以下正式路线，不按媒体数量或沉浸外观判定：
 
 - `video_led_web`：使用 `assets/video-led-course-page.template.html`、`assets/course-page.css`、`assets/video-led-course-page.css`；但必须先写出视频时间线、事件、互动表面和验收范围。
-- 其他网页 profile：仅用于非本 Skill 规范沉浸式交互课堂的网页范围，不替代视频主线。
+- `spatial_native_web`：按[空间学习生产](spatial-learning-production.md)及[场景契约](spatial-learning-contract.md)以实时教具/图解为主舞台，增加spatial-learning-plan与scene_state运行交付。不要求假视频、视频模板或GLB；保留任务/反馈的可访问语义。
+- `hybrid_web`：同时包含视频与原生空间教学，逐场指定主媒体、时钟所有者、进入/返回检查点；真实视频部分执行视频契约，空间部分执行场景契约。
+- 其他网页profile按其已确认形态执行，不自动继承这三条路线的特定规则。
 - 非网页 delivery：不生成 HTML 占位。
 
 - 项目 profile 只能覆盖工具、语言与环境配置，不能改变以上派发。脚手架实例默认标记为 `design_draft`；若页面只是静态示意，使用 `static_design_prototype` 作为展示标签，不得把它写成 `interaction_complete_prototype`。只有完整非视频闭环通过生产清单和浏览器证据后，才允许使用 `interaction_complete_prototype`。
+
+## 原生空间与混合课程的完整交付
+
+spatial_native_web与hybrid_web同样保留完整内容、澄清、内容审阅、设计、Demo及最难代表性闭环门禁。其Demo要覆盖全部必需知识动作、错误/帮助/修订、状态恢复、桌面/手机和等价路径；不借video_only_delta延期必需3D、规则、非视频资产或交互。无正式视频待制作时，延期项为空，达到正式准出仍须逐资产和功能验收。
+
+空间课程的体验蓝图、分镜和页面追踪保留同一Beat/目标/任务，只把主媒体事件换成对象/场景状态，不强制制作视频时码或生成任务。设计阶段交可审规格，正式实现交真实运行与当前文件证据；旧课不自动迁移。
 
 ## 局部范围与继承
 
