@@ -5,7 +5,7 @@ description: 用于设计、改编、制作或打磨以 Three.js 实时场景承
 
 # 沉浸式课程设计与制作
 
-把值得理解的内容转成可以亲历的情境：学习者进入现场，注意具体对象，观察或参与变化，从现场回应中发现关系。Three.js 承载实时主场景；网页层承载可读资料、公式、对话和必要控件。
+把值得理解的内容转成可以亲历的情境：学习者进入现场，注意具体对象，观察或参与变化，从现场回应中发现关系。Three.js 承载实时主场景；默认画面围绕当前关注点与必要行动展开，讲解、资料和工具按需要进入。设计首个学习者画面前读取[页面与注意力](references/page-and-accessibility.md)，确定信息出场与收起时机。
 
 ## 先定位任务与当前阶段
 
@@ -28,9 +28,9 @@ description: 用于设计、改编、制作或打磨以 Three.js 实时场景承
 | 步骤 | 要完成的工作 | 进入下一步的判据 |
 |---|---|---|
 | 1. 内容变成经历 | 读[内容与语境](references/content-and-context.md)、[体验设计](references/experience-design.md)。核对来源与范围，写实际入口、画面、台词/资料、参与、回应和结束 | 每项必需内容都能定位到具体感知或事件；陌生读者能复原完整经历 |
-| 2. 设计交接到实现 | 制作时读[场景契约](references/scene-contract.md)、[运行契约](references/runtime-contract.md)。把语义、表现约定和真实实现入口分别落实到计划，编译可读主稿 | 设计确认对应实际内容；对象/规则/事件/操作有稳定 ID 和可实现接口 |
-| 3. 做成代表场景 | 读[空间制作](references/spatial-production.md)，涉及人物/有声时读[人物声音](references/character-and-sound.md)。选择最能暴露全课风险的一段，以候选最终品质做完整闭环 | 进入—观察/参与—可见变化/回应—继续/返回真实可用；品质与设备证据齐，代表场景获确认 |
-| 4. 扩展全课 | 复用已确认的结构、风格、接口与规则，逐场完成并复验；页面读[页面与等价参与](references/page-and-accessibility.md) | 所有必需内容、场景、互动与接续可达，逐场问题闭环 |
+| 2. 设计交接到实现 | 制作时读[场景契约](references/scene-contract.md)、[运行契约](references/runtime-contract.md)与[页面与注意力](references/page-and-accessibility.md)。把语义、表现约定和真实实现入口分别落实到计划，编译可读主稿 | 设计确认对应实际内容；默认画面与按需内容可审；对象/规则/事件/操作有稳定 ID 和可实现接口 |
+| 3. 做成代表场景 | 读[空间制作](references/spatial-production.md)，涉及人物/有声时读[人物声音](references/character-and-sound.md)。选择最能暴露全课风险的一段，以候选最终品质做完整闭环 | 进入—观察/参与—可见变化/回应—继续/返回真实可用；目标视口的关注点、同屏反馈与品质证据齐，代表场景获确认 |
+| 4. 扩展全课 | 复用已确认的结构、风格、接口与规则，逐场完成并复验；页面读[页面与注意力](references/page-and-accessibility.md) | 所有必需内容、场景、互动与接续可达，逐场问题闭环 |
 | 5. 验收并交付 | 读[真实验收](references/validation.md)，按[生产与版本](references/production-and-version.md)绑定当前文件与证据 | 当前构建的内容、画面、动作、操作、声音及恢复得到实际验证；报告入口、覆盖、缺口 |
 
 设计和代表场景是两处集中人工检查；复用已有明确授权。先完成可审材料再请求缺失决定，不额外设置全课 Demo 或逐对象审批。确认字段与失效范围由[生产与版本](references/production-and-version.md)定义。
