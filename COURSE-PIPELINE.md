@@ -1,15 +1,5 @@
-# 体验制作阶段索引
+# 课程制作入口
 
-主入口是[SKILL.md](SKILL.md)。本文件只提供顺序与完成判据，字段由[归属表](references/contract-ownership.md)单独定义。
+阶段地图与任务路由见 [SKILL.md](SKILL.md#制作主链路)。
 
-| 阶段 | 完成判据 |
-|---|---|
-| 完整设计 | 来源/内容边界、实际进入场景、视点、对象、角色、事件、可感知关系、参与及自然回应可由主稿复原 |
-| 设计确认 | 人类确认当前设计语义；当前subject指纹与真实确认记录相符 |
-| 代表成品场景 | 使用正式候选质量走通进入、参与、回应、继续/返回；实际图像/动作/声音/设备/恢复证据对应当前候选文件 |
-| 代表场景确认 | 人类确认该场景及共用表现约定；样片来自成品范围，不额外制作一次性试片 |
-| 全量制作 | 沿用已确认约定，全部必需内容与场景实现，来源/权利/等价路径齐全 |
-| 功能与体验验收 | 当前构建在目标设备和CUA/MCP中实际走通必需场景及相应交互、声音和恢复，问题闭环 |
-| 可选真实走访 | 按实际授权观察学习者的感知、参与、迷路/不适和理解联系，记录条件、版本和未知，不换算考试成绩 |
-
-各阶段边做边保存；缺确认时先完成可审材料，保留其他可执行工作。细节分别读取[设计](references/experience-design.md)、[生产](references/production-workflow.md)、[版本](references/production-and-version.md)、[验收](references/validation.md)。
+实施步骤、每阶段的输入、动作、产物和收口条件统一见[生产流程](references/production-workflow.md)；字段归属见[规则与数据归属](references/contract-ownership.md)。填写计划与接线的完整例子见[实施示例](references/worked-example.md)。

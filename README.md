@@ -1,24 +1,36 @@
 # Immersive Course Design
 
-以Three.js实时场景承载体验驱动的沉浸式学习。学习者通过观察、查看、换视点、第一人称参与、对话和行动理解内容。
+设计与制作以 Three.js 实时场景承载的沉浸式学习。学习者通过观察、探索、视点、对话和对象操作理解具体内容。
 
-入口：[SKILL.md](SKILL.md)，阶段速查见[制作索引](COURSE-PIPELINE.md)。安装时保留整个目录的相对路径。需要空间制作时协同[threejs-anime-short](https://github.com/keycasiter/threejs-anime-short)；课程不要求GLB、Blender或预渲染影片。普通动画制作仍由技术Skill独立负责。
+安装时保留整个目录与相对路径，从 [SKILL.md](SKILL.md) 开始。主链路是：内容依据 → 完整体验设计 → 设计确认 → 代表成品场景 → 代表场景确认 → 全量制作 → 真实验收。设计、局部修复和维护任务按入口路由进入相应范围。
 
-## 2.0结构
+| 需要什么 | 阅读入口 |
+|---|---|
+| 当前该做哪一步 | [任务与阶段地图](SKILL.md) |
+| 每步怎样做、产出什么、何时收口 | [生产流程](references/production-workflow.md) |
+| 怎样写可感知内容和自然参与 | [体验设计](references/experience-design.md) |
+| 怎样把计划接到规则、状态和代码 | [完整实施示例](references/worked-example.md) |
+| 怎样判断成品可用且品质成立 | [真实验收](references/validation.md) |
 
-- `scene-plan.json`：体验语义、表现约定和实现配置的唯一机器来源。
-- `experience.md`与运行索引：由编译器派生，便于审阅和实现，避免重复写互动正文。
-- `production-manifest.json`：当前文件、真实确认与实际验收证据，独立于设计语义。
-- `references/`：按问题读取的设计、制作与治理方法。
-- `assets/`：计划/清单模板、轻量状态控制器、声音参考。
-- `scripts/`：编译、静态核对、证据绑定与实际命令记录。
+空间技术可协同 [threejs-anime-short](https://github.com/keycasiter/threejs-anime-short)，课程不要求 GLB、Blender 或预渲染影片。普通动画制作由该技术 Skill 独立负责。
+
+## 生产文件的职责
+
+`scene-plan.json`拥有生产期体验语义、表现约定与实现配置；`experience.md`和运行索引由编译器派生；`production-manifest.json`独立保存当前文件、真实确认与验收。纯设计尚无工程时先交完整可读主稿，不虚构实际实现。详见[数据归属](references/contract-ownership.md)。
+
+`references/`提供按阶段/问题读取的方法，`assets/`包含模板、状态控制器、实施例子与声音参考，`scripts/`提供编译、结构核对、证据绑定及命令记录。
+
+## 本地验证
+
+需要 Python 3 与 Node.js；课程运行的 Three.js 版本由各工程锁定。
 
 ```bash
-python3 scripts/validate_experience.py path/to/scene-plan.json
-python3 scripts/compile_experience.py path/to/scene-plan.json --out path/to/derived
-python3 scripts/validate_production.py path/to/production-manifest.json --plan path/to/scene-plan.json
+python3 scripts/validate_experience.py assets/examples/area-reassembly/scene-plan.json
+python3 scripts/compile_experience.py assets/examples/area-reassembly/scene-plan.json --out /tmp/area-reassembly-derived
 python3 -m unittest discover -s scripts/tests -p 'test_*.py'
-node --test scripts/tests/runtime.test.mjs
+node --test scripts/tests/runtime.test.mjs assets/examples/area-reassembly/rules.test.mjs
 ```
 
-这些检查不自动证明画质、声音自然、实际交互或学习效果。真实验收见[validation.md](references/validation.md)。当前版本移除了视频专用与练习/考试流水线；原版保留在Git历史，不自动迁移旧课程。现有声音参考原样保留，使用前核对来源、权利和当前授权。
+这些命令验证方法工具与示例，不自动证明真实课程画质、声音自然、交互可用或学习效果。示例只实现规则与状态接线，页面入口与渲染仍属拟定接口。
+
+当前合同保持 2.0；旧视频/考核流程由 Git 历史保存，不自动迁移旧课程。既有声音参考保留原样，使用前核对来源、权利和授权。

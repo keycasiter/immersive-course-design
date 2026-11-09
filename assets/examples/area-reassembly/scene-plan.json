@@ -1,0 +1,200 @@
+{
+  "schema_version": "2.0",
+  "experience_identifier": "area_reassembly",
+  "experience_version": "0.1",
+  "profile": "threejs_experience",
+  "learning": {
+    "title": "把同一张纸拼直",
+    "learner_context": "初中生，认识长方形面积与垂直距离；桌面键盘/鼠标，中文无声体验。未指定教材版本。",
+    "experience_promise": "在几何桌上将平行四边形左侧三角形平移到右边，追踪同样两块纸，观察底和垂直高怎样对应拼后长方形的宽高。",
+    "understanding_focus": [
+      "切分与平移保持面积，拼合端态没有缺口或重叠。",
+      "在0<顶部右移量s<底b的模型中，拼后长方形宽等于原底、高等于原垂直高，面积为底乘高。"
+    ],
+    "audio_enabled": false,
+    "audio_rationale": "无声，关键变化以可见纸块、直角标记和DOM短句呈现。",
+    "sources": [
+      {
+        "source_identifier": "source_derivation",
+        "title": "剪拼坐标推导",
+        "reference": "随Skill分发的references/worked-example.md“数学依据”；本目录rules.mjs及rules.test.mjs",
+        "supports": "此受限剪拼模型的面积、拼合与底高对应；不是教材引文或学习效果证据。",
+        "verification_status": "provided"
+      }
+    ],
+    "required_content": [
+      {
+        "content_identifier": "content_area",
+        "description": "同样两块纸的位置改变但面积守恒；拼后矩形与原图底高对应。",
+        "source_identifiers": [
+          "source_derivation"
+        ]
+      }
+    ],
+    "entry_scene_identifier": "scene_table",
+    "characters": [],
+    "objects": [
+      {
+        "object_identifier": "paper",
+        "meaning": "底6、高4、顶部向右偏2单位的平行四边形；左角可沿水平轨道移动。",
+        "source_identifiers": [
+          "source_derivation"
+        ],
+        "rule_identifiers": [
+          "rule_area"
+        ]
+      }
+    ],
+    "rules": [
+      {
+        "rule_identifier": "rule_area",
+        "statement": "b>0,h>0,0<s<b；左角沿x=s分割并平移b，余块与三角形构成宽b高h的矩形；平移前后总面积b*h。",
+        "source_identifiers": [
+          "source_derivation"
+        ],
+        "verification": "executable",
+        "test_check_identifier": "check_area"
+      }
+    ],
+    "scenes": [
+      {
+        "scene_identifier": "scene_table",
+        "title": "同样两块纸",
+        "required": true,
+        "content_identifiers": [
+          "content_area"
+        ],
+        "object_identifiers": [
+          "paper"
+        ],
+        "character_identifiers": [],
+        "orientation": "桌面纸片上画出底6、高4和直角符号。下方短句：“沿虚线分开，再把斜纹的一角移到另一边。”首个按钮为“沿线分开”，等待时纸片静止。",
+        "perception": {
+          "see": "切开后两块纸保持纹理身份；左角只水平移动，底高参考线不动。拼合端态显示矩形边界和“同样两块纸，没有缺口或重叠；宽仍是原底，高仍是垂直距离，6×4=24平方单位”。",
+          "hear": "无声；必要信息同时可读。",
+          "relationship": "同一两块纸与不动的基准线，使面积守恒和底高对应可追踪。"
+        },
+        "events": [
+          {
+            "event_identifier": "event_rectangle",
+            "trigger": "offset达到6，矩形和对应说明实际呈现后回报。",
+            "visible_change": "外边界变为矩形，底高和面积对应说明显现。",
+            "sound_resource_identifier": null
+          }
+        ],
+        "interactions": [
+          {
+            "interaction_identifier": "cut_paper",
+            "kind": "manipulate",
+            "target_identifier": "paper",
+            "invitation": "沿线分开",
+            "response": "沿x=2的垂线分成两块，显示斜纹左角和水平移动入口。",
+            "visible_consequence": "纸片身份与位置保持，切分边可见。",
+            "emits_event_identifier": null,
+            "accessibility_equivalent": "可见按钮，Tab后Enter/Space；低动态直接显示分块。"
+          },
+          {
+            "interaction_identifier": "slide_corner",
+            "kind": "manipulate",
+            "target_identifier": "paper",
+            "invitation": "把斜纹一角移到右侧",
+            "response": "拖动时offset约束在[0,6]；按钮或方向键使用同一动作，将分块逐步移到6。实际代码检查已切开。",
+            "visible_consequence": "中途看见空缺和重叠，终点拼成矩形；位置变化不改变纸片形状。",
+            "emits_event_identifier": "event_rectangle",
+            "accessibility_equivalent": "方向键每步移动0.25，另有“移到右侧”端态按钮；低动态保留可停留端态。"
+          },
+          {
+            "interaction_identifier": "reset_paper",
+            "kind": "manipulate",
+            "target_identifier": "paper",
+            "invitation": "把纸片放回去",
+            "response": "对象回到未切开、offset=0；保留实际已呈现的事件历史。",
+            "visible_consequence": "同一纸片回到原形，允许重看与重新操作，视点不跳变。",
+            "emits_event_identifier": null,
+            "accessibility_equivalent": "同名可见按钮，Tab与Enter；低动态直接回初态。"
+          }
+        ],
+        "progression": {
+          "next_scene_identifiers": [],
+          "required_event_identifiers": [],
+          "rationale": "单场可随时退出；拼合后邀请重看底高或复位。出口不以操作完成或知识作答为门槛。"
+        }
+      }
+    ],
+    "accessibility": {
+      "keyboard": "分开、方向键/移到右侧、复位均有可见焦点和DOM入口。",
+      "reduced_motion": "分步端态保留切分、平移、拼合关系，无自动运镜。",
+      "silent": "全程无声，关键内容在画面和DOM中表达。",
+      "graphics_failure": "暂停保留对象与视点后重试；同内容DOM图示为待实现/待验收路径，不把缺失能力说成可用。"
+    }
+  },
+  "presentation": {
+    "style_goal": "安静几何桌面、青绿纸片、深色边界；斜纹与实虚线区分身份，不仅用颜色。",
+    "structure_goal": "XY数学面，轻薄纸厚朝背面挤出；主轮廓、分割边与直角符号可辨，接缝无闪烁。",
+    "lighting_and_materials": "柔光和少量接触阴影揭示分块，纸面哑光，文字不受反光遮挡。",
+    "viewpoint_policy": "正交俯视支持长度比较；无自由绕场，重置视点不重置对象。",
+    "typography_and_safety": "说明与公式用DOM，底高从模型锚点投影到canvas容器CSS坐标，避开轨道与控件。",
+    "target_devices": [
+      {
+        "device_identifier": "desktop",
+        "viewport": {
+          "width": 1280,
+          "height": 720
+        },
+        "acceptance_goal": "目标：首动作可发现；键盘/鼠标可完成操作，200%缩放可读；在实测设备上拖动帧间隔p95不高于33ms。均待真实成品验证。"
+      }
+    ],
+    "character_profiles": [],
+    "scene_views": [
+      {
+        "scene_identifier": "scene_table",
+        "camera_and_projection": "OrthographicCamera朝向XY面，覆盖纸片及底高标线；resize保持单位比例与安全边界。",
+        "attention_target": "paper",
+        "detail_and_motion": "先看纸片及垂直高，再看切缝与移动；低动态分步呈现，端态可停留。"
+      }
+    ]
+  },
+  "resources": [],
+  "implementation": {
+    "engine": "threejs",
+    "engine_version": "0.180.0",
+    "entry_file": "index.html",
+    "source_files": [
+      "rules.mjs",
+      "adapter.mjs",
+      "src/main.mjs"
+    ],
+    "bindings": [
+      {
+        "interaction_identifier": "cut_paper",
+        "locator": "button[data-action=cut_paper]",
+        "handler": "adapter.act:cut_paper"
+      },
+      {
+        "interaction_identifier": "slide_corner",
+        "locator": "button[data-action=slide_corner] / paper mesh horizontal handle",
+        "handler": "adapter.act:slide_corner"
+      },
+      {
+        "interaction_identifier": "reset_paper",
+        "locator": "button[data-action=reset_paper]",
+        "handler": "adapter.act:reset_paper"
+      }
+    ],
+    "rule_bindings": [
+      {
+        "rule_identifier": "rule_area",
+        "source_file": "rules.mjs",
+        "export_name": "geometry"
+      }
+    ],
+    "state_api": {
+      "evaluate": "adapter.evaluate(state)：geometry()后更新网格、世界矩阵、DOM标签及说明；不标记事件。",
+      "act": "adapter.act(action,payload,state)：校验phase与offset后返回objects patch。",
+      "snapshot": "controller.snapshot()：对象phase/offset、事件历史与视点。",
+      "restore": "controller.restore(snapshot)：核对版本/ID，暂停落地并完整重建。"
+    },
+    "clock_policy": "无音频；应用唯一帧循环推进已选择的动作；事件在实际呈现后回报，tick/seek不补记完成。",
+    "lifecycle_policy": "示例附规则、状态adapter及测试；0.180.0、index.html和src/main.mjs为拟定工程接口，未安装/未实现。实际制作时以锁文件核对版本，并在paint回调接通渲染/输入/DOM/资源释放/恢复，不能凭结构有效宣称已运行。"
+  }
+}

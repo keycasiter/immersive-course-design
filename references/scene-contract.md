@@ -2,6 +2,12 @@
 
 复制[场景模板](../assets/scene-plan.template.json)，跨文件职责见[归属表](contract-ownership.md)。schema_version为2.0、profile为threejs_experience，旧课程合同不自动迁移。标识使用稳定英文名称，所有引用在本计划解析。正文和动作只维护一处，`compile_experience.py`派生experience.md及scene-index.json；派生文件不另行改写教学内容或填通过记录。
 
+## 设计稿与实现声明的区别
+
+纯设计请求可先交可读完整稿；场景计划是进入生产后的结构化来源。当前2.0校验要求完整 `implementation`，尚未有工程时不要以虚构的实际版本/文件声称生产计划已落地。用户要求提前交结构化设计时，可将实现区作为明确标注的拟定接口，并在外部交接表记录待实现状态；后续创建工程时核对真实锁文件与入口，更新计划。结构有效不表示这些文件已经存在，文件真实性由生产清单验证。
+
+全部规则（包括 `source_review`）都有 `rule_bindings`；全部互动都有 `bindings`，范围须与声明精确对应。`compile_experience.py`生成的运行索引只有ID与接续，不能替代含实际语义的完整计划传给控制器。具体填法见[实施示例](worked-example.md)。
+
 ## 字段归属
 
 | 区块 | 内容与适用规则 |
